@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Fira Code', monospace;
+    background-color: #0d1117;
+    color: #c9d1d9;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #0d1117;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #00ff41;
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #00cc33;
+  }
+
+  ::selection {
+    background: #00ff41;
+    color: #0d1117;
+  }
+}
+
+@layer components {
+  .neon-border {
+    border: 1px solid #00ff41;
+    box-shadow: 0 0 5px #00ff41, inset 0 0 5px rgba(0, 255, 65, 0.1);
+  }
+
+  .neon-border-pink {
+    border: 1px solid #ff00ff;
+    box-shadow: 0 0 5px #ff00ff, inset 0 0 5px rgba(255, 0, 255, 0.1);
+  }
+
+  .neon-border-blue {
+    border: 1px solid #00d4ff;
+    box-shadow: 0 0 5px #00d4ff, inset 0 0 5px rgba(0, 212, 255, 0.1);
+  }
+
+  .neon-text {
+    color: #00ff41;
+    text-shadow: 0 0 5px #00ff41, 0 0 10px rgba(0, 255, 65, 0.5);
+  }
+
+  .card-hover {
+    transition: all 0.3s ease;
+  }
+
+  .card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 15px rgba(0, 255, 65, 0.3), 0 0 30px rgba(0, 255, 65, 0.1);
+    border-color: #00ff41;
+  }
+
+  .glass-card {
+    background: rgba(26, 26, 46, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 255, 65, 0.2);
+  }
+
+  .scanline {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 255, 65, 0.03) 2px,
+      rgba(0, 255, 65, 0.03) 4px
+    );
+  }
+
+  @media print {
+    .no-print {
+      display: none !important;
+    }
+    body {
+      background: white !important;
+      color: black !important;
+    }
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
