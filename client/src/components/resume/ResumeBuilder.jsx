@@ -1,17 +1,11 @@
 import { useState } from 'react';
 
-const steps = ['Personal Info', 'Skills', 'Projects', 'Achievements'];
+const steps = ['Personal Info', 'Education', 'Experience', 'Skills', 'Projects'];
 
 export default function ResumeBuilder() {
   const [step, setStep] = useState(0);
   const [data, setData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    location: '',
-    linkedin: '',
-    github: '',
-    portfolio: '',
+    name: '', email: '', phone: '', location: '', linkedin: '', github: '', portfolio: '',
     education: { degree: '', institution: '', year: '', cgpa: '' },
     skills: [''],
     projects: [{ title: '', description: '', techStack: '', link: '' }],
@@ -19,257 +13,202 @@ export default function ResumeBuilder() {
     summary: '',
   });
 
-  const update = (field, value) => setData(prev => ({ ...prev, [field]: value }));
-  const updateNested = (parent, index, field, value) => {
-    const arr = [...data[parent]];
-    arr[index] = { ...arr[index], [field]: value };
-    update(parent, arr);
-  };
-  const addItem = (field, template) => update(field, [...data[field], template]);
-  const removeItem = (field, index) => {
-    const arr = data[field].filter((_, i) => i !== index);
-    update(field, arr.length ? arr : [templateFor(field)]);
-  };
-
-  const templateFor = (field) => {
-    if (field === 'skills') return '';
-    if (field === 'projects') return { title: '', description: '', techStack: '', link: '' };
-    if (field === 'achievements') return '';
-    return '';
-  };
+  const update = (f, v) => setData(p => ({ ...p, [f]: v }));
+  const addItem = (f, t) => update(f, [...data[f], t]);
+  const removeItem = (f, i) => { const a = data[f].filter((_, idx) => idx !== i); update(f, a.length ? a : ['']); };
 
   const handlePrint = () => window.print();
+
+  const Input = ({ label, val, onChange, type = 'text', multiline }) => (
+    <div>
+      <label className="text-label-sm text-on-surface-variant block mb-1">{label}</label>
+      {multiline ? (
+        <textarea value={val} onChange={e => onChange(e.target.value)} rows={3}
+          className="input-glass w-full text-sm resize-none" />
+      ) : (
+        <input type={type} value={val} onChange={e => onChange(e.target.value)}
+          className="input-glass w-full text-sm" />
+      )}
+    </div>
+  );
 
   return (
     <div className="space-y-6 no-print">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-mono font-bold">
-          <span className="neon-text">&gt;</span> Resume Builder
-        </h1>
-        <button
-          onClick={handlePrint}
-          className="px-4 py-2 bg-neon-green/20 border border-neon-green text-neon-green rounded hover:bg-neon-green/30 transition-colors font-mono text-sm"
-        >
-          &gt; Generate PDF
+        <div>
+          <span className="text-label-sm text-primary-container">PHASE 07</span>
+          <h1 className="text-headline-lg font-mono text-on-surface mt-1">Resume Builder</h1>
+        </div>
+        <button onClick={handlePrint}
+          className="bg-primary-container text-on-primary px-5 py-2.5 rounded-lg font-mono text-sm font-medium hover:brightness-110 transition-all flex items-center gap-2">
+          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
+          Export PDF
         </button>
       </div>
 
       <div className="flex gap-2 mb-4">
         {steps.map((s, i) => (
-          <button
-            key={s}
-            onClick={() => setStep(i)}
-            className={`px-3 py-1 rounded text-xs font-mono border transition-all ${
-              step === i
-                ? 'border-neon-green text-neon-green bg-neon-green/10'
-                : i < step
-                ? 'border-green-800 text-green-600'
-                : 'border-gray-700 text-gray-500'
-            }`}
-          >
+          <button key={s} onClick={() => setStep(i)}
+            className={`px-3 py-1.5 rounded-lg text-xs font-mono border transition-all ${
+              step === i ? 'bg-primary-container/15 text-primary-container border-primary-container/30'
+                : i < step ? 'border-secondary-container/30 text-secondary-container'
+                : 'border-white/10 text-on-surface-variant'
+            }`}>
             {i + 1}. {s}
           </button>
         ))}
       </div>
 
       <div className="flex gap-6 flex-col lg:flex-row">
-        <div className="flex-1 glass-card rounded p-6 space-y-4">
+        <div className="lg:w-2/5 glass-card rounded-xl p-6 space-y-4">
           {step === 0 && (
             <div className="space-y-3">
-              <h3 className="text-sm font-mono neon-text">Personal Information</h3>
-              <Input label="Full Name" value={data.name} onChange={v => update('name', v)} />
-              <Input label="Email" value={data.email} onChange={v => update('email', v)} type="email" />
-              <Input label="Phone" value={data.phone} onChange={v => update('phone', v)} />
-              <Input label="Location" value={data.location} onChange={v => update('location', v)} />
-              <Input label="LinkedIn URL" value={data.linkedin} onChange={v => update('linkedin', v)} />
-              <Input label="GitHub URL" value={data.github} onChange={v => update('github', v)} />
-              <Input label="Portfolio URL" value={data.portfolio} onChange={v => update('portfolio', v)} />
-              <div>
-                <label className="text-xs text-gray-500 font-mono block mb-1">Professional Summary</label>
-                <textarea
-                  value={data.summary}
-                  onChange={e => update('summary', e.target.value)}
-                  rows={3}
-                  className="w-full bg-dark-700 border border-gray-700 rounded px-3 py-2 text-sm text-white focus:border-neon-green focus:outline-none font-mono"
-                />
-              </div>
-              <div className="grid grid-cols-2 gap-3">
-                <Input label="Degree" value={data.education.degree} onChange={v => setData(p => ({ ...p, education: { ...p.education, degree: v } }))} />
-                <Input label="Institution" value={data.education.institution} onChange={v => setData(p => ({ ...p, education: { ...p.education, institution: v } }))} />
-                <Input label="Year" value={data.education.year} onChange={v => setData(p => ({ ...p, education: { ...p.education, year: v } }))} />
-                <Input label="CGPA" value={data.education.cgpa} onChange={v => setData(p => ({ ...p, education: { ...p.education, cgpa: v } }))} />
-              </div>
+              <h3 className="text-sm font-mono font-semibold text-primary-container">Personal Information</h3>
+              <Input label="Full Name" val={data.name} onChange={v => update('name', v)} />
+              <Input label="Email" val={data.email} onChange={v => update('email', v)} type="email" />
+              <Input label="Phone" val={data.phone} onChange={v => update('phone', v)} />
+              <Input label="Location" val={data.location} onChange={v => update('location', v)} />
+              <Input label="LinkedIn" val={data.linkedin} onChange={v => update('linkedin', v)} />
+              <Input label="GitHub" val={data.github} onChange={v => update('github', v)} />
+              <Input label="Portfolio" val={data.portfolio} onChange={v => update('portfolio', v)} />
+              <Input label="Professional Summary" val={data.summary} onChange={v => update('summary', v)} multiline />
             </div>
           )}
 
           {step === 1 && (
             <div className="space-y-3">
-              <h3 className="text-sm font-mono neon-text">Technical Skills</h3>
-              {data.skills.map((skill, i) => (
-                <div key={i} className="flex gap-2 items-center">
-                  <input
-                    value={skill}
-                    onChange={e => {
-                      const arr = [...data.skills];
-                      arr[i] = e.target.value;
-                      update('skills', arr);
-                    }}
-                    placeholder="e.g., React, Node.js, Python..."
-                    className="flex-1 bg-dark-700 border border-gray-700 rounded px-3 py-2 text-sm text-white focus:border-neon-green focus:outline-none font-mono"
-                  />
-                  <button onClick={() => removeItem('skills', i)} className="text-red-400 text-xs hover:text-red-300 font-mono">[x]</button>
-                </div>
-              ))}
-              <button onClick={() => addItem('skills', '')} className="text-xs text-neon-green font-mono hover:underline">+ Add Skill</button>
+              <h3 className="text-sm font-mono font-semibold text-primary-container">Education</h3>
+              <Input label="Degree" val={data.education.degree} onChange={v => update('education', { ...data.education, degree: v })} />
+              <Input label="Institution" val={data.education.institution} onChange={v => update('education', { ...data.education, institution: v })} />
+              <div className="grid grid-cols-2 gap-3">
+                <Input label="Year" val={data.education.year} onChange={v => update('education', { ...data.education, year: v })} />
+                <Input label="CGPA" val={data.education.cgpa} onChange={v => update('education', { ...data.education, cgpa: v })} />
+              </div>
             </div>
           )}
 
           {step === 2 && (
-            <div className="space-y-4">
-              <h3 className="text-sm font-mono neon-text">Projects</h3>
-              {data.projects.map((proj, i) => (
-                <div key={i} className="bg-dark-700 rounded p-3 space-y-2 border border-gray-800">
-                  <div className="flex justify-between items-center">
-                    <span className="text-xs text-gray-500 font-mono">Project {i + 1}</span>
-                    <button onClick={() => removeItem('projects', i)} className="text-red-400 text-xs font-mono">[remove]</button>
-                  </div>
-                  <Input label="Title" value={proj.title} onChange={v => updateNested('projects', i, 'title', v)} />
-                  <div>
-                    <label className="text-xs text-gray-500 font-mono block mb-1">Description</label>
-                    <textarea
-                      value={proj.description}
-                      onChange={e => updateNested('projects', i, 'description', e.target.value)}
-                      rows={2}
-                      className="w-full bg-dark-600 border border-gray-700 rounded px-3 py-2 text-sm text-white focus:border-neon-green focus:outline-none font-mono"
-                    />
-                  </div>
-                  <Input label="Tech Stack" value={proj.techStack} onChange={v => updateNested('projects', i, 'techStack', v)} />
-                  <Input label="Link" value={proj.link} onChange={v => updateNested('projects', i, 'link', v)} />
-                </div>
-              ))}
-              <button onClick={() => addItem('projects', templateFor('projects'))} className="text-xs text-neon-green font-mono hover:underline">+ Add Project</button>
+            <div className="space-y-3">
+              <h3 className="text-sm font-mono font-semibold text-primary-container">Experience</h3>
+              <Input label="Achievements (one per line)" val={data.achievements.join('\n')}
+                onChange={v => update('achievements', v.split('\n'))} multiline />
             </div>
           )}
 
           {step === 3 && (
             <div className="space-y-3">
-              <h3 className="text-sm font-mono neon-text">Achievements</h3>
-              {data.achievements.map((ach, i) => (
+              <h3 className="text-sm font-mono font-semibold text-primary-container">Skills</h3>
+              {data.skills.map((s, i) => (
                 <div key={i} className="flex gap-2 items-center">
-                  <input
-                    value={ach}
-                    onChange={e => {
-                      const arr = [...data.achievements];
-                      arr[i] = e.target.value;
-                      update('achievements', arr);
-                    }}
-                    placeholder="e.g., Won Hackathon, Published Paper..."
-                    className="flex-1 bg-dark-700 border border-gray-700 rounded px-3 py-2 text-sm text-white focus:border-neon-green focus:outline-none font-mono"
-                  />
-                  <button onClick={() => removeItem('achievements', i)} className="text-red-400 text-xs hover:text-red-300 font-mono">[x]</button>
+                  <input value={s} onChange={e => { const a = [...data.skills]; a[i] = e.target.value; update('skills', a); }}
+                    placeholder="e.g., React, Node.js..."
+                    className="input-glass flex-1 text-sm" />
+                  <button onClick={() => removeItem('skills', i)} className="text-error text-xs hover:text-error/80 font-mono">[x]</button>
                 </div>
               ))}
-              <button onClick={() => addItem('achievements', '')} className="text-xs text-neon-green font-mono hover:underline">+ Add Achievement</button>
+              <button onClick={() => addItem('skills', '')} className="text-xs text-primary-container font-mono hover:underline">+ Add Skill</button>
             </div>
           )}
 
-          <div className="flex justify-between pt-4 border-t border-gray-800">
-            <button
-              onClick={() => setStep(s => Math.max(0, s - 1))}
-              disabled={step === 0}
-              className="text-sm text-gray-500 hover:text-white disabled:opacity-30 font-mono"
-            >
-              &lt; Previous
-            </button>
-            <button
-              onClick={() => setStep(s => Math.min(steps.length - 1, s + 1))}
-              disabled={step === steps.length - 1}
-              className="text-sm text-neon-green hover:underline disabled:opacity-30 font-mono"
-            >
-              Next &gt;
-            </button>
+          {step === 4 && (
+            <div className="space-y-4">
+              <h3 className="text-sm font-mono font-semibold text-primary-container">Projects</h3>
+              {data.projects.map((p, i) => (
+                <div key={i} className="bg-surface-low rounded-lg p-3 space-y-2 border border-white/5">
+                  <div className="flex justify-between">
+                    <span className="text-xs text-on-surface-variant font-mono">Project {i + 1}</span>
+                    <button onClick={() => removeItem('projects', i)} className="text-error text-xs font-mono">[remove]</button>
+                  </div>
+                  <Input label="Title" val={p.title} onChange={v => { const a = [...data.projects]; a[i] = { ...a[i], title: v }; update('projects', a); }} />
+                  <Input label="Description" val={p.description} onChange={v => { const a = [...data.projects]; a[i] = { ...a[i], description: v }; update('projects', a); }} multiline />
+                  <Input label="Tech Stack" val={p.techStack} onChange={v => { const a = [...data.projects]; a[i] = { ...a[i], techStack: v }; update('projects', a); }} />
+                </div>
+              ))}
+              <button onClick={() => addItem('projects', { title: '', description: '', techStack: '', link: '' })}
+                className="text-xs text-primary-container font-mono hover:underline">+ Add Project</button>
+            </div>
+          )}
+
+          <div className="flex justify-between pt-4 border-t border-white/5">
+            <button onClick={() => setStep(s => Math.max(0, s - 1))} disabled={step === 0}
+              className="text-sm text-on-surface-variant hover:text-on-surface disabled:opacity-30 font-mono">&lt; Previous</button>
+            <button onClick={() => setStep(s => Math.min(steps.length - 1, s + 1))} disabled={step === steps.length - 1}
+              className="text-sm text-primary-container hover:underline disabled:opacity-30 font-mono">Next &gt;</button>
           </div>
         </div>
 
-        <div className="flex-1 print-area">
-          <div className="bg-white text-black rounded shadow-lg p-8 min-h-[800px] font-mono text-xs leading-relaxed print:shadow-none print:rounded-none print:p-0 print:m-0" id="resume-preview">
-            <div className="border-b-2 border-black pb-4 mb-4">
-              <h1 className="text-2xl font-bold">{data.name || 'Your Name'}</h1>
-              <div className="text-gray-600 mt-1 space-x-3">
+        <div className="lg:w-3/5 relative">
+          <div className="absolute inset-0 rounded-xl" style={{ backgroundImage: 'radial-gradient(circle, rgba(0,219,233,0.1) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+          <div className="relative bg-white text-black rounded-xl shadow-2xl p-8 md:p-10 mx-auto max-w-[595px] print:shadow-none print:rounded-none print:p-0" id="resume-preview">
+            <div className="bg-primary-container text-on-primary -mx-8 -mt-8 px-8 py-6 md:-mx-10 md:-mt-10 print:bg-black print:text-white">
+              <h1 className="text-3xl font-mono font-bold">{data.name || 'Your Name'}</h1>
+              <div className="text-sm mt-2 opacity-80 space-x-3 font-sans">
                 {data.email && <span>{data.email}</span>}
                 {data.phone && <span>| {data.phone}</span>}
-                {data.location && <span>| {data.location}</span>
-}              </div>
-              <div className="text-gray-500 text-xs mt-1 space-x-3">
+                {data.location && <span>| {data.location}</span>}
+              </div>
+              <div className="text-xs mt-1 opacity-60 space-x-3 font-mono">
                 {data.github && <span>GitHub: {data.github}</span>}
                 {data.linkedin && <span>LinkedIn: {data.linkedin}</span>}
-                {data.portfolio && <span>Portfolio: {data.portfolio}</span>}
               </div>
             </div>
 
-            {data.summary && (
-              <div className="mb-4">
-                <h2 className="text-sm font-bold uppercase tracking-wider border-b border-gray-300 mb-2">Summary</h2>
-                <p className="text-gray-700">{data.summary}</p>
-              </div>
-            )}
-
-            {(data.education.degree || data.education.institution) && (
-              <div className="mb-4">
-                <h2 className="text-sm font-bold uppercase tracking-wider border-b border-gray-300 mb-2">Education</h2>
-                <p><strong>{data.education.degree}</strong> — {data.education.institution} ({data.education.year})</p>
-                {data.education.cgpa && <p className="text-gray-600">CGPA: {data.education.cgpa}</p>}
-              </div>
-            )}
-
-            {data.skills.filter(Boolean).length > 0 && (
-              <div className="mb-4">
-                <h2 className="text-sm font-bold uppercase tracking-wider border-b border-gray-300 mb-2">Skills</h2>
-                <p>{data.skills.filter(Boolean).join(' • ')}</p>
-              </div>
-            )}
-
-            {data.projects.filter(p => p.title).length > 0 && (
-              <div className="mb-4">
-                <h2 className="text-sm font-bold uppercase tracking-wider border-b border-gray-300 mb-2">Projects</h2>
-                {data.projects.filter(p => p.title).map((proj, i) => (
-                  <div key={i} className="mb-3">
-                    <h3 className="font-semibold">{proj.title}</h3>
-                    {proj.description && <p className="text-gray-700">{proj.description}</p>}
-                    {proj.techStack && <p className="text-gray-500 text-xs mt-1">Tech: {proj.techStack}</p>}
-                    {proj.link && <a href={proj.link} className="text-blue-600 text-xs">{proj.link}</a>}
+            <div className="mt-6 grid grid-cols-3 gap-6">
+              <div className="col-span-2 space-y-4">
+                {data.summary && (
+                  <div>
+                    <h2 className="text-xs font-mono font-bold uppercase tracking-wider border-b border-gray-300 pb-1 mb-2">Summary</h2>
+                    <p className="text-xs text-gray-700 leading-relaxed">{data.summary}</p>
                   </div>
-                ))}
+                )}
+                {data.education.degree && (
+                  <div>
+                    <h2 className="text-xs font-mono font-bold uppercase tracking-wider border-b border-gray-300 pb-1 mb-2">Education</h2>
+                    <p className="text-xs"><strong>{data.education.degree}</strong> — {data.education.institution} ({data.education.year})</p>
+                    {data.education.cgpa && <p className="text-xs text-gray-600">CGPA: {data.education.cgpa}</p>}
+                  </div>
+                )}
+                {data.projects.filter(p => p.title).length > 0 && (
+                  <div>
+                    <h2 className="text-xs font-mono font-bold uppercase tracking-wider border-b border-gray-300 pb-1 mb-2">Projects</h2>
+                    {data.projects.filter(p => p.title).map((p, i) => (
+                      <div key={i} className="mb-2">
+                        <h3 className="text-xs font-semibold">{p.title}</h3>
+                        <p className="text-xs text-gray-700">{p.description}</p>
+                        {p.techStack && <p className="text-[10px] text-gray-500 mt-0.5">Tech: {p.techStack}</p>}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
-            )}
+              <div className="space-y-4">
+                {data.skills.filter(Boolean).length > 0 && (
+                  <div>
+                    <h2 className="text-xs font-mono font-bold uppercase tracking-wider border-b border-gray-300 pb-1 mb-2">Skills</h2>
+                    <div className="flex flex-wrap gap-1">
+                      {data.skills.filter(Boolean).map((s, i) => (
+                        <span key={i} className="text-[10px] bg-gray-100 px-2 py-0.5 rounded">{s}</span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {data.achievements.filter(Boolean).length > 0 && (
+                  <div>
+                    <h2 className="text-xs font-mono font-bold uppercase tracking-wider border-b border-gray-300 pb-1 mb-2">Achievements</h2>
+                    <ul className="text-xs text-gray-700 space-y-1 list-disc list-inside">
+                      {data.achievements.filter(Boolean).map((a, i) => <li key={i}>{a}</li>)}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </div>
 
-            {data.achievements.filter(Boolean).length > 0 && (
-              <div>
-                <h2 className="text-sm font-bold uppercase tracking-wider border-b border-gray-300 mb-2">Achievements</h2>
-                <ul className="list-disc list-inside text-gray-700 space-y-1">
-                  {data.achievements.filter(Boolean).map((a, i) => (
-                    <li key={i}>{a}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
+            <div className="mt-6 pt-4 border-t border-gray-200 text-center">
+              <span className="text-[8px] text-gray-400 font-mono">VERIFIED BY KINETIC ACADEMY</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  );
-}
-
-function Input({ label, value, onChange, type = 'text' }) {
-  return (
-    <div>
-      <label className="text-xs text-gray-500 font-mono block mb-1">{label}</label>
-      <input
-        type={type}
-        value={value}
-        onChange={e => onChange(e.target.value)}
-        className="w-full bg-dark-700 border border-gray-700 rounded px-3 py-2 text-sm text-white focus:border-neon-green focus:outline-none font-mono"
-      />
     </div>
   );
 }

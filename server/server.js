@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const http = require('http');
 const { Server } = require('socket.io');
+const { MongoMemoryServer } = require('mongodb-memory-server');
 
 const authRoutes = require('./routes/auth');
 const studentRoutes = require('./routes/students');
@@ -50,18 +51,36 @@ app.get('/api/health', (req, res) => {
 setupChatHandler(io);
 
 const PORT = process.env.PORT || 5000;
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/college_portal';
 
-mongoose.connect(MONGODB_URI)
-  .then(() => {
-    console.log('Connected to MongoDB');
-    server.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
-    });
-  })
-  .catch((err) => {
-    console.error('MongoDB connection error:', err);
-    process.exit(1);
+async function start() {
+  let mongoUri = process.env.MONGODB_URI;
+
+  if (!mongoUri) {
+    console.log('No MONGODB_URI set. Starting in-memory MongoDB...');
+    const mongod = await MongoMemoryServer.create();
+    mongoUri = mongod.getUri();
+    console.log(`In-memory MongoDB running at: ${mongoUri}`);
+  }
+
+  await mongoose.connect(mongoUri);
+  console.log('Connected to MongoDB');
+
+  const isInMemory = !process.env.MONGODB_URI;
+  if (isInMemory) {
+    console.log('Seeding in-memory database...');
+    const seed = require('./seed');
+    await seed();
+  }
+
+  server.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`Client should connect to http://localhost:5173`);
   });
+}
+
+start().catch((err) => {
+  console.error('Failed to start server:', err);
+  process.exit(1);
+});
 
 module.exports = { app, server, io };

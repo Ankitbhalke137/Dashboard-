@@ -2,13 +2,13 @@ import { useState, useEffect } from 'react';
 import api from '../../api';
 
 const categoryColors = {
-  programming: 'text-blue-400 border-blue-400/30',
-  dsa: 'text-green-400 border-green-400/30',
-  web: 'text-cyan-400 border-cyan-400/30',
-  ml: 'text-purple-400 border-purple-400/30',
-  career: 'text-yellow-400 border-yellow-400/30',
-  'soft-skills': 'text-pink-400 border-pink-400/30',
-  other: 'text-gray-400 border-gray-400/30',
+  programming: 'text-[#3178C6] border-[#3178C6]/30',
+  dsa: 'text-secondary-container border-secondary-container/30',
+  web: 'text-primary-container border-primary-container/30',
+  ml: 'text-tertiary-fixed-dim border-tertiary-fixed-dim/30',
+  career: 'text-[#FF9900] border-[#FF9900]/30',
+  'soft-skills': 'text-error border-error/30',
+  other: 'text-on-surface-variant border-white/10',
 };
 
 export default function BookSuggestions() {
@@ -16,9 +16,7 @@ export default function BookSuggestions() {
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('');
 
-  useEffect(() => {
-    fetchBooks();
-  }, []);
+  useEffect(() => { fetchBooks(); }, []);
 
   const fetchBooks = async () => {
     try {
@@ -37,28 +35,29 @@ export default function BookSuggestions() {
   if (loading) {
     return (
       <div className="flex justify-center py-20">
-        <div className="neon-text text-lg animate-pulse">Loading books...</div>
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-8 h-8 border-2 border-primary-container border-t-transparent rounded-full animate-spin" />
+          <span className="text-sm text-on-surface-variant font-mono">Loading books...</span>
+        </div>
       </div>
     );
   }
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-mono font-bold">
-        <span className="neon-text">&gt;</span> Book Suggestions
-      </h1>
+      <div>
+        <span className="text-label-sm text-primary-container">LIBRARY</span>
+        <h1 className="text-headline-lg font-mono text-on-surface mt-1">Book Suggestions</h1>
+      </div>
 
       <div className="flex flex-wrap gap-2">
         {categories.map(cat => (
-          <button
-            key={cat}
-            onClick={() => setFilter(cat === 'all' ? '' : cat)}
-            className={`px-3 py-1 rounded text-xs font-mono border ${
+          <button key={cat} onClick={() => setFilter(cat === 'all' ? '' : cat)}
+            className={`px-3 py-1.5 rounded-lg text-xs font-mono border transition-all ${
               (filter === cat || (!filter && cat === 'all'))
-                ? 'border-neon-green text-neon-green bg-neon-green/10'
-                : 'border-gray-700 text-gray-500 hover:text-white'
-            }`}
-          >
+                ? 'bg-primary-container/15 text-primary-container border-primary-container/30'
+                : 'border-white/10 text-on-surface-variant hover:text-on-surface'
+            }`}>
             {cat === 'all' ? 'All' : cat.charAt(0).toUpperCase() + cat.slice(1)}
           </button>
         ))}
@@ -66,24 +65,18 @@ export default function BookSuggestions() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {filtered.map(book => (
-          <div key={book._id} className="bg-dark-600 rounded border border-gray-800 p-4 card-hover">
+          <div key={book._id} className="glass-card rounded-xl p-4 holographic">
             <div className="flex gap-3">
-              <div className="w-16 h-20 bg-dark-700 rounded flex items-center justify-center flex-shrink-0 border border-gray-700">
+              <div className="w-14 h-18 bg-surface-low rounded-lg flex items-center justify-center flex-shrink-0 border border-white/5">
                 <span className="text-2xl">📖</span>
               </div>
               <div className="flex-1 min-w-0">
-                <h3 className="text-white font-semibold font-mono text-sm">{book.title}</h3>
-                <p className="text-gray-400 text-xs font-mono mt-0.5">{book.author}</p>
-                <p className="text-gray-600 text-xs font-mono mt-2 line-clamp-2">{book.description}</p>
+                <h3 className="text-sm font-mono font-semibold text-on-surface">{book.title}</h3>
+                <p className="text-xs text-on-surface-variant font-sans mt-0.5">{book.author}</p>
+                <p className="text-[11px] text-outline font-sans mt-2 line-clamp-2">{book.description}</p>
                 <div className="flex items-center gap-2 mt-2">
-                  <span className={`px-2 py-0.5 rounded text-xs border font-mono ${categoryColors[book.category] || categoryColors.other}`}>
-                    {book.category}
-                  </span>
-                  {book.link && (
-                    <a href={book.link} target="_blank" rel="noopener noreferrer" className="text-xs text-neon-green hover:underline font-mono ml-auto">
-                      View →
-                    </a>
-                  )}
+                  <span className={`px-2 py-0.5 rounded text-[10px] font-mono border ${categoryColors[book.category] || categoryColors.other}`}>{book.category}</span>
+                  {book.link && <a href={book.link} target="_blank" rel="noopener noreferrer" className="text-[10px] text-primary-container hover:underline font-mono ml-auto">View &rarr;</a>}
                 </div>
               </div>
             </div>

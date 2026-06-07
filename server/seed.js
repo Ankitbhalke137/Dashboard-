@@ -1,6 +1,7 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const { connectDB } = require('./db');
 const User = require('./models/User');
 const Student = require('./models/Student');
 const Faculty = require('./models/Faculty');
@@ -15,7 +16,6 @@ const Suggestion = require('./models/Suggestion');
 const LeaderboardEntry = require('./models/LeaderboardEntry');
 const ChatRoom = require('./models/ChatRoom');
 
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/college_portal';
 
 const studentsData = [
   {
@@ -437,8 +437,11 @@ const suggestionData = [
 
 async function seed() {
   try {
-    await mongoose.connect(MONGODB_URI);
-    console.log('Connected to MongoDB');
+    if (mongoose.connection.readyState === 0) {
+      const uri = await connectDB();
+      await mongoose.connect(uri);
+      console.log('Connected to MongoDB');
+    }
 
     await Promise.all([
       User.deleteMany({}),
@@ -581,12 +584,14 @@ async function seed() {
     console.log('\n--- Login Credentials ---');
     console.log('Admin: admin@college.edu / admin123');
     console.log('Club Presidents: <clubname>.president@college.edu / president123');
-
-    process.exit(0);
   } catch (error) {
     console.error('Seed error:', error);
-    process.exit(1);
+    throw error;
   }
 }
 
-seed();
+if (require.main === module) {
+  seed().then(() => process.exit(0)).catch(() => process.exit(1));
+}
+
+module.exports = seed;

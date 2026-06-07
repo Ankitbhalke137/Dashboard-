@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react';
 import api from '../../api';
 
 const rarityColors = {
-  common: 'text-gray-400 border-gray-500',
-  rare: 'text-blue-400 border-blue-500',
-  epic: 'text-purple-400 border-purple-500',
-  legendary: 'text-yellow-400 border-yellow-500 animate-glow',
+  common: 'text-on-surface-variant border-outline-variant',
+  rare: 'text-primary-container border-primary-container/30',
+  epic: 'text-tertiary-fixed-dim border-tertiary-fixed-dim/30',
+  legendary: 'text-secondary-container border-secondary-container/30 animate-pulse-gold',
 };
 
 export default function TitlesPage() {
@@ -13,9 +13,7 @@ export default function TitlesPage() {
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('all');
 
-  useEffect(() => {
-    fetchTitles();
-  }, []);
+  useEffect(() => { fetchTitles(); }, []);
 
   const fetchTitles = async () => {
     try {
@@ -34,28 +32,28 @@ export default function TitlesPage() {
   if (loading) {
     return (
       <div className="flex justify-center py-20">
-        <div className="neon-text text-lg animate-pulse">Loading titles...</div>
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-8 h-8 border-2 border-primary-container border-t-transparent rounded-full animate-spin" />
+          <span className="text-sm text-on-surface-variant font-mono">Loading titles...</span>
+        </div>
       </div>
     );
   }
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-mono font-bold">
-        <span className="neon-text">&gt;</span> Titles & Badges
-      </h1>
+      <div>
+        <span className="text-label-sm text-primary-container">ACHIEVEMENTS</span>
+        <h1 className="text-headline-lg font-mono text-on-surface mt-1">Titles & Badges</h1>
+      </div>
 
       <div className="flex flex-wrap gap-2">
         {categories.map(cat => (
-          <button
-            key={cat}
-            onClick={() => setFilter(cat)}
-            className={`px-3 py-1 rounded text-xs font-mono border ${
-              filter === cat
-                ? 'border-neon-green text-neon-green bg-neon-green/10'
-                : 'border-gray-700 text-gray-500 hover:text-white'
-            }`}
-          >
+          <button key={cat} onClick={() => setFilter(cat)}
+            className={`px-3 py-1.5 rounded-lg text-xs font-mono border transition-all ${
+              filter === cat ? 'bg-primary-container/15 text-primary-container border-primary-container/30'
+                : 'border-white/10 text-on-surface-variant hover:text-on-surface'
+            }`}>
             {cat === 'all' ? 'All' : cat.charAt(0).toUpperCase() + cat.slice(1)}
           </button>
         ))}
@@ -63,18 +61,15 @@ export default function TitlesPage() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {filtered.map(title => (
-          <div
-            key={title._id}
-            className={`bg-dark-600 rounded border p-4 card-hover ${rarityColors[title.rarity] || 'border-gray-700'}`}
-          >
+          <div key={title._id} className={`glass-card rounded-xl p-4 holographic ${rarityColors[title.rarity] || 'border-white/10'}`}>
             <div className="text-4xl mb-2">{title.icon}</div>
-            <h3 className="text-white font-semibold font-mono text-sm">{title.name}</h3>
-            <p className="text-gray-400 text-xs font-mono mt-1">{title.description}</p>
-            <div className="flex items-center justify-between mt-3">
-              <span className={`text-xs font-mono ${rarityColors[title.rarity] || 'text-gray-500'}`}>
-                {title.rarity?.toUpperCase()}
+            <h3 className="text-sm font-mono font-semibold text-on-surface">{title.name}</h3>
+            <p className="text-xs text-on-surface-variant font-sans mt-1">{title.description}</p>
+            <div className="flex items-center justify-between mt-3 pt-3 border-t border-white/5">
+              <span className={`text-[10px] font-mono uppercase ${rarityColors[title.rarity]?.split(' ')[0] || 'text-outline'}`}>
+                {title.rarity}
               </span>
-              <span className="text-xs text-gray-600 font-mono">{title.category}</span>
+              <span className="text-[10px] font-mono text-outline">{title.category}</span>
             </div>
           </div>
         ))}

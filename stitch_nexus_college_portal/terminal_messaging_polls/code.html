@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kinetic Academy | Terminal Phase 6</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&amp;family=Geist:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .neon-glow:hover {
+            box-shadow: 0 0 15px rgba(125, 244, 255, 0.2);
+        }
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2d3449;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #7df4ff;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-dim": "#0b1326",
+                        "secondary-fixed": "#c3f400",
+                        "on-error-container": "#ffdad6",
+                        "primary-fixed": "#7df4ff",
+                        "inverse-surface": "#dae2fd",
+                        "tertiary-fixed-dim": "#dcb8ff",
+                        "on-secondary-container": "#556d00",
+                        "inverse-primary": "#006970",
+                        "background": "#0b1326",
+                        "on-tertiary-fixed-variant": "#6700b5",
+                        "surface-bright": "#31394d",
+                        "secondary-fixed-dim": "#abd600",
+                        "secondary-container": "#c3f400",
+                        "tertiary": "#fdf3ff",
+                        "surface-tint": "#00dbe9",
+                        "outline-variant": "#3b494b",
+                        "surface-variant": "#2d3449",
+                        "surface-container-low": "#131b2e",
+                        "primary-container": "#00f0ff",
+                        "on-surface": "#dae2fd",
+                        "tertiary-container": "#e9d0ff",
+                        "surface-container-high": "#222a3d",
+                        "outline": "#849495",
+                        "on-secondary-fixed": "#161e00",
+                        "surface-container-highest": "#2d3449",
+                        "secondary": "#ffffff",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "surface-container": "#171f33",
+                        "primary-fixed-dim": "#00dbe9",
+                        "on-primary-fixed": "#002022",
+                        "on-primary-container": "#006970",
+                        "error": "#ffb4ab",
+                        "on-tertiary": "#480081",
+                        "surface-container-lowest": "#060e20",
+                        "on-tertiary-container": "#8523dd",
+                        "error-container": "#93000a",
+                        "on-error": "#690005",
+                        "on-surface-variant": "#b9cacb",
+                        "on-primary": "#00363a",
+                        "on-tertiary-fixed": "#2c0051",
+                        "on-secondary": "#283500",
+                        "on-background": "#dae2fd",
+                        "on-primary-fixed-variant": "#004f54",
+                        "tertiary-fixed": "#efdbff",
+                        "surface": "#0b1326",
+                        "primary": "#dbfcff",
+                        "inverse-on-surface": "#283044"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "margin-desktop": "48px",
+                        "gutter": "24px",
+                        "container-max": "1440px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["JetBrains Mono"],
+                        "body-md": ["Geist"],
+                        "headline-xl": ["JetBrains Mono"],
+                        "label-sm": ["JetBrains Mono"],
+                        "label-md": ["JetBrains Mono"],
+                        "headline-lg-mobile": ["JetBrains Mono"],
+                        "body-lg": ["Geist"],
+                        "headline-lg": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-xl": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-sm": ["12px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                        "label-md": ["14px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<header class="sticky top-0 w-full z-50 flex justify-between items-center px-margin-desktop py-4 bg-surface-dim/70 backdrop-blur-lg border-b border-white/10">
+<div class="flex items-center gap-8">
+<h1 class="font-headline-md text-headline-md font-bold text-primary-fixed">Kinetic Academy</h1>
+<div class="hidden md:flex items-center glass-card px-4 py-2 rounded-full border-none bg-surface-container-low">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px] mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-label-md font-label-md w-64 placeholder:text-on-surface-variant/50" placeholder="Search Terminal..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="relative hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute -top-1 -right-1 w-2 h-2 bg-secondary-fixed rounded-full shadow-[0_0_8px_#c3f400]"></span>
+</button>
+<button class="hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="h-10 w-10 rounded-lg overflow-hidden border border-primary-fixed/30 p-0.5">
+<img alt="Student profile avatar" class="w-full h-full object-cover rounded-[2px]" data-alt="A close-up portrait of a young tech-savvy student with sharp features, wearing futuristic glass accessories. The lighting is moody with deep blue shadows and neon cyan highlights, reflecting the Kinetic Academy terminal aesthetic. High resolution digital photography, clean and professional look with a soft backdrop blur." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBl08tY8i9ZqBU6shonTUvDcDYuhjFfYOMwZ1kYn_emMP2Roi1QJVmyfblXEuu5QPhM4b_l0Bc-T9OYJeHPX22YVcWcsFmyFStkCsMfzMKUn--adFvv-OXRLa12YgXhDlr2Ys0cfpO6OYffpjqEV9zRyADCycliWIta3IJT-xmz56xmG-zq-RXsM4Mi0wrBTyVDV9tnAGM_x40Rb6DusJKDvte2W0_PSUcNKnt2YVRwEx8D-6JGzGvL0osUCrUKevvPKY1rSzaw8_4B"/>
+</div>
+</div>
+</header>
+<div class="flex min-h-[calc(100vh-76px)]">
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-full flex flex-col pt-20 z-40 bg-surface-container-low/70 backdrop-blur-xl border-r border-white/10 w-64">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-8 h-8 bg-primary-container/20 rounded flex items-center justify-center border border-primary-fixed/20">
+<span class="material-symbols-outlined text-primary-fixed" style="font-variation-settings: 'FILL' 1;">terminal</span>
+</div>
+<div>
+<p class="font-headline-md text-headline-md text-primary-fixed leading-tight">Terminal</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Phase 6 Active</p>
+</div>
+</div>
+<button class="w-full py-3 px-4 rounded-xl bg-primary-container text-on-primary-container font-label-md flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined">add</span>
+                    New Broadcast
+                </button>
+</div>
+<div class="flex-1 space-y-1">
+<a class="text-on-surface-variant flex items-center gap-4 px-6 py-3 hover:bg-surface-variant/30 hover:text-primary-fixed transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="bg-secondary-container/20 text-secondary-fixed border-l-4 border-secondary-fixed flex items-center gap-4 px-6 py-3 scale-95 duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">forum</span>
+<span class="font-label-md text-label-md">Messages</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-4 px-6 py-3 hover:bg-surface-variant/30 hover:text-primary-fixed transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">science</span>
+<span class="font-label-md text-label-md">Labs</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-4 px-6 py-3 hover:bg-surface-variant/30 hover:text-primary-fixed transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">event_available</span>
+<span class="font-label-md text-label-md">Events</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-4 px-6 py-3 hover:bg-surface-variant/30 hover:text-primary-fixed transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">folder_open</span>
+<span class="font-label-md text-label-md">Archives</span>
+</a>
+</div>
+<div class="mt-auto border-t border-white/5 py-4">
+<a class="text-on-surface-variant flex items-center gap-4 px-6 py-3 hover:text-primary-fixed transition-colors" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+<span class="font-label-md text-label-md">Support</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-4 px-6 py-3 hover:text-error transition-colors" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Sign Out</span>
+</a>
+</div>
+</nav>
+<!-- Main Workspace -->
+<main class="ml-64 flex-1 flex h-[calc(100vh-76px)] overflow-hidden">
+<!-- Left Column: Contacts & Rooms -->
+<section class="w-80 border-r border-white/10 flex flex-col bg-surface-container-lowest">
+<div class="p-6 border-b border-white/10">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-2">Workspace</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Kinetic_Academy_Main_v6.0</p>
+</div>
+<div class="flex-1 overflow-y-auto px-2 py-4 space-y-6">
+<!-- Public Channels -->
+<div>
+<h3 class="px-4 font-label-sm text-label-sm text-primary-fixed/50 uppercase tracking-widest mb-3">Public Channels</h3>
+<div class="space-y-1">
+<button class="w-full flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-variant/20 rounded-lg group transition-all">
+<span class="font-label-md text-label-md text-primary-fixed/40">#</span>
+<span class="font-label-md text-label-md flex-1 text-left">general</span>
+</button>
+<button class="w-full flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-variant/20 rounded-lg group transition-all">
+<span class="font-label-md text-label-md text-primary-fixed/40">#</span>
+<span class="font-label-md text-label-md flex-1 text-left">leapx-code</span>
+<span class="w-2 h-2 bg-secondary-fixed rounded-full"></span>
+</button>
+<button class="w-full flex items-center gap-3 px-4 py-2 bg-primary-fixed/10 text-primary-fixed rounded-lg transition-all border border-primary-fixed/20 shadow-[0_0_10px_rgba(125,244,255,0.05)]">
+<span class="font-label-md text-label-md">#</span>
+<span class="font-label-md text-label-md flex-1 text-left">events</span>
+<span class="material-symbols-outlined text-sm">push_pin</span>
+</button>
+</div>
+</div>
+<!-- Direct Messages -->
+<div>
+<h3 class="px-4 font-label-sm text-label-sm text-primary-fixed/50 uppercase tracking-widest mb-3">Direct Messages</h3>
+<div class="space-y-1">
+<button class="w-full flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-variant/20 rounded-lg group transition-all">
+<div class="relative">
+<div class="w-8 h-8 rounded bg-surface-bright flex items-center justify-center font-label-md text-[10px]">AX</div>
+<span class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-secondary-fixed border-2 border-surface-container-lowest rounded-full"></span>
+</div>
+<span class="font-label-md text-label-md flex-1 text-left">Alex Chen</span>
+</button>
+<button class="w-full flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-variant/20 rounded-lg group transition-all">
+<div class="relative">
+<div class="w-8 h-8 rounded bg-surface-bright flex items-center justify-center font-label-md text-[10px]">SK</div>
+<span class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-secondary-fixed border-2 border-surface-container-lowest rounded-full"></span>
+</div>
+<span class="font-label-md text-label-md flex-1 text-left">Sarah Kim</span>
+</button>
+<button class="w-full flex items-center gap-3 px-4 py-2 text-on-surface-variant/50 hover:bg-surface-variant/20 rounded-lg group transition-all">
+<div class="relative">
+<div class="w-8 h-8 rounded bg-surface-bright flex items-center justify-center font-label-md text-[10px]">MR</div>
+<span class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-on-surface-variant/30 border-2 border-surface-container-lowest rounded-full"></span>
+</div>
+<span class="font-label-md text-label-md flex-1 text-left italic">Marcus Reed</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Column: Main Chat Window -->
+<section class="flex-1 flex flex-col relative bg-surface-dim">
+<!-- Chat Header -->
+<header class="h-20 border-b border-white/10 px-8 flex items-center justify-between backdrop-blur-md bg-surface-dim/50">
+<div class="flex items-center gap-4">
+<div class="p-2 glass-card rounded-lg text-primary-fixed">
+<span class="material-symbols-outlined">event_available</span>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
+                                #events
+                                <span class="material-symbols-outlined text-[18px] text-on-surface-variant">push_pin</span>
+</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant">1,248 members active</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="p-2 hover:text-primary-fixed transition-colors"><span class="material-symbols-outlined">search</span></button>
+<button class="p-2 hover:text-primary-fixed transition-colors"><span class="material-symbols-outlined">call</span></button>
+<button class="p-2 hover:text-primary-fixed transition-colors"><span class="material-symbols-outlined">info</span></button>
+</div>
+</header>
+<!-- Chat History -->
+<div class="flex-1 overflow-y-auto p-8 space-y-8">
+<!-- Date Separator -->
+<div class="flex items-center gap-4">
+<div class="flex-1 h-px bg-white/5"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant/40 uppercase tracking-widest">Today</span>
+<div class="flex-1 h-px bg-white/5"></div>
+</div>
+<!-- Regular Message -->
+<div class="flex gap-4 group">
+<div class="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0 border border-white/10">
+<img alt="User avatar" class="w-full h-full object-cover" data-alt="A portrait of a male developer in his 30s, sharp features, wearing a dark hoodie. The lighting is low-key with a subtle glow from a monitor screen illuminating one side of his face in a cool cyan tint. Background is a dark, tech-oriented interior with soft-focus code visible on multiple screens. High cinematic quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDW-dBKvpBfz_ru0SpCU-8XYCRKJXRnuf4S0TUhfIRdkO46gHXnD2HF_48j3aco6c0KbTD5e4UJpijp2R-Ta7VHmYo1Win4-YUqbc4C0bJf4iTcsHbRH-YHf2iD7fh3medgyhhg3-dfZ8N3IktxZsBES6sJaCK4ctsw-MpcQwe-amKxXoHNRk_gRLTZCVRGGKmAMIShgTxiYktiX3wkOU5wuASnjgNKgy11-2EduOV7ZTUl_8pwnQxUuTkpx4CPilk8mB3PgRsu8n1Z"/>
+</div>
+<div class="flex-1 max-w-2xl">
+<div class="flex items-center gap-3 mb-1">
+<span class="font-label-md text-label-md text-primary-fixed">josh_stack</span>
+<span class="font-label-sm text-[10px] text-on-surface-variant/50">14:02 PM</span>
+</div>
+<div class="glass-card p-4 rounded-xl rounded-tl-none group-hover:border-primary-fixed/20 transition-colors">
+<p class="text-body-md text-on-surface leading-relaxed">Hey everyone! We're kicking off the new hackathon prep. Please vote on the theme so we can start provisioning the lab environments. @leapx-team should be ready for the deployment.</p>
+</div>
+</div>
+</div>
+<!-- Event Poll Component -->
+<div class="flex gap-4">
+<div class="w-10 flex-shrink-0"></div> <!-- Spacer -->
+<div class="flex-1 max-w-xl">
+<div class="glass-card rounded-xl border-l-4 border-l-secondary-fixed p-6 shadow-xl relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-[64px]">bar_chart</span>
+</div>
+<h4 class="font-headline-md text-on-surface mb-4">Event Poll: Next Hackathon Theme?</h4>
+<div class="space-y-4">
+<div class="space-y-1">
+<div class="flex justify-between font-label-sm text-label-sm mb-1">
+<span>Generative AI Systems</span>
+<span class="text-secondary-fixed">64%</span>
+</div>
+<div class="h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary-fixed w-[64%] shadow-[0_0_10px_#c3f400]"></div>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between font-label-sm text-label-sm mb-1">
+<span>Web3 Infrastructure</span>
+<span class="text-on-surface-variant">22%</span>
+</div>
+<div class="h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-on-surface-variant w-[22%]"></div>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between font-label-sm text-label-sm mb-1">
+<span>Low-level OS Dev</span>
+<span class="text-on-surface-variant">14%</span>
+</div>
+<div class="h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-on-surface-variant w-[14%]"></div>
+</div>
+</div>
+</div>
+<div class="mt-6 pt-4 border-t border-white/5 flex justify-between items-center">
+<p class="font-label-sm text-[10px] text-on-surface-variant">Ends in 2h 15m</p>
+<button class="font-label-md text-label-md text-secondary-fixed hover:underline transition-all">Vote Now</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Event Invitation Component -->
+<div class="flex gap-4">
+<div class="w-10 flex-shrink-0"></div> <!-- Spacer -->
+<div class="flex-1 max-w-xl">
+<div class="glass-card rounded-xl border border-primary-fixed/20 p-6 flex items-start gap-4 neon-glow transition-all">
+<div class="w-12 h-12 bg-primary-fixed/10 rounded-lg flex items-center justify-center border border-primary-fixed/30 text-primary-fixed">
+<span class="material-symbols-outlined text-[32px]">calendar_month</span>
+</div>
+<div class="flex-1">
+<h4 class="font-headline-md text-on-surface mb-1">CyberNexus Workshop</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-4">Advanced Neural Architectures &amp; Flux</p>
+<div class="flex items-center gap-4 text-label-sm text-on-surface-variant mb-6">
+<div class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">schedule</span> 18:00 UTC</div>
+<div class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">location_on</span> Lab-04 / Virtual</div>
+</div>
+<div class="flex gap-3">
+<button class="flex-1 py-2 bg-primary-fixed text-on-primary-fixed font-label-md rounded-lg hover:brightness-110 transition-all">Accept</button>
+<button class="flex-1 py-2 border border-white/10 hover:bg-white/5 font-label-md rounded-lg transition-all">Decline</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- System Message -->
+<div class="flex justify-center">
+<div class="bg-surface-variant/20 px-4 py-1.5 rounded-full border border-white/5">
+<p class="font-label-sm text-[11px] text-on-surface-variant/70 italic">Terminal bot updated channel permissions (Level 6 Secure)</p>
+</div>
+</div>
+<!-- Code Snippet Message -->
+<div class="flex gap-4 group">
+<div class="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0 border border-white/10">
+<img alt="User avatar" class="w-full h-full object-cover" data-alt="A portrait of a young woman with neon pink highlights in her hair, wearing oversized futuristic headphones. She is set against a dark background with blurred blue and violet lights. The visual style is high-definition tech-minimalism, capturing a sharp, focused intellectual momentum suitable for a high-performing developer." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsItCwLvFoNMpBqQJ5XR7LVrURSA2uzPvJVC5nL4u3nr0QuW8N8ZhmpkQ5WVmMhWhIpWJxuqD-y7NRgSwukZLvxg_FHVICCr4leT7dBnr1uGKa6EEB-N51vjwKj9LqTwwS_kz6UHNRR2FoKaz0SAi7see1Ykr9lbTateOuHQTDTzWgAl2cIS3vhKTQ4J7PyeBFfpjmHk8xR7CjJmL1VwMISLh1xrHzAkZYBArcohVnUmAIcLPsRECvPOxFvH2E9uROQYCbyfh47WDL"/>
+</div>
+<div class="flex-1 max-w-2xl">
+<div class="flex items-center gap-3 mb-1">
+<span class="font-label-md text-label-md text-primary-fixed">elara_dev</span>
+<span class="font-label-sm text-[10px] text-on-surface-variant/50">14:15 PM</span>
+</div>
+<div class="glass-card p-4 rounded-xl rounded-tl-none space-y-4">
+<p class="text-body-md text-on-surface leading-relaxed">Check out this utility for the new data stream. Much more efficient for real-time visualization:</p>
+<div class="bg-[#0f172a] rounded-lg p-4 font-mono text-sm border border-white/5 overflow-x-auto">
+<div class="flex gap-4">
+<span class="text-on-surface-variant/30 select-none">1</span>
+<span class="text-secondary-fixed">async function</span> <span class="text-primary-fixed">syncPhase()</span> {
+                                    </div>
+<div class="flex gap-4">
+<span class="text-on-surface-variant/30 select-none">2</span>
+                                          <span class="text-secondary-fixed">const</span> stream = <span class="text-secondary-fixed">await</span> fetch(<span class="text-on-surface-variant">'/v6/stream'</span>);
+                                    </div>
+<div class="flex gap-4">
+<span class="text-on-surface-variant/30 select-none">3</span>
+                                          <span class="text-secondary-fixed">return</span> stream.json();
+                                    </div>
+<div class="flex gap-4">
+<span class="text-on-surface-variant/30 select-none">4</span>
+                                        }
+                                    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Input Area -->
+<div class="p-8 pt-0">
+<div class="glass-card rounded-2xl p-2 focus-within:border-primary-fixed/50 transition-all shadow-2xl">
+<div class="flex items-center px-4 py-2 border-b border-white/5 mb-2">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<button class="p-2 hover:text-primary-fixed transition-colors"><span class="material-symbols-outlined text-[20px]">format_bold</span></button>
+<button class="p-2 hover:text-primary-fixed transition-colors"><span class="material-symbols-outlined text-[20px]">format_italic</span></button>
+<button class="p-2 hover:text-primary-fixed transition-colors"><span class="material-symbols-outlined text-[20px]">code</span></button>
+<button class="p-2 hover:text-primary-fixed transition-colors"><span class="material-symbols-outlined text-[20px]">link</span></button>
+</div>
+<div class="ml-auto flex items-center gap-2">
+<span class="font-label-sm text-[10px] text-primary-fixed/50 bg-primary-fixed/5 px-2 py-0.5 rounded border border-primary-fixed/10">Markdown Active</span>
+</div>
+</div>
+<div class="flex items-center gap-4 px-4 pb-2">
+<button class="p-2 text-on-surface-variant hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined">add_circle</span>
+</button>
+<textarea class="flex-1 bg-transparent border-none focus:ring-0 text-on-surface placeholder:text-on-surface-variant/30 font-label-md resize-none h-10 py-2" placeholder="Execute message command..." rows="1"></textarea>
+<div class="flex items-center gap-2">
+<button class="p-2 text-on-surface-variant hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined">mood</span>
+</button>
+<button class="w-10 h-10 bg-primary-container text-on-primary-container rounded-xl flex items-center justify-center hover:scale-105 transition-transform">
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div>
+<script>
+        // Micro-interactions for glass effects and typing
+        document.addEventListener('DOMContentLoaded', () => {
+            const textarea = document.querySelector('textarea');
+            textarea.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = (this.scrollHeight) + 'px';
+                if (this.scrollHeight > 150) {
+                    this.style.height = '150px';
+                    this.style.overflowY = 'auto';
+                } else {
+                    this.style.overflowY = 'hidden';
+                }
+            });
+
+            // Smooth scroll to bottom on load
+            const chatHistory = document.querySelector('.overflow-y-auto');
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+
+            // Hover effect for side nav items
+            const navItems = document.querySelectorAll('nav a');
+            navItems.forEach(item => {
+                item.addEventListener('mouseenter', () => {
+                    item.classList.add('translate-x-1');
+                });
+                item.addEventListener('mouseleave', () => {
+                    item.classList.remove('translate-x-1');
+                });
+            });
+        });
+    </script>
+</body></html>

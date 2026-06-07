@@ -3,7 +3,6 @@ import api from '../../api';
 
 function CountdownTimer({ targetDate }) {
   const [timeLeft, setTimeLeft] = useState({});
-
   useEffect(() => {
     const calculate = () => {
       const diff = new Date(targetDate) - new Date();
@@ -21,34 +20,15 @@ function CountdownTimer({ targetDate }) {
   }, [targetDate]);
 
   return (
-    <div className="flex gap-4 font-mono">
+    <div className="flex gap-4 md:gap-6">
       {Object.entries(timeLeft).map(([unit, value]) => (
         <div key={unit} className="text-center">
-          <div className="text-2xl md:text-3xl font-bold neon-text animate-glow">
+          <div className="text-3xl md:text-5xl font-mono font-bold text-primary-container animate-pulse-cyan">
             {String(value).padStart(2, '0')}
           </div>
-          <div className="text-xs text-gray-500 uppercase tracking-wider">{unit}</div>
+          <div className="text-[10px] font-mono text-on-surface-variant uppercase tracking-widest mt-1">{unit}</div>
         </div>
       ))}
-    </div>
-  );
-}
-
-function EventImage({ src, alt }) {
-  const [loaded, setLoaded] = useState(false);
-  return (
-    <div className="relative overflow-hidden rounded group cursor-pointer">
-      <img
-        src={src}
-        alt={alt}
-        onLoad={() => setLoaded(true)}
-        className={`w-full h-48 object-cover transition-all duration-500 group-hover:scale-110 ${loaded ? 'opacity-100' : 'opacity-0'}`}
-      />
-      {!loaded && (
-        <div className="absolute inset-0 bg-dark-700 flex items-center justify-center">
-          <span className="text-gray-600 text-sm font-mono">Loading...</span>
-        </div>
-      )}
     </div>
   );
 }
@@ -56,11 +36,10 @@ function EventImage({ src, alt }) {
 export default function CampusLife() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState('all');
   const [selectedImage, setSelectedImage] = useState(null);
 
-  useEffect(() => {
-    fetchEvents();
-  }, []);
+  useEffect(() => { fetchEvents(); }, []);
 
   const fetchEvents = async () => {
     try {
@@ -79,85 +58,126 @@ export default function CampusLife() {
   if (loading) {
     return (
       <div className="flex justify-center py-20">
-        <div className="neon-text text-lg animate-pulse">Loading campus life...</div>
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-8 h-8 border-2 border-primary-container border-t-transparent rounded-full animate-spin" />
+          <span className="text-sm text-on-surface-variant font-mono">Loading campus life...</span>
+        </div>
       </div>
     );
   }
 
-  const upcomingEvents = events.filter(e => e.type === 'upcoming');
-  const pastEvents = events.filter(e => e.type === 'past');
-  const allImages = pastEvents.flatMap(e => e.images.map(img => ({ src: img, event: e.title })));
+  const upcoming = events.filter(e => e.type === 'upcoming');
+  const past = events.filter(e => e.type === 'past');
+  const allImages = past.flatMap(e => e.images.map(img => ({ src: img, event: e.title })));
+  const filteredImages = filter === 'all' ? allImages : allImages;
 
   return (
     <div className="space-y-8">
-      <h1 className="text-2xl font-mono font-bold">
-        <span className="neon-text">&gt;</span> Campus Life
-      </h1>
+      <div>
+        <span className="text-label-sm text-primary-container">CAMPUS LIFE</span>
+        <h1 className="text-headline-lg font-mono text-on-surface mt-1">Events & Memories</h1>
+      </div>
 
-      <div className="glass-card rounded p-6 space-y-4">
-        <h2 className="text-lg font-mono text-neon-green flex items-center gap-2">
-          <span>📅</span> Upcoming Events
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {upcomingEvents.map((event) => (
-            <div key={event._id} className="bg-dark-700 rounded p-4 border border-neon-green/20 space-y-3">
-              <h3 className="text-white font-mono font-semibold text-sm">{event.title}</h3>
-              <p className="text-gray-400 text-xs font-mono line-clamp-2">{event.description}</p>
-              <CountdownTimer targetDate={event.date} />
-              {event.registrationLink && (
-                <a
-                  href={event.registrationLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block text-xs text-neon-green border border-neon-green px-3 py-1 rounded hover:bg-neon-green/10 transition-colors font-mono"
-                >
-                  &gt; Register Now
-                </a>
-              )}
+      {upcoming.length > 0 && (
+        <div className="glass-card rounded-xl p-6 md:p-8 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 opacity-5">
+            <svg viewBox="0 0 24 24" fill="currentColor" className="text-primary-container w-full h-full">
+              <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z" />
+            </svg>
+          </div>
+          <div className="relative z-10">
+            <span className="text-label-sm text-primary-container bg-primary-container/10 px-3 py-1 rounded-full border border-primary-container/20">
+              Main Event Approaching
+            </span>
+            <h2 className="text-headline-md font-mono font-semibold text-on-surface mt-4 mb-6">
+              {upcoming[0].title}
+            </h2>
+            <CountdownTimer targetDate={upcoming[0].date} />
+            {upcoming[0].registrationLink && (
+              <a href={upcoming[0].registrationLink} target="_blank" rel="noopener noreferrer"
+                className="mt-6 inline-flex items-center gap-2 bg-primary-container text-on-primary px-5 py-2.5 rounded-lg font-mono text-sm font-medium hover:brightness-110 transition-all">
+                Secure Your Access
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+              </a>
+            )}
+          </div>
+        </div>
+      )}
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2 space-y-4">
+          <div className="flex items-center justify-between">
+            <h2 className="text-sm font-mono font-semibold text-on-surface">Event Memories</h2>
+            <div className="flex gap-2">
+              {['all', 'Hackathons', 'Cultural'].map(f => (
+                <button key={f} onClick={() => setFilter(f.toLowerCase())}
+                  className={`text-xs font-mono px-3 py-1 rounded-full transition-all ${
+                    filter === f.toLowerCase() ? 'bg-primary-container/15 text-primary-container border border-primary-container/30' : 'text-on-surface-variant hover:text-on-surface'
+                  }`}>
+                  {f === 'all' ? 'All' : f}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="columns-1 sm:columns-2 gap-4 space-y-4">
+            {filteredImages.length > 0 ? filteredImages.map((img, idx) => (
+              <div key={idx} className="break-inside-avoid cursor-pointer group relative overflow-hidden rounded-xl"
+                onClick={() => setSelectedImage(img)}>
+                <img src={img.src} alt="" className="w-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3">
+                  <span className="text-white text-xs font-mono">{img.event}</span>
+                </div>
+              </div>
+            )) : (
+              <div className="col-span-full text-center py-10 text-on-surface-variant text-sm font-mono">
+                No event memories available
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="space-y-4">
+          <h2 className="text-sm font-mono font-semibold text-on-surface">Upcoming Events</h2>
+          {upcoming.map(event => (
+            <div key={event._id} className="glass-card rounded-xl p-4 flex gap-3">
+              <div className="flex flex-col items-center justify-center w-14 h-14 rounded-lg bg-primary-container/10 border border-primary-container/20 flex-shrink-0">
+                <span className="text-lg font-mono font-bold text-primary-container">
+                  {new Date(event.date).getDate()}
+                </span>
+                <span className="text-[8px] font-mono text-on-surface-variant uppercase">
+                  {new Date(event.date).toLocaleString('default', { month: 'short' })}
+                </span>
+              </div>
+              <div className="flex-1 min-w-0">
+                <h3 className="text-sm font-mono font-medium text-on-surface truncate">{event.title}</h3>
+                <p className="text-xs text-on-surface-variant font-mono mt-0.5">
+                  {event.description?.slice(0, 60)}...
+                </p>
+                <span className="inline-block text-[10px] font-mono text-secondary-container border border-secondary-container/20 rounded-full px-2 py-0.5 mt-2">
+                  UPCOMING
+                </span>
+              </div>
             </div>
           ))}
-          {upcomingEvents.length === 0 && (
-            <p className="text-gray-500 text-sm font-mono col-span-full">No upcoming events scheduled</p>
-          )}
+
+          <div className="glass-card rounded-xl p-4 text-center">
+            <span className="text-2xl">📅</span>
+            <p className="text-sm font-mono text-on-surface mt-2">Never Miss a Byte</p>
+            <p className="text-xs text-on-surface-variant font-mono mt-1">Sync events to your calendar</p>
+            <button className="mt-3 text-xs font-mono text-primary-container border border-primary-container/30 px-4 py-1.5 rounded-lg hover:bg-primary-container/10 transition-all">
+              Sync Calendar
+            </button>
+          </div>
         </div>
       </div>
 
-      <div className="glass-card rounded p-6 space-y-4">
-        <h2 className="text-lg font-mono text-neon-green flex items-center gap-2">
-          <span>📸</span> Event Memories
-        </h2>
-        {allImages.length > 0 ? (
-          <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
-            {allImages.map((img, idx) => (
-              <div
-                key={idx}
-                onClick={() => setSelectedImage(img)}
-                className="break-inside-avoid cursor-pointer"
-              >
-                <EventImage src={img.src} alt={`${img.event} - ${idx}`} />
-                <p className="text-xs text-gray-500 mt-1 font-mono">{img.event}</p>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <p className="text-gray-500 text-sm font-mono">No event memories available</p>
-        )}
-      </div>
-
       {selectedImage && (
-        <div
-          className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-4"
-          onClick={() => setSelectedImage(null)}
-        >
+        <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4" onClick={() => setSelectedImage(null)}>
           <div className="max-w-4xl max-h-[90vh] relative">
-            <img src={selectedImage.src} alt="" className="max-w-full max-h-[90vh] object-contain" />
-            <p className="text-center text-gray-400 text-sm mt-2 font-mono">{selectedImage.event}</p>
-            <button
-              onClick={() => setSelectedImage(null)}
-              className="absolute -top-8 right-0 text-white hover:text-neon-green transition-colors font-mono"
-            >
-              [close]
-            </button>
+            <img src={selectedImage.src} alt="" className="max-w-full max-h-[85vh] object-contain rounded-xl" />
+            <p className="text-center text-on-surface-variant text-sm mt-2 font-mono">{selectedImage.event}</p>
+            <button onClick={() => setSelectedImage(null)} className="absolute -top-8 right-0 text-on-surface hover:text-primary-container transition-colors font-mono text-sm">[close]</button>
           </div>
         </div>
       )}

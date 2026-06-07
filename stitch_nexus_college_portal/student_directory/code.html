@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+<style>
+        :root {
+            --glass-bg: rgba(30, 41, 59, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+        body {
+            background-color: #020617;
+            color: #dae2fd;
+            font-family: 'Geist', sans-serif;
+            overflow-x: hidden;
+        }
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-top-color: rgba(255, 255, 255, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-card:hover {
+            box-shadow: 0 0 20px rgba(0, 219, 233, 0.15);
+            border-color: rgba(0, 219, 233, 0.3);
+            transform: translateY(-4px);
+        }
+        .neon-glow-hover:hover {
+            box-shadow: 0 0 15px rgba(195, 244, 0, 0.2);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #060e20;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #2d3449;
+            border-radius: 10px;
+        }
+        .mono-text { font-family: 'JetBrains Mono', monospace; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-surface": "#dae2fd",
+                      "on-error-container": "#ffdad6",
+                      "secondary-fixed-dim": "#abd600",
+                      "on-primary": "#00363a",
+                      "surface-dim": "#0b1326",
+                      "secondary": "#ffffff",
+                      "surface-container-lowest": "#060e20",
+                      "on-primary-fixed-variant": "#004f54",
+                      "tertiary-container": "#e9d0ff",
+                      "error": "#ffb4ab",
+                      "inverse-primary": "#006970",
+                      "on-tertiary-fixed-variant": "#6700b5",
+                      "outline": "#849495",
+                      "surface-container-highest": "#2d3449",
+                      "surface": "#0b1326",
+                      "error-container": "#93000a",
+                      "on-primary-fixed": "#002022",
+                      "surface-container-low": "#131b2e",
+                      "on-primary-container": "#006970",
+                      "on-error": "#690005",
+                      "secondary-container": "#c3f400",
+                      "surface-variant": "#2d3449",
+                      "on-surface-variant": "#b9cacb",
+                      "surface-container-high": "#222a3d",
+                      "outline-variant": "#3b494b",
+                      "background": "#0b1326",
+                      "surface-bright": "#31394d",
+                      "primary": "#dbfcff",
+                      "primary-container": "#00f0ff",
+                      "tertiary-fixed": "#efdbff",
+                      "inverse-on-surface": "#283044",
+                      "surface-tint": "#00dbe9",
+                      "on-secondary": "#283500",
+                      "tertiary": "#fdf3ff",
+                      "on-surface": "#dae2fd",
+                      "on-secondary-fixed": "#161e00",
+                      "surface-container": "#171f33",
+                      "on-tertiary-fixed": "#2c0051",
+                      "primary-fixed": "#7df4ff",
+                      "on-secondary-fixed-variant": "#3c4d00",
+                      "on-secondary-container": "#556d00",
+                      "on-background": "#dae2fd",
+                      "tertiary-fixed-dim": "#dcb8ff",
+                      "on-tertiary-container": "#8523dd",
+                      "primary-fixed-dim": "#00dbe9",
+                      "secondary-fixed": "#c3f400",
+                      "on-tertiary": "#480081"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "container-max": "1440px",
+                      "base": "8px",
+                      "margin-desktop": "48px",
+                      "gutter": "24px",
+                      "margin-mobile": "16px"
+              },
+              "fontFamily": {
+                      "headline-lg-mobile": ["JetBrains Mono"],
+                      "headline-lg": ["JetBrains Mono"],
+                      "headline-xl": ["JetBrains Mono"],
+                      "label-md": ["JetBrains Mono"],
+                      "body-lg": ["Geist"],
+                      "label-sm": ["JetBrains Mono"],
+                      "body-md": ["Geist"],
+                      "headline-md": ["JetBrains Mono"]
+              },
+              "fontSize": {
+                      "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "headline-xl": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "label-md": ["14px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                      "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "headline-md": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/70 backdrop-blur-xl border-b border-white/10 shadow-sm transition-all duration-300 ease-in-out">
+<div class="flex justify-between items-center h-16 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="font-headline-md text-headline-md font-bold text-primary tracking-tighter">CollegePortal.io</div>
+<nav class="hidden lg:flex items-center gap-8">
+<a class="text-primary border-b-2 border-primary pb-1 font-label-md text-label-md" href="#">Directory</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md" href="#">Faculty</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md" href="#">Campus</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md" href="#">Governance</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md" href="#">Clubs</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-white/5 rounded-full text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 hover:bg-white/5 rounded-full text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-white/10">
+<img alt="User Profile Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGrq_d69U0YDRYE2DBir69rmPk7LhrcXhb9W3Yep5Y9kCIeT1E60eUt2TT4cSpsB4dZzyxwgnh8NDQemATHdV9FLXRBuMEd2pOxMmGNRVCXVHOigY9TgbDcOhE6Ynt_TRblF2Nxsk8ZGJStb8ONHPb1aNQIyT-bHtxBguN9JFDyuc-iqhM_hc7O9ITTGrGL-SiZwomGMhpsaKn3D4cxpIuQbmpoZwg6hPCLKoo3JTStiNUNwNmARQElXdPBWuLyl2OKT6PFb0d99tY"/>
+</div>
+</div>
+</div>
+</header>
+<!-- SideNavBar (Hidden on small screens) -->
+<aside class="fixed left-0 top-0 h-full w-64 hidden lg:flex flex-col bg-surface-container/80 backdrop-blur-lg border-r border-white/10 p-4 gap-2 z-40 pt-20">
+<div class="mb-6 px-2">
+<div class="font-headline-sm text-headline-md text-primary font-bold">Leapx Academy</div>
+<div class="text-label-sm font-label-sm text-outline opacity-70">v2.4.0-alpha</div>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:text-primary hover:bg-white/5 rounded-lg transition-all scale-95 active:scale-100 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">dashboard</span> Dashboard
+            </a>
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:text-primary hover:bg-white/5 rounded-lg transition-all scale-95 active:scale-100 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">rocket_launch</span> Projects
+            </a>
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:text-primary hover:bg-white/5 rounded-lg transition-all scale-95 active:scale-100 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">terminal</span> Courses
+            </a>
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:text-primary hover:bg-white/5 rounded-lg transition-all scale-95 active:scale-100 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">science</span> Labs
+            </a>
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:text-primary hover:bg-white/5 rounded-lg transition-all scale-95 active:scale-100 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">hub</span> Network
+            </a>
+</nav>
+<button class="mt-8 mx-2 bg-primary-container text-on-primary-container p-3 rounded-lg font-bold font-label-md text-label-md hover:glow-primary/20 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">add</span> New Project
+        </button>
+<div class="mt-auto border-t border-white/5 pt-4">
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:text-primary hover:bg-white/5 rounded-lg transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">logout</span> Logout
+            </a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-grow lg:ml-64 pt-20 px-margin-mobile md:px-margin-desktop pb-12 max-w-container-max">
+<!-- Header & Search -->
+<section class="mb-10">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
+<div>
+<h1 class="font-headline-xl text-headline-xl text-primary mb-2">Student Directory</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">Connect with high-achieving developers and researchers across Leapx Academy's global decentralized campus.</p>
+</div>
+<div class="flex gap-2">
+<div class="flex items-center gap-2 bg-surface-container-high px-4 py-1 rounded-full border border-white/5">
+<span class="w-2 h-2 rounded-full bg-secondary-fixed animate-pulse"></span>
+<span class="text-label-sm font-label-sm text-secondary-fixed">842 ONLINE</span>
+</div>
+</div>
+</div>
+<!-- Filters Bar -->
+<div class="glass-card p-4 rounded-xl flex flex-col xl:flex-row items-center gap-4">
+<div class="relative w-full xl:w-auto xl:flex-grow">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full bg-surface-container-lowest border-outline-variant focus:border-primary-container text-on-surface py-2 pl-10 pr-4 rounded-lg font-label-md text-label-md outline-none transition-all" placeholder="Search students, skills, or projects..." type="text"/>
+</div>
+<div class="flex flex-wrap items-center gap-3 w-full xl:w-auto">
+<select class="bg-surface-container-lowest border-outline-variant text-on-surface py-2 px-4 rounded-lg font-label-md text-label-md outline-none focus:ring-1 focus:ring-primary-container cursor-pointer">
+<option>Year: All</option>
+<option>Freshman</option>
+<option>Sophomore</option>
+<option>Junior</option>
+<option>Senior</option>
+<option>Graduate</option>
+</select>
+<select class="bg-surface-container-lowest border-outline-variant text-on-surface py-2 px-4 rounded-lg font-label-md text-label-md outline-none focus:ring-1 focus:ring-primary-container cursor-pointer">
+<option>Tech: All</option>
+<option>Rust</option>
+<option>TypeScript</option>
+<option>Python</option>
+<option>Solidity</option>
+<option>Go</option>
+</select>
+<select class="bg-surface-container-lowest border-outline-variant text-on-surface py-2 px-4 rounded-lg font-label-md text-label-md outline-none focus:ring-1 focus:ring-primary-container cursor-pointer">
+<option>Clubs: All</option>
+<option>CyberSec</option>
+<option>AI Research</option>
+<option>Blockchain</option>
+<option>Robotics</option>
+</select>
+<button class="p-2 text-primary-container hover:bg-primary-container/10 rounded-lg transition-colors ml-auto xl:ml-0">
+<span class="material-symbols-outlined">tune</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Students Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+<!-- Student Card 1 -->
+<div class="glass-card rounded-xl overflow-hidden group">
+<div class="relative h-24 bg-gradient-to-r from-primary-container/20 to-tertiary-container/20">
+<div class="absolute -bottom-10 left-6 w-20 h-20 rounded-xl border-4 border-surface overflow-hidden bg-surface-container shadow-xl">
+<img alt="Student Profile" class="w-full h-full object-cover" data-alt="A close-up studio portrait of a young tech enthusiast with a creative and modern style. The lighting is dramatic and cinematic, featuring neon blue and pink highlights against a dark, tech-inspired background. The image has a sharp, digital art quality that fits a futuristic cyber-academic theme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrARRkNYb-uTkjeD2_iBqUAHsFariQRnCy4SOecGVcY2IjkWIs2o9QkxYKU7XnuDUkOxi2EggJhiFPimafAnC0N1TCF60nZ26CkmO0CRdpS47XRjk6tySt518S483PKBgL-fJy6SRcRYrpqkSoLnIJORAOHsTPir7LtSaV6eFNKDxE3hksWVPTcancuNSMjq5kIyx20QrJMoTYmXy590XkqAQPbjICcI2X5Kih5u9bGNbLsVG54glzjCjbV454n0eeTYKwgqo0TCv4"/>
+</div>
+<div class="absolute top-4 right-4">
+<span class="bg-secondary-container/10 text-secondary-fixed text-label-sm font-label-sm px-3 py-1 rounded-full border border-secondary-fixed/20 mono-text">LEAPX PLATINUM</span>
+</div>
+</div>
+<div class="pt-12 p-6">
+<div class="flex items-center justify-between mb-2">
+<h3 class="font-headline-md text-headline-md text-on-surface">Alex Rivera</h3>
+<div class="flex gap-1">
+<span class="material-symbols-outlined text-primary-fixed-dim text-lg" style="font-variation-settings: 'FILL' 1;" title="Academic Excellence">workspace_premium</span>
+<span class="material-symbols-outlined text-secondary-fixed-dim text-lg" style="font-variation-settings: 'FILL' 1;" title="Open Source Contributor">terminal</span>
+</div>
+</div>
+<p class="text-label-sm font-label-sm text-outline mb-4 mono-text">Fullstack Engineer • Junior • CyberSec Club</p>
+<div class="flex flex-wrap gap-2 mb-6">
+<span class="bg-white/5 text-on-surface-variant px-2 py-1 rounded text-[10px] mono-text border border-white/10">RUST</span>
+<span class="bg-white/5 text-on-surface-variant px-2 py-1 rounded text-[10px] mono-text border border-white/10">WASM</span>
+<span class="bg-white/5 text-on-surface-variant px-2 py-1 rounded text-[10px] mono-text border border-white/10">DOCKER</span>
+</div>
+<div class="flex items-center justify-between border-t border-white/5 pt-4">
+<div class="flex gap-3">
+<a class="text-on-surface-variant hover:text-primary-container transition-colors" href="#">
+<i class="ph ph-github-logo text-xl"></i>
+</a>
+<a class="text-on-surface-variant hover:text-primary-container transition-colors" href="#">
+<i class="ph ph-linkedin-logo text-xl"></i>
+</a>
+<a class="text-on-surface-variant hover:text-primary-container transition-colors" href="#">
+<i class="ph ph-globe text-xl"></i>
+</a>
+</div>
+<button class="bg-primary/10 text-primary-container border border-primary-container/20 px-4 py-1 rounded-lg font-label-md text-label-sm hover:bg-primary-container hover:text-on-primary transition-all">
+                            View Profile
+                        </button>
+</div>
+</div>
+</div>
+<!-- Student Card 2 -->
+<div class="glass-card rounded-xl overflow-hidden group">
+<div class="relative h-24 bg-gradient-to-r from-secondary-container/20 to-primary-container/10">
+<div class="absolute -bottom-10 left-6 w-20 h-20 rounded-xl border-4 border-surface overflow-hidden bg-surface-container shadow-xl">
+<img alt="Student Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a female computer science student in a modern, high-tech academic environment. Soft ambient light from computer screens illuminates her face with a cool blue tint. The aesthetic is clean, minimalist, and intellectual, with a high-contrast dark-mode palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6hytHeCuewazX8bHY4p6lH1kCetmGAnU_KsvlLTrK4mvCAXiiXrKppJroNRWONlpyNVGW99ag3ent_4lk2I9VXWVV7kBWk9vn3r-fnlIMX1Zj4bgotS5Nk7usoM7iwc4uerpKiYPqGZxSEiruRbHGB-sQu2BIZWbRRkORiwfkqSxkWFEbC6-kj3DKulL8pwQ3Fe8q10zcToThEcYqR54jOpnwbUiZYFBr0KaJcC8fSGtFaZQFiHccuoLSEP20dcf9fPR76Aez52jy"/>
+</div>
+<div class="absolute top-4 right-4">
+<span class="bg-primary-container/10 text-primary-container text-label-sm font-label-sm px-3 py-1 rounded-full border border-primary-container/20 mono-text">LEAPX GOLD</span>
+</div>
+</div>
+<div class="pt-12 p-6">
+<div class="flex items-center justify-between mb-2">
+<h3 class="font-headline-md text-headline-md text-on-surface">Elena Vance</h3>
+<div class="flex gap-1">
+<span class="material-symbols-outlined text-tertiary-fixed-dim text-lg" style="font-variation-settings: 'FILL' 1;" title="AI Specialist">psychology</span>
+</div>
+</div>
+<p class="text-label-sm font-label-sm text-outline mb-4 mono-text">ML Researcher • Senior • AI Research</p>
+<div class="flex flex-wrap gap-2 mb-6">
+<span class="bg-white/5 text-on-surface-variant px-2 py-1 rounded text-[10px] mono-text border border-white/10">PYTHON</span>
+<span class="bg-white/5 text-on-surface-variant px-2 py-1 rounded text-[10px] mono-text border border-white/10">PYTORCH</span>
+<span class="bg-white/5 text-on-surface-variant px-2 py-1 rounded text-[10px] mono-text border border-white/10">CUDA</span>
+</div>
+<div class="flex items-center justify-between border-t border-white/5 pt-4">
+<div class="flex gap-3">
+<a class="text-on-surface-variant hover:text-primary-container transition-colors" href="#">
+<i class="ph ph-github-logo text-xl"></i>
+</a>
+<a class="text-on-surface-variant hover:text-primary-container transition-colors" href="#">
+<i class="ph ph-linkedin-logo text-xl"></i>
+</a>
+<a class="text-on-surface-variant hover:text-primary-container transition-colors" href="#">
+<i class="ph ph-briefcase text-xl"></i>
+</a>
+</div>
+<button class="bg-primary/10 text-primary-container border border-primary-container/20 px-4 py-1 rounded-lg font-label-md text-label-sm hover:bg-primary-container hover:text-on-primary transition-all">
+                            View Profile
+                        </button>
+</div>
+</div>
+</div>
+<!-- Student Card 3 -->
+<div class="glass-card rounded-xl overflow-hidden group">
+<div class="relative h-24 bg-gradient-to-r from-tertiary-container/20 to-error-container/10">
+<div class="absolute -bottom-10 left-6 w-20 h-20 rounded-xl border-4 border-surface overflow-hidden bg-surface-container shadow-xl">
+<img alt="Student Profile" class="w-full h-full object-cover" data-alt="A portrait of a male student developer looking thoughtful in a dimly lit coding lab. Neon green accent lights from high-end equipment cast sharp, focused shadows. The overall mood is one of deep concentration and technical mastery, following a dark-mode editorial journal style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmBalAuqgl14PUxUkN9zejZqBkd3p0n7rU-qw85UPw-H6lJYakz0yg46czjEsRq1DJFl2jAM1Zp31C5Gv6iVrFjiXT8zQ-0_fvahn-ASQUOrj-NzxjGXvOlLoDI1II5WqXnywWhnwWSLVDVd1jA-7rL0LCgRIIaZCwRub4aOkn_rwWyCFhf89qHnazcDpFhuwLsqL4TBEnkReLFFAoBYllPgCYtw49nxE4zDwJJtArHF-M5koNJAq8wcYela9A-zPHZyelPBTfUQ_I"/>
+</div>
+<div class="absolute top-4 right-4">
+<span class="bg-secondary-container/10 text-secondary-fixed text-label-sm font-label-sm px-3 py-1 rounded-full border border-secondary-fixed/20 mono-text">LEAPX PLATINUM</span>
+</div>
+</div>
+<div class="pt-12 p-6">
+<div class="flex items-center justify-between mb-2">
+<h3 class="font-headline-md text-headline-md text-on-surface">Jordan Smith</h3>
+<div class="flex gap-1">
+<span class="material-symbols-outlined text-secondary-fixed-dim text-lg" style="font-variation-settings: 'FILL' 1;" title="Core Maintainer">hub</span>
+<span class="material-symbols-outlined text-primary-fixed-dim text-lg" style="font-variation-settings: 'FILL' 1;" title="Research Lead">science</span>
+</div>
+</div>
+<p class="text-label-sm font-label-sm text-outline mb-4 mono-text">System Arch • Graduate • Robotics</p>
+<div class="flex flex-wrap gap-2 mb-6">
+<span class="bg-white/5 text-on-surface-variant px-2 py-1 rounded text-[10px] mono-text border border-white/10">C++</span>
+<span class="bg-white/5 text-on-surface-variant px-2 py-1 rounded text-[10px] mono-text border border-white/10">ROS2</span>
+<span class="bg-white/5 text-on-surface-variant px-2 py-1 rounded text-[10px] mono-text border border-white/10">LINUX</span>
+</div>
+<div class="flex items-center justify-between border-t border-white/5 pt-4">
+<div class="flex gap-3">
+<a class="text-on-surface-variant hover:text-primary-container transition-colors" href="#">
+<i class="ph ph-github-logo text-xl"></i>
+</a>
+<a class="text-on-surface-variant hover:text-primary-container transition-colors" href="#">
+<i class="ph ph-linkedin-logo text-xl"></i>
+</a>
+</div>
+<button class="bg-primary/10 text-primary-container border border-primary-container/20 px-4 py-1 rounded-lg font-label-md text-label-sm hover:bg-primary-container hover:text-on-primary transition-all">
+                            View Profile
+                        </button>
+</div>
+</div>
+</div>
+<!-- Card 4 (Representative of varied content height/asymmetry) -->
+<div class="glass-card rounded-xl overflow-hidden group">
+<div class="relative h-24 bg-gradient-to-r from-primary/10 to-surface-container-highest">
+<div class="absolute -bottom-10 left-6 w-20 h-20 rounded-xl border-4 border-surface overflow-hidden bg-surface-container shadow-xl">
+<img alt="Student Profile" class="w-full h-full object-cover" data-alt="A stylized portrait of a female digital artist and coder. The scene is lit by vibrant cyber-lime and electric blue neon lights, creating a high-energy tech atmosphere. She is surrounded by holographic interface elements. The visual style is premium, modern, and highly detailed." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0vnLadXSN3AibFln17RjOY-Fq6h6Txw1litb7Pd3lYXXyUIO5--WVTl5Thnz6BBsFB0CDtOnsCDR-Kq0PD1zqLR6lv57cKaD7ioPdhRhErCaF1s6O-MXYTonA7s9kqXeZEz1fDnronVP2xVoaTjT9EWWhqp-wAl4bS_83im6K7SmgMav57vRknpSxQqwKQqwJmBPCVlo9JkrGMEU3RR3HnJu0P_bguLs63Th8bRW30cCx79xBii6HBvv9952zRUf0spiYVYVHTpP_"/>
+</div>
+<div class="absolute top-4 right-4">
+<span class="bg-outline/10 text-outline text-label-sm font-label-sm px-3 py-1 rounded-full border border-white/10 mono-text">LEAPX SILVER</span>
+</div>
+</div>
+<div class="pt-12 p-6">
+<div class="flex items-center justify-between mb-2">
+<h3 class="font-headline-md text-headline-md text-on-surface">Maya Chen</h3>
+<div class="flex gap-1">
+<span class="material-symbols-outlined text-primary-container text-lg" title="UI/UX Pioneer">palette</span>
+</div>
+</div>
+<p class="text-label-sm font-label-sm text-outline mb-4 mono-text">Product Design • Sophomore • Web3 Collective</p>
+<div class="flex flex-wrap gap-2 mb-6">
+<span class="bg-white/5 text-on-surface-variant px-2 py-1 rounded text-[10px] mono-text border border-white/10">FIGMA</span>
+<span class="bg-white/5 text-on-surface-variant px-2 py-1 rounded text-[10px] mono-text border border-white/10">TAILWIND</span>
+<span class="bg-white/5 text-on-surface-variant px-2 py-1 rounded text-[10px] mono-text border border-white/10">THREE.JS</span>
+</div>
+<div class="flex items-center justify-between border-t border-white/5 pt-4">
+<div class="flex gap-3">
+<a class="text-on-surface-variant hover:text-primary-container transition-colors" href="#">
+<i class="ph ph-dribbble-logo text-xl"></i>
+</a>
+<a class="text-on-surface-variant hover:text-primary-container transition-colors" href="#">
+<i class="ph ph-linkedin-logo text-xl"></i>
+</a>
+<a class="text-on-surface-variant hover:text-primary-container transition-colors" href="#">
+<i class="ph ph-behance-logo text-xl"></i>
+</a>
+</div>
+<button class="bg-primary/10 text-primary-container border border-primary-container/20 px-4 py-1 rounded-lg font-label-md text-label-sm hover:bg-primary-container hover:text-on-primary transition-all">
+                            View Profile
+                        </button>
+</div>
+</div>
+</div>
+<!-- Student Card 5 -->
+<div class="glass-card rounded-xl overflow-hidden group">
+<div class="relative h-24 bg-gradient-to-r from-error-container/20 to-surface-container-high">
+<div class="absolute -bottom-10 left-6 w-20 h-20 rounded-xl border-4 border-surface overflow-hidden bg-surface-container shadow-xl">
+<img alt="Student Profile" class="w-full h-full object-cover" data-alt="A portrait of a male student looking into a high-tech terminal. The lighting is low-key, with a strong cyber-academic aesthetic featuring a palette of deep navy, slate, and vibrant cyan accents. The style is reminiscent of a high-end IDE interface mixed with professional editorial photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJytpUlyWo5A1DPXRqPPuEdNjkMMy92vXguzhyaRyYyXsKaA5rZlU7QaSGWlcZrXlMrZYZP21vTrH2tQrUrjRQhr-fhTXFDqpcDUeYWprFKy8te1guqQChYdFEUEZMjwpQjONEUIK6p3kQwjHUhg5Pp_monpvAqnY4LbLDKwKgyBOUL8rlcZF_3cigDJlDUuxyW6Xu5ESbG5kKc2ijaTstdl4NMrA_N4RWzocKtlo-I7FykASd8MBkbBjKck_3Di1D_eTR7afdq4fY"/>
+</div>
+<div class="absolute top-4 right-4">
+<span class="bg-primary-container/10 text-primary-container text-label-sm font-label-sm px-3 py-1 rounded-full border border-primary-container/20 mono-text">LEAPX GOLD</span>
+</div>
+</div>
+<div class="pt-12 p-6">
+<div class="flex items-center justify-between mb-2">
+<h3 class="font-headline-md text-headline-md text-on-surface">Liam O'Connor</h3>
+<div class="flex gap-1">
+<span class="material-symbols-outlined text-secondary-fixed-dim text-lg" style="font-variation-settings: 'FILL' 1;" title="Security Researcher">security</span>
+</div>
+</div>
+<p class="text-label-sm font-label-sm text-outline mb-4 mono-text">Security Auditing • Senior • CyberSec Club</p>
+<div class="flex flex-wrap gap-2 mb-6">
+<span class="bg-white/5 text-on-surface-variant px-2 py-1 rounded text-[10px] mono-text border border-white/10">GO</span>
+<span class="bg-white/5 text-on-surface-variant px-2 py-1 rounded text-[10px] mono-text border border-white/10">KUBERNETES</span>
+<span class="bg-white/5 text-on-surface-variant px-2 py-1 rounded text-[10px] mono-text border border-white/10">GCP</span>
+</div>
+<div class="flex items-center justify-between border-t border-white/5 pt-4">
+<div class="flex gap-3">
+<a class="text-on-surface-variant hover:text-primary-container transition-colors" href="#">
+<i class="ph ph-github-logo text-xl"></i>
+</a>
+<a class="text-on-surface-variant hover:text-primary-container transition-colors" href="#">
+<i class="ph ph-twitter-logo text-xl"></i>
+</a>
+</div>
+<button class="bg-primary/10 text-primary-container border border-primary-container/20 px-4 py-1 rounded-lg font-label-md text-label-sm hover:bg-primary-container hover:text-on-primary transition-all">
+                            View Profile
+                        </button>
+</div>
+</div>
+</div>
+<!-- Student Card 6 -->
+<div class="glass-card rounded-xl overflow-hidden group">
+<div class="relative h-24 bg-gradient-to-r from-secondary/10 to-surface-container-high">
+<div class="absolute -bottom-10 left-6 w-20 h-20 rounded-xl border-4 border-surface overflow-hidden bg-surface-container shadow-xl">
+<img alt="Student Profile" class="w-full h-full object-cover" data-alt="A portrait of a young female researcher in a state-of-the-art laboratory environment. Subtle glow from bioluminescent experiments in the background provides a soft, tech-academic lighting. The overall aesthetic is professional, futuristic, and intellectually stimulating, featuring high-contrast tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhsUORt5JNKglxUQgtT0U6fBhNsw_Hxpg9hf6bNeNdt1BGAINyjjN9i0HgtJ0RBpHohQRe85bhp7xYGm6FByTNhu8ux4mx_UaU4Aj91Yt020ceRiHkP7SNL4gjvmjybFwEWLs6bxFCAbG4aeB6LPdy920E9y8ktf_cqmX08IPVk-XjQ9ZkUsKqwuUweGt37tYcs1kD_FjRIQgBXO8DGrFi_A8rnSb_54HJXnrq_gtt5LLbTCYWupcP9-UHxX6hcNVUf-ZedTf_06WL"/>
+</div>
+<div class="absolute top-4 right-4">
+<span class="bg-secondary-container/10 text-secondary-fixed text-label-sm font-label-sm px-3 py-1 rounded-full border border-secondary-fixed/20 mono-text">LEAPX PLATINUM</span>
+</div>
+</div>
+<div class="pt-12 p-6">
+<div class="flex items-center justify-between mb-2">
+<h3 class="font-headline-md text-headline-md text-on-surface">Sophia Wei</h3>
+<div class="flex gap-1">
+<span class="material-symbols-outlined text-primary-fixed-dim text-lg" style="font-variation-settings: 'FILL' 1;" title="Open Source Lead">terminal</span>
+<span class="material-symbols-outlined text-tertiary-fixed-dim text-lg" style="font-variation-settings: 'FILL' 1;" title="Blockchain Expert">currency_bitcoin</span>
+</div>
+</div>
+<p class="text-label-sm font-label-sm text-outline mb-4 mono-text">Protocol Dev • Graduate • Blockchain Lab</p>
+<div class="flex flex-wrap gap-2 mb-6">
+<span class="bg-white/5 text-on-surface-variant px-2 py-1 rounded text-[10px] mono-text border border-white/10">SOLIDITY</span>
+<span class="bg-white/5 text-on-surface-variant px-2 py-1 rounded text-[10px] mono-text border border-white/10">MOVE</span>
+<span class="bg-white/5 text-on-surface-variant px-2 py-1 rounded text-[10px] mono-text border border-white/10">FOUNDRY</span>
+</div>
+<div class="flex items-center justify-between border-t border-white/5 pt-4">
+<div class="flex gap-3">
+<a class="text-on-surface-variant hover:text-primary-container transition-colors" href="#">
+<i class="ph ph-github-logo text-xl"></i>
+</a>
+<a class="text-on-surface-variant hover:text-primary-container transition-colors" href="#">
+<i class="ph ph-linkedin-logo text-xl"></i>
+</a>
+<a class="text-on-surface-variant hover:text-primary-container transition-colors" href="#">
+<i class="ph ph-stack-overflow-logo text-xl"></i>
+</a>
+</div>
+<button class="bg-primary/10 text-primary-container border border-primary-container/20 px-4 py-1 rounded-lg font-label-md text-label-sm hover:bg-primary-container hover:text-on-primary transition-all">
+                            View Profile
+                        </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Pagination -->
+<div class="mt-12 flex items-center justify-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-white/10 hover:bg-white/5 text-on-surface-variant transition-all">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<div class="flex items-center gap-2">
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary-container text-on-primary font-label-md text-label-md">1</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-white/10 hover:bg-white/5 text-on-surface-variant font-label-md text-label-md">2</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-white/10 hover:bg-white/5 text-on-surface-variant font-label-md text-label-md">3</button>
+<span class="text-outline">...</span>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-white/10 hover:bg-white/5 text-on-surface-variant font-label-md text-label-md">24</button>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-white/10 hover:bg-white/5 text-on-surface-variant transition-all">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-8 mt-auto bg-surface-container-lowest border-t border-white/5 transition-opacity duration-200">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto gap-4">
+<div class="flex flex-col md:items-start items-center">
+<div class="font-headline-sm text-headline-sm text-secondary font-bold">Leapx Academy</div>
+<p class="text-label-sm font-label-sm text-outline">© 2024 Leapx Academy. Build v2.4.0_stable</p>
+</div>
+<nav class="flex gap-6">
+<a class="text-outline hover:text-secondary hover:underline transition-colors font-label-sm text-label-sm" href="#">System Status</a>
+<a class="text-outline hover:text-secondary hover:underline transition-colors font-label-sm text-label-sm" href="#">API Docs</a>
+<a class="text-outline hover:text-secondary hover:underline transition-colors font-label-sm text-label-sm" href="#">Privacy</a>
+<a class="text-outline hover:text-secondary hover:underline transition-colors font-label-sm text-label-sm" href="#">Security</a>
+</nav>
+</div>
+</footer>
+<!-- FAB -->
+<button class="fixed bottom-6 right-6 w-14 h-14 bg-secondary-fixed text-on-secondary-fixed rounded-full shadow-lg flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-50 neon-glow-hover">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person_add</span>
+</button>
+<script>
+        // Simple micro-interactions
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+        // Search highlight mock
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('input', (e) => {
+            console.log('Searching for:', e.target.value);
+            // Dynamic filtering logic would go here
+        });
+    </script>
+</body></html>

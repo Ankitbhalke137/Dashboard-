@@ -1,21 +1,19 @@
 import { useState, useEffect } from 'react';
 import api from '../../api';
 
-const categories = [
-  { id: 'project', label: '💡 Project Ideas', icon: '💡' },
-  { id: 'career', label: '🚀 Career Prep', icon: '🚀' },
-  { id: 'internship', label: '💼 Internships', icon: '💼' },
-  { id: 'skill', label: '🎯 Skill Building', icon: '🎯' },
+const cats = [
+  { id: 'project', label: 'Project Ideas', icon: '💡' },
+  { id: 'career', label: 'Career Prep', icon: '🚀' },
+  { id: 'internship', label: 'Internships', icon: '💼' },
+  { id: 'skill', label: 'Skills', icon: '🎯' },
 ];
 
 export default function PracticalResources() {
   const [suggestions, setSuggestions] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [activeCategory, setActiveCategory] = useState('project');
+  const [active, setActive] = useState('project');
 
-  useEffect(() => {
-    fetchSuggestions();
-  }, []);
+  useEffect(() => { fetchSuggestions(); }, []);
 
   const fetchSuggestions = async () => {
     try {
@@ -28,68 +26,55 @@ export default function PracticalResources() {
     }
   };
 
-  const filtered = suggestions.filter(s => s.category === activeCategory);
+  const filtered = suggestions.filter(s => s.category === active);
 
   if (loading) {
     return (
       <div className="flex justify-center py-20">
-        <div className="neon-text text-lg animate-pulse">Loading resources...</div>
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-8 h-8 border-2 border-primary-container border-t-transparent rounded-full animate-spin" />
+          <span className="text-sm text-on-surface-variant font-mono">Loading resources...</span>
+        </div>
       </div>
     );
   }
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-mono font-bold">
-        <span className="neon-text">&gt;</span> Practical Resources
-      </h1>
+      <div>
+        <span className="text-label-sm text-primary-container">PHASE 08</span>
+        <h1 className="text-headline-lg font-mono text-on-surface mt-1">Practical Resources</h1>
+        <p className="text-sm text-on-surface-variant font-sans mt-1">Curated resources to help B.Tech CSE students level up.</p>
+      </div>
 
-      <p className="text-gray-400 text-sm font-mono">
-        Curated resources to help B.Tech CSE students with projects, career prep, internships, and skill building.
-      </p>
-
-      <div className="flex flex-wrap gap-2">
-        {categories.map(cat => (
-          <button
-            key={cat.id}
-            onClick={() => setActiveCategory(cat.id)}
-            className={`px-4 py-2 rounded text-sm font-mono border transition-all flex items-center gap-2 ${
-              activeCategory === cat.id
-                ? 'border-neon-green text-neon-green bg-neon-green/10'
-                : 'border-gray-700 text-gray-500 hover:text-white'
-            }`}
-          >
-            {cat.icon}
-            {cat.label}
+      <div className="flex gap-2 bg-surface-low rounded-lg p-1 border border-white/5 w-fit">
+        {cats.map(c => (
+          <button key={c.id} onClick={() => setActive(c.id)}
+            className={`flex items-center gap-2 px-4 py-2 rounded-md text-xs font-mono transition-all ${
+              active === c.id ? 'bg-primary-container/15 text-primary-container' : 'text-on-surface-variant hover:text-on-surface'
+            }`}>
+            {c.icon} {c.label}
           </button>
         ))}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {filtered.map(item => (
-          <div key={item._id} className="bg-dark-600 rounded border border-gray-800 p-4 card-hover">
-            <h3 className="text-white font-semibold font-mono text-sm">{item.title}</h3>
-            <p className="text-gray-400 text-xs font-mono mt-2 leading-relaxed">{item.description}</p>
-            {item.tags && item.tags.length > 0 && (
+          <div key={item._id} className="glass-card rounded-xl p-4 holographic">
+            <h3 className="text-sm font-mono font-semibold text-on-surface">{item.title}</h3>
+            <p className="text-xs text-on-surface-variant font-sans mt-2 leading-relaxed">{item.description}</p>
+            {item.tags?.length > 0 && (
               <div className="flex flex-wrap gap-1 mt-3">
                 {item.tags.map(tag => (
-                  <span key={tag} className="px-2 py-0.5 rounded text-xs border border-neon-green/20 text-neon-green font-mono">
-                    #{tag}
-                  </span>
+                  <span key={tag} className="tech-tag text-primary-container border-primary-container/20">#{tag}</span>
                 ))}
               </div>
             )}
-            {item.link && (
-              <a href={item.link} target="_blank" rel="noopener noreferrer" className="text-xs text-neon-green hover:underline mt-2 inline-block font-mono">
-                &gt; Learn more
-              </a>
-            )}
+            {item.link && <a href={item.link} target="_blank" rel="noopener noreferrer" className="text-xs text-primary-container hover:underline mt-2 inline-block font-mono">Learn more &rarr;</a>}
           </div>
         ))}
         {filtered.length === 0 && (
-          <div className="col-span-full text-center py-10 text-gray-500 font-mono text-sm">
-            No resources in this category yet
-          </div>
+          <div className="col-span-full text-center py-10 text-on-surface-variant font-mono text-sm">No resources yet</div>
         )}
       </div>
     </div>

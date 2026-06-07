@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Campus Life | Leapx Academy</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&amp;family=Geist:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-surface": "#dae2fd",
+                    "on-error-container": "#ffdad6",
+                    "secondary-fixed-dim": "#abd600",
+                    "on-primary": "#00363a",
+                    "surface-dim": "#0b1326",
+                    "secondary": "#ffffff",
+                    "surface-container-lowest": "#060e20",
+                    "on-primary-fixed-variant": "#004f54",
+                    "tertiary-container": "#e9d0ff",
+                    "error": "#ffb4ab",
+                    "inverse-primary": "#006970",
+                    "on-tertiary-fixed-variant": "#6700b5",
+                    "outline": "#849495",
+                    "surface-container-highest": "#2d3449",
+                    "surface": "#0b1326",
+                    "error-container": "#93000a",
+                    "on-primary-fixed": "#002022",
+                    "surface-container-low": "#131b2e",
+                    "on-primary-container": "#006970",
+                    "on-error": "#690005",
+                    "secondary-container": "#c3f400",
+                    "surface-variant": "#2d3449",
+                    "on-surface-variant": "#b9cacb",
+                    "surface-container-high": "#222a3d",
+                    "outline-variant": "#3b494b",
+                    "background": "#0b1326",
+                    "surface-bright": "#31394d",
+                    "primary": "#dbfcff",
+                    "primary-container": "#00f0ff",
+                    "tertiary-fixed": "#efdbff",
+                    "inverse-on-surface": "#283044",
+                    "surface-tint": "#00dbe9",
+                    "on-secondary": "#283500",
+                    "tertiary": "#fdf3ff",
+                    "on-surface": "#dae2fd",
+                    "on-secondary-fixed": "#161e00",
+                    "surface-container": "#171f33",
+                    "on-tertiary-fixed": "#2c0051",
+                    "primary-fixed": "#7df4ff",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "on-secondary-container": "#556d00",
+                    "on-background": "#dae2fd",
+                    "tertiary-fixed-dim": "#dcb8ff",
+                    "on-tertiary-container": "#8523dd",
+                    "primary-fixed-dim": "#00dbe9",
+                    "secondary-fixed": "#c3f400",
+                    "on-tertiary": "#480081"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-max": "1440px",
+                    "base": "8px",
+                    "margin-desktop": "48px",
+                    "gutter": "24px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["JetBrains Mono"],
+                    "headline-lg": ["JetBrains Mono"],
+                    "headline-xl": ["JetBrains Mono"],
+                    "label-md": ["JetBrains Mono"],
+                    "body-lg": ["Geist"],
+                    "label-sm": ["JetBrains Mono"],
+                    "body-md": ["Geist"],
+                    "headline-md": ["JetBrains Mono"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "headline-xl": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-md": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .neon-glow:hover {
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+        }
+        .pulse-neon {
+            animation: pulse-neon 2s infinite ease-in-out;
+        }
+        @keyframes pulse-neon {
+            0%, 100% { text-shadow: 0 0 10px rgba(0, 240, 255, 0.5); }
+            50% { text-shadow: 0 0 25px rgba(0, 240, 255, 0.8), 0 0 40px rgba(0, 240, 255, 0.4); }
+        }
+        .masonry {
+            column-count: 1;
+            column-gap: 1.5rem;
+        }
+        @media (min-width: 768px) { .masonry { column-count: 2; } }
+        @media (min-width: 1280px) { .masonry { column-count: 3; } }
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/70 backdrop-blur-xl border-b border-white/10 shadow-sm">
+<div class="flex justify-between items-center h-16 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="flex items-center gap-4">
+<span class="font-headline-md text-headline-md font-bold text-primary tracking-tighter">CollegePortal.io</span>
+</div>
+<nav class="hidden md:flex gap-8 items-center h-full">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Directory</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Faculty</a>
+<a class="font-label-md text-label-md text-primary border-b-2 border-primary pb-1" href="#">Campus</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Governance</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Clubs</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary p-2 transition-all">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary p-2 transition-all">settings</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-primary/20">
+<img alt="User Profile Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCg-4MDPIz1GqECYlvAnIJOs2dIIARn1jMamRW05y2Cq567nrzNP96fLC3Q9PL4SZF6bAqU_z3sADJtBKroiicEV6jz_OZ3oJzaghJHaw9Sh-NCn8_ZWXXWgVgp7v1MxVnGwD9jNd1ZaDOQyATDJkAF53NuGL56CDR2LdrHAzUqu5OfOo6nA-9ebr1Ditenpn6iWGQov8ZxuHBgbZ0eS8_jmOnDOXFFiIm5Br2OtK3KquP6e6KIV1JaKhf2oyKUoZVTP9yKCAoD0Vuo"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Sidebar (SideNavBar) -->
+<aside class="fixed left-0 top-0 h-full w-64 hidden lg:flex flex-col bg-surface-container/80 backdrop-blur-lg border-r border-white/10 p-4 gap-2 pt-20">
+<div class="flex items-center gap-3 px-2 mb-6">
+<div class="w-10 h-10 bg-primary-container rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container">school</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-primary">Leapx Academy</h2>
+<p class="font-label-sm text-label-sm text-outline">v2.4.0-alpha</p>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-1">
+<button class="flex items-center gap-3 p-3 text-on-surface-variant hover:text-primary hover:bg-white/5 rounded-lg transition-transform scale-95 active:scale-100 font-label-md text-label-md">
+<span class="material-symbols-outlined">dashboard</span> Dashboard
+            </button>
+<button class="flex items-center gap-3 p-3 text-on-surface-variant hover:text-primary hover:bg-white/5 rounded-lg transition-transform scale-95 active:scale-100 font-label-md text-label-md">
+<span class="material-symbols-outlined">rocket_launch</span> Projects
+            </button>
+<button class="flex items-center gap-3 p-3 text-on-surface-variant hover:text-primary hover:bg-white/5 rounded-lg transition-transform scale-95 active:scale-100 font-label-md text-label-md">
+<span class="material-symbols-outlined">terminal</span> Courses
+            </button>
+<button class="flex items-center gap-3 p-3 text-on-surface-variant hover:text-primary hover:bg-white/5 rounded-lg transition-transform scale-95 active:scale-100 font-label-md text-label-md">
+<span class="material-symbols-outlined">science</span> Labs
+            </button>
+<button class="flex items-center gap-3 p-3 bg-primary-container text-on-primary-container rounded-lg font-bold font-label-md text-label-md transition-transform scale-95 active:scale-100">
+<span class="material-symbols-outlined">hub</span> Network
+            </button>
+</nav>
+<button class="bg-secondary-fixed text-on-secondary-fixed p-3 rounded-lg font-bold font-label-md flex items-center justify-center gap-2 mb-4 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined">add</span> New Project
+        </button>
+<div class="mt-auto border-t border-white/10 pt-4">
+<button class="flex items-center gap-3 p-3 text-on-surface-variant hover:text-primary w-full rounded-lg font-label-md">
+<span class="material-symbols-outlined">logout</span> Logout
+            </button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="lg:ml-64 pt-24 pb-12 px-margin-mobile md:px-margin-desktop">
+<div class="max-w-container-max mx-auto space-y-12">
+<!-- Hero Countdown -->
+<section class="glass-card rounded-xl p-8 md:p-12 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-8 opacity-20 group-hover:opacity-40 transition-opacity">
+<span class="material-symbols-outlined text-9xl text-primary-container">event_upcoming</span>
+</div>
+<div class="relative z-10 space-y-6">
+<div class="inline-block px-3 py-1 bg-primary/10 border border-primary/30 rounded-full font-label-sm text-label-sm text-primary-fixed uppercase tracking-widest">
+                        Main Event Approaching
+                    </div>
+<h1 class="font-headline-xl text-headline-xl text-primary max-w-2xl">CyberNexus TechFest 2024</h1>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl">
+<div class="glass-card rounded-lg p-6 text-center border-primary/20">
+<div class="font-headline-lg text-headline-lg text-primary-fixed pulse-neon" id="days">04</div>
+<div class="font-label-sm text-label-sm text-outline-variant uppercase">Days</div>
+</div>
+<div class="glass-card rounded-lg p-6 text-center border-primary/20">
+<div class="font-headline-lg text-headline-lg text-primary-fixed pulse-neon" id="hours">12</div>
+<div class="font-label-sm text-label-sm text-outline-variant uppercase">Hours</div>
+</div>
+<div class="glass-card rounded-lg p-6 text-center border-primary/20">
+<div class="font-headline-lg text-headline-lg text-primary-fixed pulse-neon" id="minutes">45</div>
+<div class="font-label-sm text-label-sm text-outline-variant uppercase">Minutes</div>
+</div>
+<div class="glass-card rounded-lg p-6 text-center border-primary/20">
+<div class="font-headline-lg text-headline-lg text-primary-fixed pulse-neon" id="seconds">08</div>
+<div class="font-label-sm text-label-sm text-outline-variant uppercase">Seconds</div>
+</div>
+</div>
+<button class="bg-primary-container text-on-primary-container px-8 py-3 rounded-lg font-bold flex items-center gap-2 hover:scale-105 transition-transform">
+                        Secure Your Access <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</section>
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-gutter">
+<!-- Event Memories (Masonry) -->
+<div class="xl:col-span-8 space-y-6">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-lg text-headline-lg text-secondary">Event Memories</h2>
+<div class="flex gap-2">
+<span class="bg-surface-container-high px-3 py-1 rounded-full font-label-sm text-label-sm text-on-surface-variant">All</span>
+<span class="hover:bg-surface-container-high px-3 py-1 rounded-full font-label-sm text-label-sm text-outline cursor-pointer transition-colors">Hackathons</span>
+<span class="hover:bg-surface-container-high px-3 py-1 rounded-full font-label-sm text-label-sm text-outline cursor-pointer transition-colors">Cultural</span>
+</div>
+</div>
+<div class="masonry">
+<!-- Masonry Items -->
+<div class="masonry-item group relative overflow-hidden rounded-xl glass-card neon-glow transition-all">
+<img class="w-full h-auto object-cover opacity-80 group-hover:scale-105 group-hover:opacity-100 transition-all duration-500" data-alt="A cinematic, high-contrast photograph of a group of developers intensely working during a late-night coding hackathon. The scene is illuminated by the cool blue light of computer screens and neon ambient strips. The atmosphere is focused and energetic, with visible lines of code reflecting on their faces. The visual style follows the Cyber-Academic Minimalism with deep shadows and vibrant cyan accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZmGwZr2JTcEggb5hbWKIy-zkgUm1yuvZjar5bScBjM1WKg_EngG-4PnJIHCcQdkG0mKWkwEK5D9q5kphvkJXGybsGQ31YmqFyt0KToA0gx5bUfaYSqycyHy43w-Gtqf2lR11CWjmuAH4pntMLpu-L0OpxW40zwx7SUb13OQrOlkzGt-eVZA6-asi2rKoHKZTT0vz92_h0Hj540HYcRYRHX8ixGmp6APFcQQqkICpCXkfJA_KtyHWAASAhAAUgB0h_s84cd-BIWtSj"/>
+<div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-background to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+<p class="font-label-md text-label-md text-primary-fixed">HackGenesis 2023</p>
+<p class="font-label-sm text-label-sm text-outline">Nov 12-14, 2023</p>
+</div>
+</div>
+<div class="masonry-item group relative overflow-hidden rounded-xl glass-card neon-glow transition-all">
+<img class="w-full h-auto object-cover opacity-80 group-hover:scale-105 group-hover:opacity-100 transition-all duration-500" data-alt="A wide-angle lens capturing a high-energy campus festival stage at night. Bright cyber lime and electric blue spotlights cut through a slight atmospheric haze over a crowd of students. The composition is dynamic and full of life, representing academic celebration and technological fusion. The lighting is theatrical and vivid against a dark sky." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZXPfTiHPA2GjuaTkvHFIbLRhSbo10hb1du7bVm3uUrO2B57Di46DaiZCNvFCScYR0_LbkSwmmj8160tjX3bz9IlBdT8M59ChXotLp0ygzrji8Iwq_won0taA4tgm7_SUP9opDVLjwNYIobbqSoq0tTaukJtl6D_452Awlzit1PqHIPp5h3e5xt3xeSpj4H0q1sGYw_Mj3hBG34OAB8nR-DOPrtAuGWpzUSK4dCg1UwkcfEfzoGbVwrtmVLSetX7l0O47KqmaGO8q7"/>
+<div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-background to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+<p class="font-label-md text-label-md text-primary-fixed">Winter Gala</p>
+<p class="font-label-sm text-label-sm text-outline">Dec 20, 2023</p>
+</div>
+</div>
+<div class="masonry-item group relative overflow-hidden rounded-xl glass-card neon-glow transition-all">
+<img class="w-full h-auto object-cover opacity-80 group-hover:scale-105 group-hover:opacity-100 transition-all duration-500" data-alt="Close-up of students collaborating in a high-tech lab environment. They are interacting with a holographic data visualization projected over a dark slate table. The lighting is focused, highlighting their hands and the intricate digital graphics. The color palette is dominated by dark charcoal and electric blue accents, creating a professional yet futuristic educational vibe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBra1DObVk4y7yGEoHWxfRonikgXLyfhhkTWKW-rFEZWXj7mGM67Zo6HQvaemmVzrjLTLVr2sMo8jwtmV0D0aJiUFqrlci48ixFHjq1TyyXM_P7aNFGYzqHlyINYJPRknSC6RY3rh_ZznUOLZ3b0wfMVY8nYNQ8a2E244lmQw1o_YDAOBvw8oDDMfqAsS94ycFSMQE36hy4_fA3eukdXaJc_OiXdw41IzhUKcMG9rpgiglVA89FNi1UvQGIaQaecynj9wY2BSF7PP9g"/>
+<div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-background to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+<p class="font-label-md text-label-md text-primary-fixed">AI Research Workshop</p>
+<p class="font-label-sm text-label-sm text-outline">Jan 05, 2024</p>
+</div>
+</div>
+<div class="masonry-item group relative overflow-hidden rounded-xl glass-card neon-glow transition-all">
+<img class="w-full h-auto object-cover opacity-80 group-hover:scale-105 group-hover:opacity-100 transition-all duration-500" data-alt="A modern university auditorium filled with students listening to a keynote speaker. The stage features large LED screens displaying abstract geometric patterns in neon blue and white. The audience is in silhouetted rows, creating depth and a sense of scale. The overall mood is inspirational and intellectual, following a sleek corporate-modern aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7Z5xiV5yZiu63b377BrVy9AFBpj7ifMS09B6sg9ez02t5a7bePgAXLfRJVdDtQVPc2RVul6FOHAitCXXtD191BsvkYqE5Sfg5P7DV1DjucmH2StnI0TUZc2gZchJVtfuAjslhCuijaHifysVP7XZJeEbpsSe6IlcBBclSUMf8ObavwCJ-UWj29_xUxq1zK8BGrTWQk_FZ4gQnOKMbQ7HsSe8hGZvwRRbiwZhHB0a1ZdMrdifa-3x43sr1PeZPPZTYtkq-5-gjvxGI"/>
+<div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-background to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+<p class="font-label-md text-label-md text-primary-fixed">Nexus Summit</p>
+<p class="font-label-sm text-label-sm text-outline">Feb 18, 2024</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Upcoming Events List -->
+<aside class="xl:col-span-4 space-y-6">
+<h2 class="font-headline-lg text-headline-lg text-secondary">Upcoming</h2>
+<div class="space-y-4">
+<!-- Event Item -->
+<div class="glass-card p-4 rounded-xl flex gap-4 hover:border-primary/50 transition-all cursor-pointer">
+<div class="flex-shrink-0 w-16 h-16 bg-surface-container-high rounded-lg flex flex-col items-center justify-center border border-white/5">
+<span class="font-headline-md text-headline-md text-primary">24</span>
+<span class="font-label-sm text-label-sm text-outline uppercase">Mar</span>
+</div>
+<div class="flex-grow">
+<h3 class="font-label-md text-label-md text-secondary">Algorithm Masterclass</h3>
+<p class="font-body-md text-label-sm text-outline-variant">Room 402 • 10:00 AM</p>
+<div class="mt-2 flex gap-2">
+<span class="text-[10px] font-label-sm px-2 py-0.5 bg-secondary-fixed/10 text-secondary-fixed-dim border border-secondary-fixed/20 rounded">Workshop</span>
+</div>
+</div>
+</div>
+<div class="glass-card p-4 rounded-xl flex gap-4 hover:border-primary/50 transition-all cursor-pointer">
+<div class="flex-shrink-0 w-16 h-16 bg-surface-container-high rounded-lg flex flex-col items-center justify-center border border-white/5">
+<span class="font-headline-md text-headline-md text-primary">28</span>
+<span class="font-label-sm text-label-sm text-outline uppercase">Mar</span>
+</div>
+<div class="flex-grow">
+<h3 class="font-label-md text-label-md text-secondary">Spring Startup Pitch</h3>
+<p class="font-body-md text-label-sm text-outline-variant">Main Hall • 02:00 PM</p>
+<div class="mt-2 flex gap-2">
+<span class="text-[10px] font-label-sm px-2 py-0.5 bg-tertiary-container/10 text-tertiary-fixed-dim border border-tertiary-container/20 rounded">Competition</span>
+</div>
+</div>
+</div>
+<div class="glass-card p-4 rounded-xl flex gap-4 hover:border-primary/50 transition-all cursor-pointer">
+<div class="flex-shrink-0 w-16 h-16 bg-surface-container-high rounded-lg flex flex-col items-center justify-center border border-white/5">
+<span class="font-headline-md text-headline-md text-primary">02</span>
+<span class="font-label-sm text-label-sm text-outline uppercase">Apr</span>
+</div>
+<div class="flex-grow">
+<h3 class="font-label-md text-label-md text-secondary">Quantum Computing Intro</h3>
+<p class="font-body-md text-label-sm text-outline-variant">Virtual Hub • 06:00 PM</p>
+<div class="mt-2 flex gap-2">
+<span class="text-[10px] font-label-sm px-2 py-0.5 bg-primary-container/10 text-primary-fixed-dim border border-primary-container/20 rounded">Webinar</span>
+</div>
+</div>
+</div>
+<!-- Mini Stats/Newsletter Card -->
+<div class="bg-primary-container/5 border border-primary-container/20 p-6 rounded-xl space-y-4">
+<h4 class="font-headline-sm text-headline-sm text-primary-fixed-dim">Never Miss a Byte</h4>
+<p class="font-body-md text-label-sm text-on-surface-variant">Sync the official Leapx Campus calendar to your device for real-time event updates.</p>
+<button class="w-full bg-surface-container-highest text-primary py-3 rounded-lg font-label-md flex items-center justify-center gap-2 hover:bg-surface-bright transition-colors">
+<span class="material-symbols-outlined">sync</span> Sync Calendar
+                            </button>
+</div>
+</div>
+</aside>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-8 mt-auto bg-surface-container-lowest border-t border-white/5">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto gap-4">
+<div class="flex flex-col items-center md:items-start">
+<span class="font-headline-sm text-headline-sm text-secondary">Leapx Academy</span>
+<p class="font-label-sm text-label-sm text-secondary-fixed-dim mt-1">© 2024 Leapx Academy. Build v2.4.0_stable</p>
+</div>
+<div class="flex gap-6">
+<a class="font-label-sm text-label-sm text-outline hover:text-secondary hover:underline transition-all" href="#">System Status</a>
+<a class="font-label-sm text-label-sm text-outline hover:text-secondary hover:underline transition-all" href="#">API Docs</a>
+<a class="font-label-sm text-label-sm text-outline hover:text-secondary hover:underline transition-all" href="#">Privacy</a>
+<a class="font-label-sm text-label-sm text-outline hover:text-secondary hover:underline transition-all" href="#">Security</a>
+</div>
+</div>
+</footer>
+<script>
+        // Simple Countdown Timer Simulation
+        function updateTimer() {
+            const now = new Date();
+            // Mock target date: 4 days, 12 hours etc. from now
+            const seconds = document.getElementById('seconds');
+            const minutes = document.getElementById('minutes');
+            
+            let s = parseInt(seconds.innerText);
+            if (s > 0) {
+                seconds.innerText = String(s - 1).padStart(2, '0');
+            } else {
+                seconds.innerText = "59";
+                let m = parseInt(minutes.innerText);
+                if (m > 0) {
+                    minutes.innerText = String(m - 1).padStart(2, '0');
+                }
+            }
+        }
+        setInterval(updateTimer, 1000);
+
+        // Subtle parallax effect on scroll for glass cards
+        window.addEventListener('scroll', () => {
+            const cards = document.querySelectorAll('.glass-card');
+            const scrolled = window.pageYOffset;
+            cards.forEach((card, index) => {
+                const speed = (index % 3 + 1) * 0.05;
+                card.style.transform = `translateY(${scrolled * speed * -1}px)`;
+            });
+        });
+    </script>
+</body></html>

@@ -18,8 +18,11 @@ const PracticalResources = lazy(() => import('./components/resources/PracticalRe
 
 function LoadingFallback() {
   return (
-    <div className="flex items-center justify-center h-full">
-      <div className="neon-text text-lg animate-pulse">Loading...</div>
+    <div className="flex items-center justify-center h-full p-20">
+      <div className="flex flex-col items-center gap-3">
+        <div className="w-8 h-8 border-2 border-primary-container border-t-transparent rounded-full animate-spin" />
+        <span className="text-sm text-on-surface-variant font-mono">Loading subsystem...</span>
+      </div>
     </div>
   );
 }
@@ -35,45 +38,34 @@ export default function App() {
 
   const renderPage = () => {
     switch (activeTab) {
-      case 'directory':
-        return <DirectoryPage />;
-      case 'faculty':
-        return <FacultyPage />;
-      case 'campus':
-        return <CampusLife />;
-      case 'governance':
-        return <GovernancePage />;
-      case 'clubs':
-        return <ClubDirectory onSelectClub={(id) => handleNavigate('club-detail', { clubId: id })} />;
-      case 'club-detail':
-        return <ClubPage clubId={clubId} onBack={() => handleNavigate('clubs')} />;
-      case 'titles':
-        return <TitlesPage />;
-      case 'leaderboard':
-        return <LeaderboardPage />;
-      case 'messaging':
-        return <MessagingPage />;
-      case 'resume':
-        return <ResumeBuilder />;
-      case 'books':
-        return <BookSuggestions />;
-      case 'resources':
-        return <PracticalResources />;
-      default:
-        return <DirectoryPage />;
+      case 'directory': return <DirectoryPage />;
+      case 'faculty': return <FacultyPage />;
+      case 'campus': return <CampusLife />;
+      case 'governance': return <GovernancePage />;
+      case 'clubs': return <ClubDirectory onSelectClub={(id) => handleNavigate('club-detail', { clubId: id })} />;
+      case 'club-detail': return <ClubPage clubId={clubId} onBack={() => handleNavigate('clubs')} />;
+      case 'titles': return <TitlesPage />;
+      case 'leaderboard': return <LeaderboardPage />;
+      case 'messaging': return <MessagingPage />;
+      case 'resume': return <ResumeBuilder />;
+      case 'books': return <BookSuggestions />;
+      case 'resources': return <PracticalResources />;
+      default: return <DirectoryPage />;
     }
   };
 
   return (
     <AuthProvider>
       <SocketProvider>
-        <div className="flex h-screen bg-dark-500 overflow-hidden">
-          <div className="scanline" />
+        <div className="min-h-screen bg-surface-dim">
+          <div className="scanline-overlay" />
           <Navbar activeTab={activeTab} onNavigate={handleNavigate} />
-          <main className="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8">
-            <Suspense fallback={<LoadingFallback />}>
-              {renderPage()}
-            </Suspense>
+          <main className="md:ml-64 pt-16 min-h-screen p-4 md:p-6 lg:p-8 relative z-10">
+            <div className="max-w-[1440px] mx-auto">
+              <Suspense fallback={<LoadingFallback />}>
+                {renderPage()}
+              </Suspense>
+            </div>
           </main>
         </div>
       </SocketProvider>

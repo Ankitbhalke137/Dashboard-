@@ -1,11 +1,18 @@
 import { useState, useEffect } from 'react';
 import api from '../../api';
 
-const tierConfig = {
-  Core: { label: 'Club Core', color: 'text-neon-green', border: 'border-neon-green' },
-  CR: { label: 'Class Representatives', color: 'text-neon-blue', border: 'border-neon-blue' },
-  ASC: { label: 'Academic Society Council', color: 'text-neon-pink', border: 'border-neon-pink' },
-  SOH: { label: 'Student Outreach Heads', color: 'text-neon-yellow', border: 'border-neon-yellow' },
+const tiers = [
+  { key: 'Core', label: 'Core Command', level: 'Level 01', icon: 'shield_person' },
+  { key: 'ASC', label: 'Academic Support Council', level: 'Level 02', icon: 'school' },
+  { key: 'CR', label: 'Class Representatives', level: 'Level 03', icon: 'diversity_3' },
+  { key: 'SOH', label: 'Student Outreach Heads', level: 'Level 04', icon: 'forum' },
+];
+
+const tierAccentClass = {
+  Core: 'accent-bar-primary',
+  ASC: 'accent-bar-secondary',
+  CR: 'accent-bar-tertiary',
+  SOH: 'accent-bar-error',
 };
 
 export default function GovernancePage() {
@@ -14,9 +21,7 @@ export default function GovernancePage() {
   const [activeTier, setActiveTier] = useState('Core');
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  useEffect(() => { fetchData(); }, []);
 
   const fetchData = async () => {
     try {
@@ -36,78 +41,89 @@ export default function GovernancePage() {
   if (loading) {
     return (
       <div className="flex justify-center py-20">
-        <div className="neon-text text-lg animate-pulse">Loading governance...</div>
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-8 h-8 border-2 border-primary-container border-t-transparent rounded-full animate-spin" />
+          <span className="text-sm text-on-surface-variant font-mono">Loading governance...</span>
+        </div>
       </div>
     );
   }
 
-  const filteredLeaders = leaders.filter(l => l.tier === activeTier);
+  const filtered = leaders.filter(l => l.tier === activeTier);
+  const currentTier = tiers.find(t => t.key === activeTier);
+
+  const getGridCols = (count) => {
+    if (count <= 2) return 'grid-cols-1 md:grid-cols-2';
+    return 'grid-cols-1 md:grid-cols-3';
+  };
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-mono font-bold">
-        <span className="neon-text">&gt;</span> Governance
-      </h1>
+      <div>
+        <span className="text-label-sm text-primary-container">ADMINISTRATIVE MATRIX</span>
+        <h1 className="text-headline-lg font-mono text-on-surface mt-1">Governance & Leadership</h1>
+      </div>
 
       <div className="flex flex-wrap gap-2">
-        {Object.entries(tierConfig).map(([key, config]) => (
-          <button
-            key={key}
-            onClick={() => setActiveTier(key)}
-            className={`px-4 py-2 rounded text-sm font-mono border transition-all ${
-              activeTier === key
-                ? `${config.border} ${config.color} bg-dark-600`
-                : 'border-gray-700 text-gray-500 hover:text-white'
-            }`}
-          >
-            {config.label}
+        {tiers.map(tier => (
+          <button key={tier.key} onClick={() => setActiveTier(tier.key)}
+            className={`px-4 py-2 rounded-lg text-xs font-mono border transition-all ${
+              activeTier === tier.key
+                ? 'bg-primary-container/15 text-primary-container border-primary-container/30'
+                : 'border-white/10 text-on-surface-variant hover:text-on-surface'
+            }`}>
+            {tier.label}
           </button>
         ))}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filteredLeaders.map((leader) => (
-          <div
-            key={leader._id}
-            className={`bg-dark-600 rounded border ${tierConfig[leader.tier]?.border || 'border-gray-800'} p-4 card-hover`}
-          >
-            <div className="flex items-center gap-3">
-              <img
-                src={leader.studentId?.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${leader.studentId?.name}`}
-                alt={leader.studentId?.name}
-                className="w-12 h-12 rounded-full border border-neon-green/30"
-              />
-              <div>
-                <h3 className="text-white font-semibold font-mono text-sm">{leader.studentId?.name}</h3>
-                <p className={`text-xs font-mono ${tierConfig[leader.tier]?.color}`}>
-                  {leader.role} — {leader.clubName}
-                </p>
+      <div className="glass-card rounded-xl p-6 space-y-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <span className="text-label-sm text-primary-container">{currentTier?.level}</span>
+            <h2 className="text-headline-md font-mono text-on-surface mt-1">{currentTier?.label}</h2>
+          </div>
+          <span className="text-xs font-mono text-on-surface-variant">{filtered.length} members</span>
+        </div>
+
+        <div className={`grid ${getGridCols(filtered.length)} gap-4`}>
+          {filtered.map(leader => (
+            <div key={leader._id} className="glass-card rounded-xl p-4 flex gap-4 items-start group holographic">
+              <div className={`accent-bar h-full ${tierAccentClass[leader.tier] || 'accent-bar-primary'}`} />
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-3">
+                  <img
+                    src={leader.studentId?.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${leader.studentId?.name}`}
+                    alt={leader.studentId?.name}
+                    className={`w-12 h-12 rounded-xl border-2 ${activeTier === 'Core' ? 'w-20 h-20' : 'w-12 h-12'} border-primary-container/30 bg-surface-low object-cover grayscale group-hover:grayscale-0 transition-all`}
+                  />
+                  <div>
+                    <h3 className="text-sm font-mono font-semibold text-on-surface">{leader.studentId?.name}</h3>
+                    <p className="text-xs font-mono text-primary-container">{leader.role}</p>
+                    <p className="text-[10px] font-mono text-on-surface-variant">{leader.clubName}</p>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
-      <div className="mt-8">
-        <h2 className="text-xl font-mono font-bold mb-4">
-          <span className="neon-text">&gt;</span> Academic Toppers
-        </h2>
+      <div className="glass-card rounded-xl p-6 space-y-4">
+        <h2 className="text-headline-md font-mono text-on-surface">Top Performers</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {toppers.map((topper) => (
-            <div key={topper._id} className="bg-dark-600 rounded border border-neon-yellow/30 p-4 card-hover">
-              <div className="flex items-center gap-3">
-                <img
-                  src={topper.studentId?.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${topper.studentId?.name}`}
-                  alt={topper.studentId?.name}
-                  className="w-12 h-12 rounded-full border border-neon-yellow/30"
-                />
-                <div>
-                  <h3 className="text-white font-semibold font-mono text-sm">{topper.studentId?.name}</h3>
-                  <p className="text-neon-yellow text-xs font-mono">
-                    CGPA: {topper.cgpa} | Sem {topper.semester}
-                  </p>
-                  <p className="text-gray-500 text-xs font-mono">{topper.department}</p>
-                </div>
+          {toppers.map(topper => (
+            <div key={topper._id} className="glass-card rounded-xl p-4 flex items-center gap-3 holographic">
+              <div className="accent-bar h-12 accent-bar-secondary" />
+              <img
+                src={topper.studentId?.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${topper.studentId?.name}`}
+                alt={topper.studentId?.name}
+                className="w-12 h-12 rounded-full border-2 border-secondary-container/30"
+              />
+              <div className="flex-1 min-w-0">
+                <h3 className="text-sm font-mono font-semibold text-on-surface truncate">{topper.studentId?.name}</h3>
+                <p className="text-xs font-mono text-secondary-container">CGPA: {topper.cgpa}</p>
+                <p className="text-[10px] font-mono text-on-surface-variant">Semester {topper.semester} — {topper.department}</p>
               </div>
             </div>
           ))}

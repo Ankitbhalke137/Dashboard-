@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Leapx Workspace | Code Club Canvas</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&amp;family=Geist:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .canvas-grid {
+            background-image: 
+                linear-gradient(rgba(125, 244, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(125, 244, 255, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .glass-panel {
+            backdrop-filter: blur(16px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .neon-glow:hover {
+            box-shadow: 0 0 15px rgba(0, 219, 233, 0.2);
+        }
+        /* Custom scrollbar for dark UI */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #060e20; }
+        ::-webkit-scrollbar-thumb { background: #2d3449; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #00dbe9; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "background": "#0b1326",
+                      "surface": "#0b1326",
+                      "inverse-on-surface": "#283044",
+                      "secondary-container": "#c3f400",
+                      "primary-fixed": "#7df4ff",
+                      "on-secondary-fixed": "#161e00",
+                      "surface-container-high": "#222a3d",
+                      "on-tertiary-fixed-variant": "#6700b5",
+                      "on-secondary": "#283500",
+                      "primary": "#dbfcff",
+                      "outline-variant": "#3b494b",
+                      "on-surface": "#dae2fd",
+                      "surface-container-highest": "#2d3449",
+                      "surface-container": "#171f33",
+                      "on-tertiary-fixed": "#2c0051",
+                      "on-background": "#dae2fd",
+                      "on-tertiary": "#480081",
+                      "on-primary-fixed": "#002022",
+                      "on-error-container": "#ffdad6",
+                      "error": "#ffb4ab",
+                      "surface-bright": "#31394d",
+                      "inverse-surface": "#dae2fd",
+                      "error-container": "#93000a",
+                      "outline": "#849495",
+                      "surface-tint": "#00dbe9",
+                      "secondary-fixed-dim": "#abd600",
+                      "on-primary": "#00363a",
+                      "surface-container-low": "#131b2e",
+                      "tertiary": "#fdf3ff",
+                      "surface-dim": "#0b1326",
+                      "secondary-fixed": "#c3f400",
+                      "secondary": "#ffffff",
+                      "on-surface-variant": "#b9cacb",
+                      "surface-variant": "#2d3449",
+                      "on-secondary-fixed-variant": "#3c4d00",
+                      "tertiary-container": "#e9d0ff",
+                      "surface-container-lowest": "#060e20",
+                      "primary-container": "#00f0ff",
+                      "on-primary-fixed-variant": "#004f54",
+                      "primary-fixed-dim": "#00dbe9",
+                      "on-secondary-container": "#556d00",
+                      "on-primary-container": "#006970",
+                      "on-error": "#690005",
+                      "inverse-primary": "#006970",
+                      "tertiary-fixed-dim": "#dcb8ff",
+                      "on-tertiary-container": "#8523dd",
+                      "tertiary-fixed": "#efdbff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-mobile": "16px",
+                      "gutter": "24px",
+                      "container-max": "1440px",
+                      "margin-desktop": "48px",
+                      "base": "8px"
+              },
+              "fontFamily": {
+                      "body-md": ["Geist"],
+                      "label-md": ["JetBrains Mono"],
+                      "headline-md": ["JetBrains Mono"],
+                      "headline-lg": ["JetBrains Mono"],
+                      "label-sm": ["JetBrains Mono"],
+                      "headline-xl": ["JetBrains Mono"],
+                      "body-lg": ["Geist"]
+              },
+            }
+          }
+        }
+      </script>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-hidden h-screen select-none">
+<!-- TopNavBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-desktop h-16 bg-background/70 backdrop-blur-md border-b border-white/10">
+<div class="flex items-center gap-8">
+<div class="font-headline-md text-headline-md font-bold text-primary-fixed">Leapx Workspace</div>
+<nav class="hidden md:flex gap-6 items-center">
+<a class="font-label-md text-label-md text-primary-fixed border-b-2 border-secondary-container pb-1 transition-all" href="#">Dashboard</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary-fixed transition-colors" href="#">Projects</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary-fixed transition-colors" href="#">Collaborators</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary-fixed transition-all" data-icon="search">search</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary-fixed transition-all" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary-fixed transition-all" data-icon="settings">settings</span>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-primary-fixed/30">
+<img alt="Student Profile Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcWD1fGSHphzFNB8TSILOlmNuSncrnp-AczCcnucM9mCuPmg_e7iE6aepfknaOaI5bUL3YKX36b1XhL69KVFXKdzg2_PIths2AVR36tpM6D5RsLwg63Dv5xuuvtZu6LmDkfN37XM-sp1am8d7ojvBgnHG0JenopZjI-Y8o636FuhqXxoIgDnnkAhgUwJWn7zAx_hwuTlH2aiW5599t1x_m-tVvucqUIy49kwxIeWtXDO1iStukyZANzBlWhvLKFPy6bjsseqtMBsdt"/>
+</div>
+</div>
+</header>
+<!-- SideNavBar (Left Editor Tools) -->
+<aside class="fixed left-0 top-16 h-[calc(100vh-64px)] w-64 flex flex-col p-4 z-40 bg-surface-container-low/70 backdrop-blur-xl border-r border-white/10">
+<div class="mb-6 flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary-fixed/10 flex items-center justify-center border border-primary-fixed/20">
+<span class="material-symbols-outlined text-primary-fixed" data-icon="draw">draw</span>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-primary-fixed leading-tight">Design Guild</h2>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary-fixed animate-pulse"></span>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Active Session</p>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-1 mb-8">
+<!-- Active Tab Logic: Selection is active -->
+<button class="flex items-center gap-3 p-3 text-on-secondary-fixed bg-secondary-fixed rounded-lg transition-transform active:scale-95">
+<span class="material-symbols-outlined" data-icon="near_me">near_me</span>
+<span class="font-label-sm text-label-sm">Selection</span>
+</button>
+<button class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-white/5 hover:text-primary-fixed rounded-lg transition-all">
+<span class="material-symbols-outlined" data-icon="draw">draw</span>
+<span class="font-label-sm text-label-sm">Drawing</span>
+</button>
+<button class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-white/5 hover:text-primary-fixed rounded-lg transition-all">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-label-sm text-label-sm">Assets</span>
+</button>
+<button class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-white/5 hover:text-primary-fixed rounded-lg transition-all">
+<span class="material-symbols-outlined" data-icon="layers">layers</span>
+<span class="font-label-sm text-label-sm">Layers</span>
+</button>
+<button class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-white/5 hover:text-primary-fixed rounded-lg transition-all">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-label-sm text-label-sm">History</span>
+</button>
+</div>
+<div class="mt-auto pt-4 border-t border-white/5 space-y-4">
+<button class="w-full py-3 bg-primary-fixed text-on-primary-fixed font-label-md text-label-md rounded-lg neon-glow transition-all">
+                Export Build
+            </button>
+<div class="flex justify-between px-2">
+<button class="flex items-center gap-1 text-on-surface-variant hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="help">help</span>
+<span class="font-label-sm text-label-sm">Help</span>
+</button>
+<button class="flex items-center gap-1 text-on-surface-variant hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="sensors">sensors</span>
+<span class="font-label-sm text-label-sm">Status</span>
+</button>
+</div>
+</div>
+</aside>
+<!-- Main Content: Leapx Canvas -->
+<main class="ml-64 mt-16 h-[calc(100vh-64px)] flex flex-col bg-surface-container-lowest relative overflow-hidden">
+<!-- Editor Header Area -->
+<div class="p-4 flex items-center justify-between z-10 glass-panel bg-surface-container/30">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="keyboard_arrow_left">keyboard_arrow_left</span>
+<div>
+<h1 class="font-headline-md text-headline-md text-on-surface">Leapx Canvas — Untitled_v1</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Last saved 2 minutes ago</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<div class="flex -space-x-2">
+<img alt="User" class="w-8 h-8 rounded-full border-2 border-surface" data-alt="A portrait of a male student with short dark hair and modern glasses, styled as a flat 2D vector illustration suitable for a high-tech UI avatar." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAz1oxlsqY2p5MhUWmFCYWg7LtRg0CC8Dt7Ow_ilO0uB82V16wp9ZPxZcP2mOh6by-PFu1Ox4st18KMlRchrtIOp6K7gR1dYa_y9UP0pj50YTdfTmfM5HhdLS3ctH-NGh3Xl5ziJ0pL4G1jElVlnFB3XyyOG4VZ1XZqevD8XVJeRVsYCTvm_xu-byVyuY8W_KJlgHvd8Zxmn5vaa5Q43xAKBfCOF2ccQbH5uaNtGNVQjonBOlJDIx--ATeCaYtf_mYmNaZpY0dUqv2"/>
+<img alt="User" class="w-8 h-8 rounded-full border-2 border-surface" data-alt="A portrait of a female student with vibrant blue-streaked hair and a minimalist headset, designed as a sleek 2D vector illustration for a collaborative digital workspace." src="https://lh3.googleusercontent.com/aida-public/AB6AXuALUybj2vHgwrbJpfhbDhEHlpzhXxhV4SD4cqmLOlY1d_Lr0XpH0F9lXEaxieQ4OG6Lu9-zVPVGczxp8a4Mcn5qXvRFE_rVJWyn993sQ8noGgY3q6uQY3hN_Cu0dS3dsh-vhZJdCC5XJWdN-b1y42jpqoIHWw-3woQc-wrMQAcSWhgDZ9Sr2O3gj4erwrhZXVqgLN6GLSlD8Y3rAz-PwcDm9OKUc0igvKKx_x0biZkOwTldPidFC9FLuAYUvP4uMNAdrqlBOgSaTfCs"/>
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-surface-container-high flex items-center justify-center font-label-sm text-label-sm text-primary-fixed">+3</div>
+</div>
+<button class="ml-4 px-4 py-2 border border-secondary-fixed text-secondary-fixed font-label-md text-label-md rounded-lg hover:bg-secondary-fixed/10 transition-colors">Share</button>
+</div>
+</div>
+<!-- Canvas Area -->
+<div class="flex-1 relative canvas-grid overflow-hidden flex items-center justify-center p-8">
+<!-- Simulated Editor Content -->
+<div class="relative w-[800px] h-[500px] bg-surface-container-low shadow-2xl rounded-xl border border-white/5 flex flex-col overflow-hidden group">
+<div class="h-8 bg-surface-container flex items-center px-4 justify-between">
+<div class="flex gap-1.5">
+<div class="w-2 h-2 rounded-full bg-red-500/50"></div>
+<div class="w-2 h-2 rounded-full bg-yellow-500/50"></div>
+<div class="w-2 h-2 rounded-full bg-green-500/50"></div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant opacity-50">Fabric.js v5.3.0</span>
+</div>
+<div class="flex-1 relative">
+<img alt="Canvas Work" class="w-full h-full object-cover opacity-60 grayscale hover:grayscale-0 transition-all duration-700" data-alt="A futuristic digital artwork featuring complex geometric patterns and abstract silicon circuit traces illuminated by neon cyan and deep magenta lights. The composition is set against a dark, moody background with subtle lens flare and high-contrast gradients, evoking a cyber-academic aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCWy08stfZ5bJjlZfV7uHorImPnYgOl9sWCclMSC1IY4IPKZ5kUc3Id0mT5Ev20bc52e0fBtqdD4Fm0kFraZaHFb1P7nkMrm_UkTq0Pksb2k8Www2mO8ulkgH9lhUpcgjHRvfaSNaDZkeRnf__u-wmdtuL7DTmDdTwD_PudLuQRBVeJAvRmX-NDf13LgmO4XXmanlKUVoWV_geIWxQ6t4XKvFNZQALl8zrDH2La9VQGKqqqCKYcxQh-n2HfPoLcydChjp0wRrJ-Vjv"/>
+<!-- Floating Gizmo Overlays -->
+<div class="absolute inset-0 pointer-events-none">
+<div class="absolute top-1/4 left-1/4 w-48 h-32 border-2 border-primary-fixed flex items-center justify-center">
+<div class="absolute -top-1.5 -left-1.5 w-3 h-3 bg-white border border-primary-fixed"></div>
+<div class="absolute -top-1.5 -right-1.5 w-3 h-3 bg-white border border-primary-fixed"></div>
+<div class="absolute -bottom-1.5 -left-1.5 w-3 h-3 bg-white border border-primary-fixed"></div>
+<div class="absolute -bottom-1.5 -right-1.5 w-3 h-3 bg-white border border-primary-fixed"></div>
+<span class="font-label-sm text-label-sm text-primary-fixed bg-background px-2 py-1 absolute -top-8 left-0 border border-primary-fixed/20 backdrop-blur-md">Node_Group_01</span>
+</div>
+<svg class="absolute top-1/2 left-1/2 w-full h-full -translate-x-1/2 -translate-y-1/2 opacity-30">
+<path d="M100,100 Q400,300 700,100" fill="transparent" stroke="#7df4ff" stroke-dasharray="8,8" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+</div>
+<!-- Contextual Tooltip -->
+<div class="absolute top-12 left-12 p-3 glass-panel rounded-lg bg-surface-container-high/80 border border-primary-fixed/20">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-fixed" data-icon="mouse">mouse</span>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface">Press [V] to select</p>
+<p class="text-[10px] text-on-surface-variant font-label-md">Selection Mode Active</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Panel (Layers & Properties) -->
+<aside class="absolute right-0 top-0 bottom-0 w-80 glass-panel bg-surface-container-low/70 border-l border-white/10 p-6 flex flex-col gap-6 z-30">
+<div>
+<h3 class="font-label-md text-label-md text-primary-fixed uppercase tracking-widest mb-4">Properties</h3>
+<div class="space-y-4">
+<div class="space-y-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant block uppercase">Opacity</label>
+<div class="flex items-center gap-3">
+<input class="flex-1 accent-primary-fixed bg-surface-container-high h-1.5 rounded-full appearance-none" type="range"/>
+<span class="font-label-sm text-label-sm text-on-surface w-8">85%</span>
+</div>
+</div>
+<div class="space-y-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant block uppercase">Fill Color</label>
+<div class="grid grid-cols-6 gap-2">
+<div class="w-full aspect-square rounded-sm bg-primary-fixed cursor-pointer ring-2 ring-white/20"></div>
+<div class="w-full aspect-square rounded-sm bg-secondary-fixed cursor-pointer hover:scale-110 transition-transform"></div>
+<div class="w-full aspect-square rounded-sm bg-error cursor-pointer hover:scale-110 transition-transform"></div>
+<div class="w-full aspect-square rounded-sm bg-white cursor-pointer hover:scale-110 transition-transform"></div>
+<div class="w-full aspect-square rounded-sm bg-surface-container-highest cursor-pointer hover:scale-110 transition-transform"></div>
+<div class="w-full aspect-square rounded-sm border border-white/20 flex items-center justify-center cursor-pointer">
+<span class="material-symbols-outlined text-[16px]" data-icon="add">add</span>
+</div>
+</div>
+</div>
+<div class="space-y-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant block uppercase">Stroke</label>
+<div class="flex gap-2">
+<div class="flex-1 bg-surface-container-high p-2 rounded flex justify-between items-center">
+<span class="font-label-sm text-label-sm text-on-surface">Width</span>
+<span class="font-label-sm text-label-sm text-primary-fixed">2px</span>
+</div>
+<div class="w-10 bg-surface-container-high p-2 rounded flex items-center justify-center cursor-pointer">
+<span class="material-symbols-outlined text-[18px]" data-icon="line_style">line_style</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="flex-1 flex flex-col min-h-0">
+<h3 class="font-label-md text-label-md text-primary-fixed uppercase tracking-widest mb-4">Layers</h3>
+<div class="flex-1 overflow-y-auto space-y-2 pr-2">
+<div class="p-3 bg-surface-container-highest/40 rounded flex items-center gap-3 border border-primary-fixed/20">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant" data-icon="visibility">visibility</span>
+<span class="material-symbols-outlined text-[18px] text-primary-fixed" data-icon="image">image</span>
+<span class="font-label-sm text-label-sm text-on-surface flex-1 truncate">Background_Grid.png</span>
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant" data-icon="lock">lock</span>
+</div>
+<div class="p-3 bg-white/5 rounded flex items-center gap-3 border border-transparent hover:border-white/10 transition-all cursor-pointer">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant" data-icon="visibility">visibility</span>
+<span class="material-symbols-outlined text-[18px] text-secondary-fixed" data-icon="text_fields">text_fields</span>
+<span class="font-label-sm text-label-sm text-on-surface flex-1 truncate">Header_Text_Alpha</span>
+</div>
+<div class="p-3 bg-white/5 rounded flex items-center gap-3 border border-transparent hover:border-white/10 transition-all cursor-pointer">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant" data-icon="visibility">visibility</span>
+<span class="material-symbols-outlined text-[18px] text-tertiary-fixed-dim" data-icon="category">category</span>
+<span class="font-label-sm text-label-sm text-on-surface flex-1 truncate">Node_Group_01</span>
+</div>
+<div class="p-3 bg-white/5 rounded flex items-center gap-3 border border-transparent hover:border-white/10 transition-all cursor-pointer">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant" data-icon="visibility_off">visibility_off</span>
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant" data-icon="brush">brush</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant flex-1 truncate">Sketch_Draft_V2</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Bottom Horizontal Bar -->
+<footer class="absolute bottom-0 left-0 right-0 h-12 glass-panel bg-background/80 flex items-center justify-between px-6 z-40">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary-fixed" data-icon="zoom_out">zoom_out</span>
+<div class="w-32 bg-surface-container-highest h-1 rounded-full relative">
+<div class="absolute left-0 top-0 h-full w-[65%] bg-primary-fixed rounded-full"></div>
+<div class="absolute left-[65%] top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full shadow-lg cursor-pointer"></div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary-fixed" data-icon="zoom_in">zoom_in</span>
+<span class="font-label-sm text-label-sm text-on-surface ml-2">65%</span>
+</div>
+<div class="h-4 w-px bg-white/10 mx-2"></div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1 cursor-pointer group">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant group-hover:text-primary-fixed" data-icon="grid_on">grid_on</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-on-surface">Grid</span>
+</div>
+<div class="flex items-center gap-1 cursor-pointer group">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant group-hover:text-primary-fixed" data-icon="square_foot">square_foot</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-on-surface">Guides</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-label-sm text-label-sm text-on-surface-variant">X: 1024px  Y: 768px</span>
+<div class="h-4 w-px bg-white/10 mx-2"></div>
+<button class="flex items-center gap-2 text-primary-fixed hover:bg-primary-fixed/10 px-3 py-1 rounded transition-all">
+<span class="material-symbols-outlined text-[18px]" data-icon="download">download</span>
+<span class="font-label-sm text-label-sm">Export Selection</span>
+</button>
+</div>
+</footer>
+</main>
+<!-- Micro-interactions Script -->
+<script>
+        // Simple hover effect for canvas items
+        document.addEventListener('DOMContentLoaded', () => {
+            const rangeInputs = document.querySelectorAll('input[type="range"]');
+            rangeInputs.forEach(input => {
+                input.addEventListener('input', (e) => {
+                    const val = e.target.value;
+                    e.target.style.backgroundSize = val + '% 100%';
+                });
+            });
+
+            // Active tool toggle simulation
+            const tools = document.querySelectorAll('aside button');
+            tools.forEach(tool => {
+                tool.addEventListener('click', () => {
+                    tools.forEach(t => {
+                        t.classList.remove('bg-secondary-fixed', 'text-on-secondary-fixed');
+                        t.classList.add('text-on-surface-variant', 'hover:bg-white/5');
+                    });
+                    tool.classList.add('bg-secondary-fixed', 'text-on-secondary-fixed');
+                    tool.classList.remove('text-on-surface-variant', 'hover:bg-white/5');
+                });
+            });
+        });
+    </script>
+</body></html>

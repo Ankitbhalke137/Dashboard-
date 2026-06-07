@@ -6,10 +6,7 @@ export default function DirectoryPage() {
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState({
-    location: '',
-    batch: '',
-    isLeapxIntern: false,
-    search: '',
+    location: '', batch: '', isLeapxIntern: false, search: '',
   });
   const [locations, setLocations] = useState([]);
   const [batches, setBatches] = useState([]);
@@ -42,63 +39,71 @@ export default function DirectoryPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-mono font-bold">
-          <span className="neon-text">&gt;</span> Student Directory
-        </h1>
-        <span className="text-gray-500 text-sm font-mono">
-          {students.length} records found
-        </span>
+        <div>
+          <span className="text-label-sm text-primary-container">STUDENT DIRECTORY</span>
+          <h1 className="text-headline-lg font-mono text-on-surface mt-1">Project Directory</h1>
+        </div>
+        <div className="flex items-center gap-3">
+          <span className="text-sm text-on-surface-variant font-mono">{students.length} records</span>
+          <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-full glass-card text-xs font-mono text-primary-container">
+            <span className="w-2 h-2 rounded-full bg-secondary-container animate-pulse" />
+            {students.filter(s => s.isLeapxIntern).length} LEAPX
+          </span>
+        </div>
       </div>
 
-      <div className="glass-card p-4 rounded space-y-3">
+      <div className="glass-card rounded-xl p-4 md:p-6">
         <div className="flex flex-wrap gap-3 items-end">
           <div className="flex-1 min-w-[200px]">
-            <label className="text-xs text-gray-500 font-mono block mb-1">Search</label>
+            <label className="text-label-sm text-on-surface-variant block mb-1.5">Search</label>
             <input
               type="text"
-              placeholder="> search by name..."
+              placeholder="Search by name..."
               value={filters.search}
               onChange={(e) => setFilters(f => ({ ...f, search: e.target.value }))}
-              className="w-full bg-dark-700 border border-gray-700 rounded px-3 py-2 text-sm text-white focus:border-neon-green focus:outline-none font-mono"
+              className="input-glass w-full text-sm"
             />
           </div>
-          <div className="w-40">
-            <label className="text-xs text-gray-500 font-mono block mb-1">Location</label>
+          <div className="w-36">
+            <label className="text-label-sm text-on-surface-variant block mb-1.5">Location</label>
             <select
               value={filters.location}
               onChange={(e) => setFilters(f => ({ ...f, location: e.target.value }))}
-              className="w-full bg-dark-700 border border-gray-700 rounded px-3 py-2 text-sm text-white focus:border-neon-green focus:outline-none font-mono"
+              className="input-glass w-full text-sm"
             >
               <option value="">All</option>
               {locations.map(l => <option key={l} value={l}>{l}</option>)}
             </select>
           </div>
-          <div className="w-40">
-            <label className="text-xs text-gray-500 font-mono block mb-1">Batch</label>
+          <div className="w-36">
+            <label className="text-label-sm text-on-surface-variant block mb-1.5">Batch</label>
             <select
               value={filters.batch}
               onChange={(e) => setFilters(f => ({ ...f, batch: e.target.value }))}
-              className="w-full bg-dark-700 border border-gray-700 rounded px-3 py-2 text-sm text-white focus:border-neon-green focus:outline-none font-mono"
+              className="input-glass w-full text-sm"
             >
               <option value="">All</option>
               {batches.map(b => <option key={b} value={b}>{b}</option>)}
             </select>
           </div>
-          <label className="flex items-center gap-2 cursor-pointer pb-1">
+          <label className="flex items-center gap-2 cursor-pointer pb-3">
             <input
               type="checkbox"
               checked={filters.isLeapxIntern}
               onChange={(e) => setFilters(f => ({ ...f, isLeapxIntern: e.target.checked }))}
-              className="w-4 h-4 accent-neon-green"
+              className="w-4 h-4 accent-[#00f0ff]"
             />
-            <span className="text-sm font-mono text-neon-green animate-glow">Show Leapx Interns Only</span>
+            <span className="text-sm font-mono text-secondary-container">LEAPX Interns Only</span>
           </label>
         </div>
       </div>
 
       {loading ? (
         <div className="flex justify-center py-20">
-          <div className="neon-text text-lg animate-pulse">Loading directory...</div>
+          <div className="flex flex-col items-center gap-3">
+            <div className="w-8 h-8 border-2 border-primary-container border-t-transparent rounded-full animate-spin" />
+            <span className="text-sm text-on-surface-variant font-mono">Scanning directory...</span>
+          </div>
         </div>
       ) : (
         <StudentGrid students={students} />
