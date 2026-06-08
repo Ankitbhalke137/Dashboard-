@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>KINETIC_ACADEMY | SYSTEM_OVERVIEW</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&amp;family=Geist:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            background-color: #0b1326;
+            color: #dae2fd;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-card:hover {
+            border-color: #00f0ff;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+        }
+        .neon-text-glow {
+            text-shadow: 0 0 8px rgba(0, 240, 255, 0.5);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #3b494b;
+            border-radius: 10px;
+        }
+        @keyframes scanline {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+        .scanline-effect {
+            position: relative;
+            overflow: hidden;
+        }
+        .scanline-effect::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 2px;
+            background: rgba(0, 240, 255, 0.05);
+            animation: scanline 8s linear infinite;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#171f33",
+                        "on-primary-fixed": "#002022",
+                        "outline": "#849495",
+                        "inverse-surface": "#dae2fd",
+                        "surface-container-highest": "#2d3449",
+                        "primary": "#dbfcff",
+                        "on-background": "#dae2fd",
+                        "surface-dim": "#0b1326",
+                        "surface-container-high": "#222a3d",
+                        "secondary-container": "#c3f400",
+                        "surface-bright": "#31394d",
+                        "inverse-on-surface": "#283044",
+                        "tertiary-fixed": "#efdbff",
+                        "on-tertiary-fixed": "#2c0051",
+                        "on-secondary": "#283500",
+                        "on-error": "#690005",
+                        "on-secondary-fixed": "#161e00",
+                        "on-error-container": "#ffdad6",
+                        "on-surface": "#dae2fd",
+                        "inverse-primary": "#006970",
+                        "tertiary": "#fdf3ff",
+                        "secondary-fixed": "#c3f400",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "secondary-fixed-dim": "#abd600",
+                        "tertiary-fixed-dim": "#dcb8ff",
+                        "surface-variant": "#2d3449",
+                        "surface-tint": "#00dbe9",
+                        "surface": "#0b1326",
+                        "surface-container-lowest": "#060e20",
+                        "primary-container": "#00f0ff",
+                        "on-tertiary-fixed-variant": "#6700b5",
+                        "error": "#ffb4ab",
+                        "tertiary-container": "#e9d0ff",
+                        "secondary": "#ffffff",
+                        "on-surface-variant": "#b9cacb",
+                        "on-tertiary": "#480081",
+                        "primary-fixed": "#7df4ff",
+                        "primary-fixed-dim": "#00dbe9",
+                        "on-primary": "#00363a",
+                        "surface-container-low": "#131b2e",
+                        "outline-variant": "#3b494b",
+                        "on-primary-container": "#006970",
+                        "background": "#0b1326",
+                        "on-tertiary-container": "#8523dd",
+                        "on-secondary-container": "#556d00",
+                        "on-primary-fixed-variant": "#004f54",
+                        "error-container": "#93000a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "margin-desktop": "48px",
+                        "container-max": "1440px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["JetBrains Mono"],
+                        "headline-lg": ["JetBrains Mono"],
+                        "body-lg": ["Geist"],
+                        "label-sm": ["JetBrains Mono"],
+                        "label-md": ["JetBrains Mono"],
+                        "headline-xl": ["JetBrains Mono"],
+                        "body-md": ["Geist"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["20px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "1.2", "fontWeight": "500" }],
+                        "label-md": ["14px", { "lineHeight": "1.2", "fontWeight": "500" }],
+                        "headline-xl": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-body-md text-on-surface">
+<!-- TopNavBar Shell -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-desktop h-16 bg-surface/70 dark:bg-surface/70 backdrop-blur-xl border-b border-outline-variant/30">
+<div class="flex items-center gap-8">
+<span class="font-headline-md text-headline-md text-primary tracking-tighter">KINETIC_ACADEMY</span>
+<div class="hidden md:flex items-center gap-6">
+<nav class="flex gap-4">
+<a class="text-primary font-bold font-label-md text-label-md hover:text-primary transition-colors duration-200" href="#">DASHBOARD</a>
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-primary transition-colors duration-200" href="#">ACADEMY</a>
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-primary transition-colors duration-200" href="#">NETWORK</a>
+</nav>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden sm:flex items-center gap-2 px-3 py-1 bg-surface-container-highest/50 rounded-lg border border-outline-variant/20">
+<span class="material-symbols-outlined text-[18px] text-primary">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-label-sm font-label-sm w-32 placeholder:text-outline/50 uppercase" placeholder="ROOT_SEARCH..." type="text"/>
+</div>
+<div class="flex gap-3">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary">monitor_heart</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary relative">
+                    notifications
+                    <span class="absolute top-0 right-0 w-2 h-2 bg-primary rounded-full"></span>
+</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary">settings</button>
+<div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center border border-primary/30 overflow-hidden">
+<img alt="User System Profile" data-alt="A close-up high-resolution digital headshot of a futuristic student with a focused expression, softly lit by the cyan glow of multiple holographic terminal screens in the background. The aesthetic is clean and high-tech, featuring subtle mechanical interface elements overlaid on the image, capturing a mood of intense academic focus and technological immersion in a dark cybernetic academy setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlxv7sY6pkAQ3PAWTWMokOYk-hcqnigopqSXWbCH_W_0PFu45aUNj9iFu8xb10v5qKWRDcx7D7IFpSZlJps5nEymlPRyrLBo3ziEufgMqL4-wuiiClDmxA97H7Sxzxei15TsssWm4FQ_Ud14F8uRfd8pdKnbauzrl9Qp5EPbzPmO0Zz1FTvDj7o99_ndpJrnSM8wyHklFzN4DegaYHtC6Tgi3AZa1gAjbt94mJDL6aHGlkkK6ZO5QeqvUVcxVLOjPgfmp1jcCSfoAP"/>
+</div>
+</div>
+</div>
+</header>
+<!-- SideNavBar Shell -->
+<aside class="fixed left-0 top-0 h-full z-40 flex flex-col py-base bg-surface-container-low/80 dark:bg-surface-container-low/80 backdrop-blur-2xl border-r border-outline-variant/20 hidden md:flex w-64 pt-20">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3 p-3 bg-surface-container-high rounded-xl border border-outline-variant/10">
+<div class="w-10 h-10 rounded bg-primary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">shield_with_heart</span>
+</div>
+<div>
+<p class="font-headline-md text-label-md text-primary leading-tight">OPERATOR_01</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Rank: Elite</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-1 px-3">
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-variant/40 transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 duration-100">terminal</span>
+<span class="font-label-md text-label-md">Messaging</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-variant/40 transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 duration-100">military_tech</span>
+<span class="font-label-md text-label-md">Leaderboard</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-variant/40 transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 duration-100">folder_open</span>
+<span class="font-label-md text-label-md">Resources</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-variant/40 transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 duration-100">rocket_launch</span>
+<span class="font-label-md text-label-md">Resume</span>
+</a>
+</nav>
+<div class="px-4 mt-auto">
+<button class="w-full py-3 bg-primary-container text-on-primary-container font-headline-md text-label-md rounded-lg hover:brightness-110 transition-all mb-4">
+                DEPLOY SYSTEM
+            </button>
+<div class="border-t border-outline-variant/20 pt-4 flex flex-col gap-1">
+<a class="flex items-center gap-4 px-4 py-2 rounded-lg text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-label-md text-label-md">Docs</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-2 rounded-lg text-on-surface-variant hover:text-error transition-colors" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="pt-24 pb-12 md:pl-72 px-margin-mobile md:pr-margin-desktop min-h-screen">
+<div class="max-w-container-max mx-auto space-y-gutter">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 border-l-4 border-primary pl-6">
+<div>
+<h1 class="font-headline-xl text-headline-xl text-primary tracking-tight">SYSTEM_OVERVIEW</h1>
+<p class="font-label-md text-label-md text-outline font-mono">ROOT@KINETIC:~/PHASE_09_DEPLOIMENT_INITIATED</p>
+</div>
+<div class="flex gap-4 font-mono text-label-sm bg-surface-container/50 p-2 rounded border border-outline-variant/10">
+<span class="text-on-surface-variant">HASH: <span class="text-primary">8f2e...4a1c</span></span>
+<span class="text-on-surface-variant">LOC: <span class="text-primary">SECTOR_7G</span></span>
+</div>
+</div>
+<!-- Dashboard Grid -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- System Health & Activity (HUD) -->
+<div class="md:col-span-8 glass-card rounded-xl p-6 relative scanline-effect">
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline-md text-headline-md text-primary flex items-center gap-2">
+<span class="material-symbols-outlined">analytics</span> SYSTEM_HEALTH
+                        </h2>
+<span class="px-3 py-1 bg-primary/10 text-primary border border-primary/30 rounded font-label-sm text-label-sm">LIVE_UPTIME: 142:08:12</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+<div class="p-4 bg-surface-container/50 rounded-lg border border-outline-variant/10">
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase">Active Users</p>
+<p class="font-headline-lg text-headline-lg text-primary">1,204</p>
+<div class="mt-2 h-1 w-full bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 75%"></div>
+</div>
+</div>
+<div class="p-4 bg-surface-container/50 rounded-lg border border-outline-variant/10">
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase">Phase Progress</p>
+<p class="font-headline-lg text-headline-lg text-secondary-fixed">PHASE 09</p>
+<div class="mt-2 h-1 w-full bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-secondary-fixed" style="width: 90%"></div>
+</div>
+</div>
+<div class="p-4 bg-surface-container/50 rounded-lg border border-outline-variant/10">
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase">Latency</p>
+<p class="font-headline-lg text-headline-lg text-primary">12MS</p>
+<div class="mt-2 flex gap-1 h-1">
+<div class="flex-1 bg-primary"></div>
+<div class="flex-1 bg-primary"></div>
+<div class="flex-1 bg-primary/30"></div>
+<div class="flex-1 bg-primary/10"></div>
+</div>
+</div>
+</div>
+<div class="mt-6 p-4 border border-primary/20 bg-primary/5 rounded font-mono text-label-sm text-primary/80">
+<p>&gt; Initializing core handshake... [SUCCESS]</p>
+<p>&gt; Syncing neural repository... [COMPLETED]</p>
+<p>&gt; System state: OPTIMAL</p>
+</div>
+</div>
+<!-- Terminal Feed Preview -->
+<div class="md:col-span-4 glass-card rounded-xl p-6 flex flex-col">
+<div class="flex justify-between items-center mb-4">
+<h2 class="font-headline-md text-headline-md text-primary flex items-center gap-2">
+<span class="material-symbols-outlined">chat_bubble</span> MESSAGING
+                        </h2>
+<a class="text-primary text-label-sm hover:underline" href="#">VIEW ALL</a>
+</div>
+<div class="space-y-4 flex-1 overflow-y-auto custom-scrollbar max-h-64">
+<div class="flex gap-3 items-start border-l-2 border-primary/30 pl-3">
+<div class="w-8 h-8 rounded bg-surface-variant flex-shrink-0">
+<img alt="Sarah Connor" class="rounded" data-alt="A portrait-style profile icon representing Sarah Connor, featuring a sharp, futuristic aesthetic with neon blue rim lighting against a dark navy blue background. The character's face is obscured but suggests a determined, highly skilled developer persona, fitting the high-end IDE and academic journal visual style of Kinetic Academy." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWH92i3h3rMQstTMm1BoGrlEeoFSlcgnoA11HmhHkkaqCt4zCOIqq0k4zUpf8IHyVnyscjsYS1pgz74T8tvJTtAIaXkHviufHGNKTmr2db2YwITb5T8lDdQL73wFzIa4s0LCMlkwiZRnHJC1q5xPc14LLBgyDV0c2iJec9Muu9rBSwDf5s8TPmjhEW_kRabBUyAsxfqL1ElWZUfIVF1bxBBhygmryhIUqY0YDUpx4fLunX3_3nvy8SiqbWMC2dysAhoE25utnS72Zn"/>
+</div>
+<div>
+<p class="font-label-md text-label-md text-primary">Sarah Connor</p>
+<p class="text-label-sm text-on-surface-variant line-clamp-1">The Phase 9 handshake is ready...</p>
+</div>
+</div>
+<div class="flex gap-3 items-start border-l-2 border-outline-variant pl-3">
+<div class="w-8 h-8 rounded bg-surface-variant flex-shrink-0">
+<img alt="Aiden V." class="rounded" data-alt="A futuristic avatar icon for Aiden V. set against a deep obsidian background with vibrant electric blue accents. The design incorporates minimalist geometric patterns and data streams, evoking a sense of high-tech digital intelligence and sophisticated coding expertise in a professional cyber-academic environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBn1bGnnWR1oEeeyJv8VGnZ5lJcklhBflRP_9UwFDMqGASYv4jpahFbUzC3whp4ZboapjLvmcmST--ZUTALICPgjb0yV6Nhqs2AKtmfbaODFjcKMl2ZAx1Zkyu04EU_wZWeho6yztMmqHu3Pak4uoyr-PrfBkwEgOA8LWK0TBVGDjQ0IjELHMOPVwNjhp9qyrb3P0njWTbRRtwY3UPLDRjkxyFtg12diaQde8Hy_kW_M8n8zvdC8C2dKXIDmLxcCKQLM1uRX6mnUBRR"/>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Aiden V.</p>
+<p class="text-label-sm text-on-surface-variant line-clamp-1">Deployment status updated to 'Live'.</p>
+</div>
+</div>
+<div class="flex gap-3 items-start border-l-2 border-outline-variant pl-3">
+<div class="w-8 h-8 rounded bg-surface-variant flex-shrink-0">
+<img alt="Marco Polo" class="rounded" data-alt="A digital profile representation for Marco Polo, showcasing a modern tech aesthetic with deep charcoal tones and sharp cyber-lime highlights. The image captures a clean, glassmorphic UI feel, symbolizing elite status within the Kinetic Academy system, designed for high-achieving students and top-tier developers." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDO5SptaxDaNvwtePomP0BiFGiXiY9ji96CPj2oVSCvanUsSGSxyGtMZQHw6zT3P22BC-K5UMpVTKoUpOyg9xQi3axM1zF7Kc2XWeancSv0MhESccaeQKSJN4BM7PoW-GmG4DVxhH_nP1fvuRTin1Z5ncCsRUmdTqIyhdRHt6mKuDz9h5u1ifdYF1XClBER9lwxx5sX4CUGZeuXdTibVEo6NT70PpBM8AN3V04U4bqP_DPION0z9WHafavwZrSPy5lb5ma7MmrwJIiB"/>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Marco Polo</p>
+<p class="text-label-sm text-on-surface-variant line-clamp-1">New resources uploaded to sector 4.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Leaderboard Snapshot -->
+<div class="md:col-span-4 glass-card rounded-xl p-6">
+<h2 class="font-headline-md text-headline-md text-primary flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined">military_tech</span> TOP_RANKED
+                    </h2>
+<div class="space-y-4">
+<div class="flex items-center justify-between p-3 bg-primary/5 border border-primary/20 rounded-lg">
+<div class="flex items-center gap-3">
+<span class="font-headline-md text-primary">01</span>
+<span class="font-label-md text-label-md">Sarah Connor</span>
+</div>
+<span class="font-label-sm text-label-sm bg-primary/10 px-2 py-0.5 rounded">9,840 XP</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface-container/50 border border-outline-variant/10 rounded-lg">
+<div class="flex items-center gap-3">
+<span class="font-headline-md text-on-surface-variant">02</span>
+<span class="font-label-md text-label-md">Aiden V.</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline px-2 py-0.5">9,612 XP</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface-container/50 border border-outline-variant/10 rounded-lg">
+<div class="flex items-center gap-3">
+<span class="font-headline-md text-on-surface-variant">03</span>
+<span class="font-label-md text-label-md">Marco Polo</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline px-2 py-0.5">9,455 XP</span>
+</div>
+</div>
+<div class="mt-6 pt-4 border-t border-outline-variant/20 flex justify-between items-center">
+<span class="text-label-sm text-on-surface-variant">YOUR_CURRENT_RANK</span>
+<span class="font-headline-md text-headline-md text-primary">#14</span>
+</div>
+</div>
+<!-- Resource Status -->
+<div class="md:col-span-5 glass-card rounded-xl p-6">
+<h2 class="font-headline-md text-headline-md text-primary flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined">folder_managed</span> RESOURCE_STATUS
+                    </h2>
+<div class="grid grid-cols-2 gap-3">
+<div class="p-3 bg-surface-container/30 border border-outline-variant/10 rounded group cursor-pointer hover:border-primary/50 transition-all">
+<span class="material-symbols-outlined text-primary mb-2">menu_book</span>
+<p class="font-label-md text-label-md truncate">Phase_9_Manual.pdf</p>
+<p class="text-[10px] text-outline uppercase">Opened 2m ago</p>
+</div>
+<div class="p-3 bg-surface-container/30 border border-outline-variant/10 rounded group cursor-pointer hover:border-primary/50 transition-all">
+<span class="material-symbols-outlined text-primary mb-2">code</span>
+<p class="font-label-md text-label-md truncate">Kernel_Hook.c</p>
+<p class="text-[10px] text-outline uppercase">Edited 15m ago</p>
+</div>
+<div class="p-3 bg-surface-container/30 border border-outline-variant/10 rounded group cursor-pointer hover:border-primary/50 transition-all">
+<span class="material-symbols-outlined text-primary mb-2">database</span>
+<p class="font-label-md text-label-md truncate">Student_Registry.db</p>
+<p class="text-[10px] text-outline uppercase">Accessed 1h ago</p>
+</div>
+<div class="p-3 bg-surface-container/30 border border-outline-variant/10 rounded group cursor-pointer hover:border-primary/50 transition-all">
+<span class="material-symbols-outlined text-primary mb-2">lab_profile</span>
+<p class="font-label-md text-label-md truncate">Lab_Manual_01.md</p>
+<p class="text-[10px] text-outline uppercase">Opened Yesterday</p>
+</div>
+</div>
+</div>
+<!-- Deployment Center -->
+<div class="md:col-span-3 glass-card rounded-xl p-6 flex flex-col justify-between border-l-2 border-secondary-fixed/50">
+<div>
+<h2 class="font-headline-md text-headline-md text-secondary-fixed flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">rocket</span> DEPLOYMENT
+                        </h2>
+<div class="space-y-4">
+<div class="flex flex-col">
+<span class="text-label-sm text-outline uppercase font-mono">CV Status</span>
+<span class="font-label-md text-label-md text-secondary-fixed flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary-fixed animate-pulse"></span>
+                                    LIVE ON NETWORK
+                                </span>
+</div>
+<div class="flex flex-col">
+<span class="text-label-sm text-outline uppercase font-mono">Build Version</span>
+<span class="font-label-md text-label-md text-on-surface">V2.4.9-STABLE</span>
+</div>
+</div>
+</div>
+<button class="mt-8 w-full py-2 border border-secondary-fixed text-secondary-fixed font-label-md text-label-md rounded hover:bg-secondary-fixed hover:text-on-secondary-fixed transition-all">
+                        MANAGE RESUME
+                    </button>
+</div>
+<!-- Integrations Grid -->
+<div class="md:col-span-12 grid grid-cols-1 sm:grid-cols-3 gap-gutter">
+<div class="glass-card rounded-xl p-5 flex items-center gap-4 cursor-pointer hover:bg-primary/5 group">
+<div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center border border-primary/20 group-hover:border-primary transition-all">
+<span class="material-symbols-outlined text-primary text-3xl">developer_mode</span>
+</div>
+<div>
+<h3 class="font-headline-md text-label-md text-primary">Leapx Code Editor</h3>
+<p class="text-label-sm text-on-surface-variant">Cloud IDE integrated</p>
+</div>
+</div>
+<div class="glass-card rounded-xl p-5 flex items-center gap-4 cursor-pointer hover:bg-primary/5 group">
+<div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center border border-primary/20 group-hover:border-primary transition-all">
+<span class="material-symbols-outlined text-primary text-3xl">diversity_3</span>
+</div>
+<div>
+<h3 class="font-headline-md text-label-md text-primary">Campus Life</h3>
+<p class="text-label-sm text-on-surface-variant">Connect with peers</p>
+</div>
+</div>
+<div class="glass-card rounded-xl p-5 flex items-center gap-4 cursor-pointer hover:bg-primary/5 group">
+<div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center border border-primary/20 group-hover:border-primary transition-all">
+<span class="material-symbols-outlined text-primary text-3xl">gavel</span>
+</div>
+<div>
+<h3 class="font-headline-md text-label-md text-primary">Governance</h3>
+<p class="text-label-sm text-on-surface-variant">System rules &amp; voting</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-surface-container-low border-t border-outline-variant/30 flex justify-around items-center h-16 z-50 px-4">
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-label-sm text-[10px]">HOME</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">terminal</span>
+<span class="font-label-sm text-[10px]">TERMINAL</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">folder</span>
+<span class="font-label-sm text-[10px]">FILES</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-[10px]">PROFILE</span>
+</button>
+</nav>
+<script>
+        // Micro-interactions for terminal-like text effect
+        const terminalText = document.querySelectorAll('.font-mono');
+        terminalText.forEach(text => {
+            text.addEventListener('mouseover', () => {
+                text.classList.add('neon-text-glow');
+            });
+            text.addEventListener('mouseout', () => {
+                text.classList.remove('neon-text-glow');
+            });
+        });
+
+        // Simulating real-time data updates
+        setInterval(() => {
+            const users = document.querySelector('.md\\:col-span-8 .text-headline-lg');
+            if(users) {
+                const current = parseInt(users.innerText.replace(',', ''));
+                const next = current + Math.floor(Math.random() * 5) - 2;
+                users.innerText = next.toLocaleString();
+            }
+        }, 5000);
+    </script>
+</body></html>

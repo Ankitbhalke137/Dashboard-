@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en" style=""><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Leaderboard | Kinetic Academy</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&amp;family=Geist:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-container": "#8523dd",
+                        "on-surface": "#dae2fd",
+                        "on-primary-container": "#006970",
+                        "surface-variant": "#2d3449",
+                        "primary-container": "#00f0ff",
+                        "on-secondary-fixed": "#161e00",
+                        "background": "#0b1326",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "on-error-container": "#ffdad6",
+                        "on-primary-fixed": "#002022",
+                        "on-secondary-container": "#556d00",
+                        "surface-container-low": "#131b2e",
+                        "primary-fixed-dim": "#00dbe9",
+                        "surface-bright": "#31394d",
+                        "surface-dim": "#0b1326",
+                        "on-secondary": "#283500",
+                        "on-background": "#dae2fd",
+                        "tertiary-container": "#e9d0ff",
+                        "surface-container": "#171f33",
+                        "secondary-container": "#c3f400",
+                        "inverse-surface": "#dae2fd",
+                        "surface-container-high": "#222a3d",
+                        "surface-container-lowest": "#060e20",
+                        "primary-fixed": "#7df4ff",
+                        "on-tertiary-fixed": "#2c0051",
+                        "tertiary": "#fdf3ff",
+                        "secondary": "#ffffff",
+                        "outline-variant": "#3b494b",
+                        "on-tertiary-fixed-variant": "#6700b5",
+                        "tertiary-fixed-dim": "#dcb8ff",
+                        "on-surface-variant": "#b9cacb",
+                        "error-container": "#93000a",
+                        "on-error": "#690005",
+                        "primary": "#dbfcff",
+                        "secondary-fixed": "#c3f400",
+                        "on-tertiary": "#480081",
+                        "outline": "#849495",
+                        "on-primary-fixed-variant": "#004f54",
+                        "surface-tint": "#00dbe9",
+                        "surface-container-highest": "#2d3449",
+                        "surface": "#0b1326",
+                        "error": "#ffb4ab",
+                        "inverse-on-surface": "#283044",
+                        "tertiary-fixed": "#efdbff",
+                        "secondary-fixed-dim": "#abd600",
+                        "on-primary": "#00363a",
+                        "inverse-primary": "#006970"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "margin-mobile": "16px",
+                        "container-max": "1440px",
+                        "margin-desktop": "48px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["JetBrains Mono"],
+                        "label-sm": ["JetBrains Mono"],
+                        "headline-lg-mobile": ["JetBrains Mono"],
+                        "body-md": ["Geist"],
+                        "label-md": ["JetBrains Mono"],
+                        "headline-xl": ["JetBrains Mono"],
+                        "headline-lg": ["JetBrains Mono"],
+                        "body-lg": ["Geist"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                        "headline-xl": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #020617;
+            color: #dae2fd;
+            -webkit-font-smoothing: antialiased;
+        }
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Holographic Shimmer */
+        .holographic::after {
+            content: '';
+            position: absolute;
+            top: -150%;
+            left: -150%;
+            width: 300%;
+            height: 300%;
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.05) 45%,
+                rgba(255, 255, 255, 0.2) 50%,
+                rgba(255, 255, 255, 0.05) 55%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: rotate(-45deg);
+            pointer-events: none;
+            transition: transform 0.1s ease-out;
+            z-index: 1;
+        }
+
+        /* Ambient Glow Pulse */
+        @keyframes pulse-glow {
+            0%, 100% { filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.2)); }
+            50% { filter: drop-shadow(0 0 20px rgba(0, 240, 255, 0.4)); }
+        }
+        .pulse-glow-cyan { animation: pulse-glow 3s infinite ease-in-out; }
+        
+        @keyframes pulse-glow-gold {
+            0%, 100% { filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.3)); }
+            50% { filter: drop-shadow(0 0 25px rgba(255, 215, 0, 0.5)); }
+        }
+        .pulse-glow-gold { animation: pulse-glow-gold 3s infinite ease-in-out; }
+
+        /* Cyber Ring Rotation */
+        @keyframes rotate-ring {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        .cyber-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 110%;
+            height: 110%;
+            border: 2px dashed rgba(0, 240, 255, 0.4);
+            border-radius: 50%;
+            animation: rotate-ring 8s linear infinite;
+            pointer-events: none;
+        }
+        .group:hover .cyber-ring {
+            animation-duration: 3s;
+            border-color: rgba(0, 240, 255, 0.8);
+        }
+
+        /* Entrance Animation */
+        .reveal-row {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .reveal-row.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Data Trace Hover */
+        .data-trace {
+            position: relative;
+        }
+        .data-trace::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #00f0ff, transparent);
+            transition: width 0.3s ease;
+            pointer-events: none;
+            z-index: 10;
+        }
+        .data-trace:hover::before {
+            width: 100%;
+        }
+
+        /* Particles Background */
+        #particles-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.3;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #00f0ff;
+            border-radius: 10px;
+        }
+
+        /* Tilt class base */
+        .tilt-card {
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            transition: transform 0.1s ease-out;
+        }
+    </style>
+<style>@keyframes scanline { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } } .scanline-effect::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent, rgba(0, 240, 255, 0.05), transparent); animation: scanline 8s linear infinite; pointer-events: none; }</style></head>
+<body class="font-body-md text-body-md overflow-x-hidden">
+<!-- TopNavBar Implementation -->
+<header class="sticky top-0 w-full z-50 flex justify-between items-center px-margin-desktop py-4 bg-surface-dim/70 backdrop-blur-lg border-b border-white/10">
+<div class="flex items-center gap-8">
+<h1 class="font-headline-md text-headline-md font-bold text-primary-fixed">Kinetic Academy</h1>
+<div class="hidden md:flex gap-6">
+<a class="font-label-md text-label-md text-secondary-fixed border-b-2 border-secondary-fixed pb-1 hover:text-primary-fixed transition-colors" href="#">Terminal</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary-fixed transition-colors" href="#">Curriculum</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary-fixed transition-colors" href="#">Projects</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="bg-surface-container border-none rounded-lg pl-10 pr-4 py-2 text-sm focus:ring-1 focus:ring-primary-container w-64" placeholder="Search archives..." type="text"/>
+</div>
+<div class="flex items-center gap-2">
+<button class="material-symbols-outlined p-2 text-on-surface-variant hover:text-primary-fixed transition-colors">notifications</button>
+<button class="material-symbols-outlined p-2 text-on-surface-variant hover:text-primary-fixed transition-colors">settings</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-primary-container/30 ml-2">
+<img alt="Student profile avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgSkX_ymuigQZXWUZC6wMN-ODgOrZDVn5Vi5VtUYGdIHNUIkJFL1HB273rpTh5HzKnY1YNw3W3qlgAVcze22S04d1fVT6RydAGnMb0u_Jvp-SXnT6vzvEsdabehDK_u9oSzVQ9FN-YhQLRvweV4AKHaSsYGQTm_UnynZmPzy35mPHgCbs3NqTUQzzvCG9Gax4eP7TL7Jpl5Vdi1zT6rtsib_HE5Pk0DbhShD5ByD8E_ZE5fXqllG2HZ9eMj9vyi2CTIBAXxdcfJc6Q"/>
+</div>
+</div>
+</div>
+</header>
+<!-- SideNavBar Implementation -->
+<aside class="fixed left-0 top-0 h-full flex flex-col pt-20 z-40 bg-surface-container-low/70 backdrop-blur-xl border-r border-white/10 w-64 hidden lg:flex">
+<div class="px-6 py-4">
+<div class="flex items-center gap-3 mb-8">
+<div class="w-10 h-10 bg-primary-container rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1;">terminal</span>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-primary-fixed leading-none">Terminal</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant opacity-70">Phase 6 Active</p>
+</div>
+</div>
+<nav class="space-y-1">
+<a class="text-on-surface-variant flex items-center gap-4 px-6 py-3 hover:bg-surface-variant/30 hover:text-primary-fixed transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="bg-secondary-container/20 text-secondary-fixed border-l-4 border-secondary-fixed flex items-center gap-4 px-6 py-3 scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">leaderboard</span>
+<span class="font-label-md text-label-md">Leaderboard</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-4 px-6 py-3 hover:bg-surface-variant/30 hover:text-primary-fixed transition-all" href="#">
+<span class="material-symbols-outlined">forum</span>
+<span class="font-label-md text-label-md">Messages</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-4 px-6 py-3 hover:bg-surface-variant/30 hover:text-primary-fixed transition-all" href="#">
+<span class="material-symbols-outlined">science</span>
+<span class="font-label-md text-label-md">Labs</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-4 px-6 py-3 hover:bg-surface-variant/30 hover:text-primary-fixed transition-all" href="#">
+<span class="material-symbols-outlined">event_available</span>
+<span class="font-label-md text-label-md">Events</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-4 px-6 py-3 hover:bg-surface-variant/30 hover:text-primary-fixed transition-all" href="#">
+<span class="material-symbols-outlined">folder_open</span>
+<span class="font-label-md text-label-md">Archives</span>
+</a>
+</nav>
+<button class="mt-8 w-full py-3 px-4 bg-primary-container text-on-primary-container rounded font-label-md text-label-md font-bold uppercase tracking-wider flex items-center justify-center gap-2 hover:brightness-110 transition-all">
+<span class="material-symbols-outlined text-sm">add</span>
+            New Broadcast
+        </button>
+</div>
+<div class="mt-auto border-t border-white/5 p-6">
+<a class="text-on-surface-variant flex items-center gap-4 px-6 py-2 hover:text-primary-fixed transition-colors" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+<span class="font-label-md text-label-md">Support</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-4 px-6 py-2 hover:text-error transition-colors mt-2" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Sign Out</span>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="lg:ml-64 p-gutter max-w-container-max mx-auto relative min-h-screen overflow-hidden">
+<!-- Particles Layer -->
+<canvas height="1760" id="particles-container" width="1280"></canvas>
+<!-- Category Selector -->
+<section class="mb-12 relative z-10">
+<div class="flex flex-wrap items-center justify-between gap-4">
+<div class="flex flex-col">
+<h2 class="font-headline-lg text-headline-lg text-secondary">Leapx Ranking</h2>
+<p class="font-body-md text-on-surface-variant">Global academic standings and title verification.</p>
+</div>
+<div class="glass-card flex p-1 rounded-xl">
+<button class="px-6 py-2 rounded-lg bg-primary-container text-on-primary-container font-label-md text-label-md transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">code</span> Coding
+                </button>
+<button class="px-6 py-2 rounded-lg text-on-surface-variant font-label-md text-label-md hover:text-primary-fixed transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">sports_esports</span> Sports
+                </button>
+<button class="px-6 py-2 rounded-lg text-on-surface-variant font-label-md text-label-md hover:text-primary-fixed transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">psychology</span> Problem Solving
+                </button>
+</div>
+</div>
+<!-- Neon Active Indicator -->
+<div class="w-full h-[1px] bg-white/10 mt-6 relative">
+<div class="absolute left-0 top-0 h-[2px] w-24 bg-primary-container shadow-[0_0_10px_#00f0ff] transition-all duration-300 ease-out" id="nav-indicator"></div>
+</div>
+</section>
+<!-- Podium Section -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-gutter items-end mb-16 px-4 relative z-10">
+<!-- Rank 2 -->
+<div class="order-2 md:order-1 glass-card p-6 rounded-2xl flex flex-col items-center tilt-card holographic pulse-glow-cyan border-t-2 border-primary-container/40 group">
+<div class="relative mb-4">
+<div class="cyber-ring"></div>
+<div class="w-24 h-24 rounded-full border-4 border-primary-container/20 overflow-hidden relative z-10">
+<img alt="Rank 2 Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaiZZm9HC47a6ccyO2c3S1dWF1Y-FEFiuu9KCZtGTY1bSR8WNtKSelJpKlz4S-MdCbJVKB6OZ0b1vdIeh7ley0njhawwRn-LUOIBId0NF9fSDJNkbfLU6phWpilqCcYHlsf0hFbg6nj5NWrL-I_EJr08ppQT4a12yqlocE2vAdYqys2AO-I0Wf169E1Jye267Ln7PhuqtDNO7RWz-hV6-oPUD3t7XoEE8w2A3oKeu-qOf2X7PvCQhzNgJBjjfcAF1F4nw4UV3_UZl5"/>
+</div>
+<div class="absolute -bottom-2 -right-2 bg-primary-container text-on-primary-container w-8 h-8 rounded-full flex items-center justify-center font-bold text-lg z-20">2</div>
+</div>
+<h3 class="font-headline-md text-headline-md text-secondary">Aiden V.</h3>
+<p class="font-label-sm text-label-sm text-primary-container mb-2">Architect</p>
+<div class="flex flex-wrap justify-center gap-1 mb-4">
+<span class="px-2 py-0.5 bg-primary-container/10 border border-primary-container/30 text-[10px] font-label-sm text-primary-container rounded">LEAPX SILVER</span>
+</div>
+<p class="font-headline-md text-headline-md text-secondary font-bold">14,290 XP</p>
+</div>
+<!-- Rank 1 -->
+<div class="order-1 md:order-2 glass-card p-8 rounded-2xl flex flex-col items-center tilt-card holographic pulse-glow-gold border-t-4 border-secondary-fixed/50 scale-105 mb-8 md:mb-12 group">
+<div class="relative mb-6">
+<div class="cyber-ring border-secondary-fixed/40"></div>
+<div class="w-32 h-32 rounded-full border-4 border-secondary-fixed/30 overflow-hidden relative z-10">
+<img alt="Rank 1 Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9KW8FyhsQycxz8M2JGSR2BwcfucjQSNGGM-61yia0JwJE_qh8Ir_V76U2zKZaBKTPZtC420OqYB5LqKlY-8f0QmfSQEqddEHTbecP5ZD3x8FrigYhIMgHhXqV8eU9B-Ji0mAQOr0Q0ZPZAIWSsbY2SpXRIKz0cSPIb-fgS5iLsBS_eICgklTtLoAVvkxRSXum3aUGw5mq0hUEu9dongD8-kUc7mUdMX-eYiSbP_67rlwEfBokKAljRWSsJJos4bVjZEsQDuVel5Jd"/>
+</div>
+<div class="absolute -bottom-2 -right-2 bg-secondary-fixed text-on-secondary-fixed w-10 h-10 rounded-full flex items-center justify-center font-bold text-xl shadow-lg z-20">1</div>
+<span class="material-symbols-outlined absolute -top-8 left-1/2 -translate-x-1/2 text-secondary-fixed text-4xl animate-bounce" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+</div>
+<h3 class="font-headline-lg text-headline-lg text-secondary">Sarah Connor</h3>
+<p class="font-label-sm text-label-sm text-secondary-fixed mb-4">Leapx Platinum</p>
+<div class="flex flex-wrap justify-center gap-2 mb-6">
+<span class="px-3 py-1 bg-secondary-fixed/10 border border-secondary-fixed/30 text-xs font-label-sm text-secondary-fixed rounded-full">ALGORITHM GOD</span>
+<span class="px-3 py-1 bg-primary-container/10 border border-primary-container/30 text-xs font-label-sm text-primary-container rounded-full">DEBUG MASTER</span>
+</div>
+<div class="text-center">
+<span class="block font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest opacity-60">Total Score</span>
+<p class="font-headline-xl text-headline-xl text-secondary-fixed tracking-wider">18,942</p>
+</div>
+</div>
+<!-- Rank 3 -->
+<div class="order-3 md:order-3 glass-card p-6 rounded-2xl flex flex-col items-center tilt-card holographic pulse-glow-cyan border-t-2 border-on-tertiary-container/40 group">
+<div class="relative mb-4">
+<div class="cyber-ring border-on-tertiary-container/40"></div>
+<div class="w-24 h-24 rounded-full border-4 border-on-tertiary-container/20 overflow-hidden relative z-10">
+<img alt="Rank 3 Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFaZW7C-9TpzvL4jZQ8k5_tetw9RZWzLKrxx27piflcSul-MvtTElp2DArpyHZlBOUfk79IpBuPEOsaco1e73aSqA0u2VW_Ic5WESsJynouEydZGehHbkRcNQhJLuATXQkZWW87hXIKAEkBzWASIg1LNHJ7LoNZvzdjLhVaK3wpfvd7yMEjBiSnBHQkbUXY1H4ELGOIUhjtE_uj08JJykJ9HPLmfWzilT1ScUu1_Qj4RtETMcPrhD2LI5QYIOMVobqQerjP3Tt2AGU"/>
+</div>
+<div class="absolute -bottom-2 -right-2 bg-[#CD7F32] text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-lg z-20">3</div>
+</div>
+<h3 class="font-headline-md text-headline-md text-secondary">Marco Polo</h3>
+<p class="font-label-sm text-label-sm text-[#CD7F32] mb-2">Data Analyst</p>
+<div class="flex flex-wrap justify-center gap-1 mb-4">
+<span class="px-2 py-0.5 bg-on-tertiary-container/10 border border-on-tertiary-container/30 text-[10px] font-label-sm text-on-tertiary-container rounded">LEAPX BRONZE</span>
+</div>
+<p class="font-headline-md text-headline-md text-secondary font-bold">12,110 XP</p>
+</div>
+</section>
+<!-- Main Layout with Sidebar Titles -->
+<div class="grid grid-cols-1 xl:grid-cols-4 gap-gutter relative z-10">
+<!-- Detailed Ranking Table -->
+<div class="xl:col-span-3">
+<div class="glass-card rounded-2xl overflow-hidden">
+<div class="p-6 border-b border-white/10 flex justify-between items-center">
+<h3 class="font-headline-md text-headline-md text-secondary">Global Ranking</h3>
+<div class="flex gap-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Last updated: 12m ago</span>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-high/50 font-label-sm text-label-sm text-on-surface-variant tracking-widest">
+<th class="px-6 py-4 font-medium uppercase tracking-wider">Rank</th>
+<th class="px-6 py-4 font-medium uppercase tracking-wider">Student</th>
+<th class="px-6 py-4 font-medium uppercase tracking-wider">Title</th>
+<th class="px-6 py-4 font-medium uppercase tracking-wider text-right">Score</th>
+<th class="px-6 py-4 font-medium uppercase tracking-wider">Accomplishments</th>
+</tr>
+</thead>
+<tbody class="divide-white/5 bg-surface-container-low/30" id="ranking-body">
+<!-- Row 4 -->
+<tr class="hover:bg-white/5 transition-colors group data-trace reveal-row active border-b border-white/5">
+<td class="px-6 font-headline-md text-headline-md text-primary-fixed py-2">04</td>
+<td class="px-6 py-2">
+<div class="flex items-center gap-3">
+<img alt="Student avatar" class="w-10 h-10 rounded-full border border-white/10" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoN3AsSWHTGWpsVuY7BGVEckiB7GRqVcgjcmfP9hS1wxbe6dO3wJCLEOzZ8244ecBibzezLAayEIZOliTpddRCPH1yjYlLppD23-7iPPVkvru4WGQKWitxjf4VuBec9eRwm42UKTva9nQNKuoIXr77jyyxTfXB1hUy_GVFfKMqq2eSSOC1Erw9DXqdueEli1K4AH6s-KKfzXxAWyVHVWCnbyF2ymgxcbugrZMhfJcTXVvqPIoEeaDnhGyhDdWQ8hxatla1I6aX4Ks4"/>
+<div>
+<p class="font-label-md text-label-md tracking-tight text-primary-container">Xavier J.</p>
+<p class="text-xs text-on-surface-variant">Year 2 • Cyber Sec</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-2">
+<span class="font-label-sm text-label-sm text-primary-container">Security Lead</span>
+</td>
+<td class="px-6 text-right font-headline-md text-headline-md text-primary-fixed py-2">11,502</td>
+<td class="px-6 py-2">
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-sm text-secondary-fixed scale-110 pulse-glow-cyan" title="Top Performer">verified</span>
+<span class="material-symbols-outlined text-sm text-on-surface-variant">shield</span>
+</div>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-white/5 transition-colors group data-trace reveal-row active border-b border-white/5">
+<td class="px-6 font-headline-md text-headline-md text-primary-fixed py-2">05</td>
+<td class="px-6 py-2">
+<div class="flex items-center gap-3">
+<img alt="Student avatar" class="w-10 h-10 rounded-full border border-white/10" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0gXkHhc07IszVtVPGbjQD4lurqZg0KS57LceqK2vfxoCCTd9h5RRA2DFwbIuMQEFsIaQGX6fgjnsP6Y0aGcqX-pnqwP-LIPXAZ5GtJEW9pr3VYsKLTtJkAY48y2YgZ-nyOMv3kD7LUZ0cfAXhFrJUaxXQT420XnY6BOFYtNXStbnYg5ldiHpQFNHSAokgSRPBTKHJ9ZjMx98wW2c-OWDcs__A0eUiIqdOQWDM2tsHVRqRnFRTIumohV2NPT_Q4vxt71SoIEUhG59D"/>
+<div>
+<p class="font-label-md text-label-md tracking-tight text-primary-container">Elena R.</p>
+<p class="text-xs text-on-surface-variant">Year 3 • AI Systems</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-2">
+<span class="font-label-sm text-label-sm text-primary-container">Neural Expert</span>
+</td>
+<td class="px-6 text-right font-headline-md text-headline-md text-primary-fixed py-2">10,880</td>
+<td class="px-6 py-2">
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-sm text-on-surface-variant">psychology</span>
+</div>
+</td>
+</tr>
+<!-- Row 6 -->
+<tr class="hover:bg-white/5 transition-colors group data-trace reveal-row active border-b border-white/5">
+<td class="px-6 font-headline-md text-headline-md text-primary-fixed py-2">06</td>
+<td class="px-6 py-2">
+<div class="flex items-center gap-3">
+<img alt="Student avatar" class="w-10 h-10 rounded-full border border-white/10" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaG5gcxbuEXyBzFeeSfKgh5D9cX7znUTbzg_Xn45K6JZY-xgIUVKHQfO78EKjoFmEonxExsegnQGgPx89MKF53D6Mc7JG7BCsFmuQ_TUVuoNT7o3lMCwxBn5oV4nQY_Kqqc2E8zES6MVjked8NVZLR0a78CVwhZ_xvBV6f59bCK6sF_tQNKogZUUjLkVRiNwFO6dYh6tM4AFVb9m9bQQrQym9uLzGCCNsp-rk83DR3gjOGG4rne6vebaEcJPilE9WIdHMmg5aGPI58"/>
+<div>
+<p class="font-label-md text-label-md tracking-tight text-primary-container">Liam T.</p>
+<p class="text-xs text-on-surface-variant">Year 1 • General</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-2">
+<span class="font-label-sm text-label-sm text-primary-container">Rising Star</span>
+</td>
+<td class="px-6 text-right font-headline-md text-headline-md text-primary-fixed py-2">9,420</td>
+<td class="px-6 py-2">
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-sm text-on-surface-variant">rocket_launch</span>
+</div>
+</td>
+</tr>
+<!-- Row 7 -->
+<tr class="hover:bg-white/5 transition-colors group data-trace reveal-row active border-b border-white/5">
+<td class="px-6 font-headline-md text-headline-md text-primary-fixed py-2">07</td>
+<td class="px-6 py-2">
+<div class="flex items-center gap-3">
+<img alt="Student avatar" class="w-10 h-10 rounded-full border border-white/10" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsZG7R8CepGkTKY9AVBHSwNK4qom7NQMXZf7cM4PoxPROwKl3VaZYEbR7boE3YMbL43mVZsquzdVKM1zFxFf_jS83b3o9MTiG3mCEWh7WY6ISjnczbWi5Lkb50JH1694Ecrn992yi_pzv_WAFLOjGepV0rcvANaQx-e6PHK_5uanAk30qq_rj9XvHdpLEw00cIzu-IlQlgKHz9kNDaxbs97XsuQiTFri0FFsnykrQ_dCaJVLIpXAWl6_kFpTodM9Daj5JZOkDja9zr"/>
+<div>
+<p class="font-label-md text-label-md tracking-tight text-primary-container">Chloe M.</p>
+<p class="text-xs text-on-surface-variant">Year 2 • Dev Ops</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-2">
+<span class="font-label-sm text-label-sm text-primary-container">System Admin</span>
+</td>
+<td class="px-6 text-right font-headline-md text-headline-md text-primary-fixed py-2">8,915</td>
+<td class="px-6 py-2">
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-sm text-on-surface-variant">cloud_queue</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-6 bg-surface-container-high/30 text-center">
+<button class="font-label-md text-label-md text-primary-container hover:underline">View All 156 Students</button>
+</div>
+</div>
+</div>
+<!-- Titles Gallery Sidebar -->
+<div class="xl:col-span-1 space-y-gutter">
+<div class="glass-card rounded-2xl holographic tilt-card p-gutter">
+<h3 class="font-headline-md text-headline-md text-secondary mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container">military_tech</span> Titles Gallery
+                </h3>
+<div class="max-h-[400px] overflow-y-auto pr-2 custom-scrollbar space-y-6"><div class="p-4 rounded-xl border border-white/5 bg-white/5 hover:bg-white/10 transition-colors group">
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 rounded bg-primary-container/10 border border-primary-container/20 flex items-center justify-center text-primary-container shadow-[0_0_10px_rgba(0,240,255,0.3)]">{{DATA:IMAGE:PRESERVED_IMG_0}}</div>
+<div class="flex-1">
+<h4 class="font-label-md text-label-md text-secondary group-hover:text-secondary-fixed transition-colors">Leapx Platinum</h4>
+<p class="text-xs text-on-surface-variant mt-1">Reach 15,000 XP.</p>
+</div>
+</div>
+</div>
+<div class="p-4 rounded-xl border border-white/5 bg-white/5 hover:bg-white/10 transition-colors group">
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 rounded bg-primary-container/10 border border-primary-container/20 flex items-center justify-center text-primary-container shadow-[0_0_10px_rgba(0,240,255,0.3)]">{{DATA:IMAGE:PRESERVED_IMG_1}}</div>
+<div class="flex-1">
+<h4 class="font-label-md text-label-md text-secondary group-hover:text-primary-container transition-colors">Debug Master</h4>
+<p class="text-xs text-on-surface-variant mt-1">Resolve 50 bugs.</p>
+</div>
+</div>
+</div>
+<div class="p-4 rounded-xl border border-white/5 bg-white/5 hover:bg-white/10 transition-colors group">
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 rounded bg-primary-container/10 border border-primary-container/20 flex items-center justify-center text-primary-container shadow-[0_0_10px_rgba(0,240,255,0.3)]">{{DATA:IMAGE:PRESERVED_IMG_2}}</div>
+<div class="flex-1">
+<h4 class="font-label-md text-label-md text-secondary group-hover:text-primary-container transition-colors">Architect</h4>
+<p class="text-xs text-on-surface-variant mt-1">Master system design.</p>
+</div>
+</div>
+</div>
+<div class="p-4 rounded-xl border border-white/5 bg-white/5 hover:bg-white/10 transition-colors group">
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 rounded bg-primary-container/10 border border-primary-container/20 flex items-center justify-center text-primary-container shadow-[0_0_10px_rgba(0,240,255,0.3)]">{{DATA:IMAGE:PRESERVED_IMG_3}}</div>
+<div class="flex-1">
+<h4 class="font-label-md text-label-md text-secondary group-hover:text-primary-container transition-colors">Quantum Seeker</h4>
+<p class="text-xs text-on-surface-variant mt-1">Secure the core data.</p>
+</div>
+</div>
+</div></div>
+<button class="w-full mt-6 py-2 border border-white/10 rounded-lg text-xs font-label-md text-on-surface-variant hover:bg-white/5 transition-all">
+                    VIEW PROGRESS MAP
+                </button>
+</div>
+<!-- Personal Standing Small Card -->
+<div class="glass-card rounded-2xl p-6 bg-surface-container/80 backdrop-blur-lg border border-white/10 holographic tilt-card">
+<h4 class="font-label-md text-label-md uppercase tracking-widest text-primary-fixed-dim mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">workspace_premium</span>
+        Achievements
+    </h4>
+<div class="grid grid-cols-2 gap-4">
+<div class="flex flex-col items-center p-3 rounded-lg bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-primary-container mb-2">bolt</span>
+<p class="font-label-sm text-[10px] text-secondary text-center">Speed Runner</p>
+<p class="font-label-sm text-[10px] text-primary-container mt-1">10/10</p>
+</div>
+<div class="flex flex-col items-center p-3 rounded-lg bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-primary-container mb-2">verified</span>
+<p class="font-label-sm text-[10px] text-secondary text-center">Perfect Lab</p>
+<p class="font-label-sm text-[10px] text-primary-container mt-1">4/5</p>
+</div>
+<div class="flex flex-col items-center p-3 rounded-lg bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-primary-container mb-2">architecture</span>
+<p class="font-label-sm text-[10px] text-secondary text-center">Code Architect</p>
+<p class="font-label-sm text-[10px] text-primary-container mt-1">8/10</p>
+</div>
+<div class="flex flex-col items-center p-3 rounded-lg bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-primary-container mb-2">shield</span>
+<p class="font-label-sm text-[10px] text-secondary text-center">Security Lead</p>
+<p class="font-label-sm text-[10px] text-primary-container mt-1">2/5</p>
+</div>
+</div>
+</div><div class="glass-card rounded-2xl p-6 bg-primary-container/5 border-primary-container/20 holographic tilt-card scanline-effect"><div class="absolute inset-0 pointer-events-none opacity-10 bg-[linear-gradient(rgba(0,240,255,0.1)_1px,transparent_1px)] bg-[length:100%_4px] z-20"></div><h4 class="font-label-md text-label-md text-primary-container mb-4 flex items-center justify-between"><span>Your Current Standing</span><span class="text-[10px] opacity-50">SYS_ID: 882-K</span></h4><div class="grid grid-cols-2 gap-4 mb-6"><div class="space-y-1"><p class="text-xs text-on-surface-variant uppercase tracking-widest">Rank</p><p class="text-4xl font-headline-xl text-primary-container shadow-[0_0_15px_rgba(0,240,255,0.3)]">#42</p></div><div class="space-y-1 border-l border-white/10 pl-4"><p class="text-xs text-on-surface-variant uppercase tracking-widest">XP</p><p class="text-4xl font-headline-xl text-secondary">5,420</p></div></div><div class="grid grid-cols-3 gap-2 mb-6 py-3 border-y border-white/5"><div class="text-center"><p class="text-[10px] text-on-surface-variant uppercase">Streak</p><p class="font-label-md text-secondary-fixed">12D</p></div><div class="text-center border-x border-white/5"><p class="text-[10px] text-on-surface-variant uppercase">Labs</p><p class="font-label-md text-primary-container">48</p></div><div class="text-center"><p class="text-[10px] text-on-surface-variant uppercase">Phase</p><p class="font-label-md text-secondary">06</p></div></div><div class="space-y-2"><div class="flex justify-between items-end"><span class="text-[10px] text-on-surface-variant uppercase">Progress to #41</span><span class="text-[10px] text-primary-container">80 XP REMAINING</span></div><div class="bg-white/5 h-1.5 rounded-full overflow-hidden"><div class="h-full bg-primary-container xp-progress-bar shadow-[0_0_10px_#00f0ff]" data-progress="42%" style="width: 42%;"></div></div></div></div>
+</div>
+</div>
+</main>
+<footer class="lg:ml-64 p-gutter border-t border-white/10 mt-12 relative z-10">
+<div class="max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container">terminal</span>
+<span class="font-label-md text-label-md text-on-surface-variant">© 2024 Kinetic Academy Terminal System</span>
+</div>
+<div class="flex gap-6">
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary-fixed" href="#">Privacy Protocol</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary-fixed" href="#">Network Status</a>
+</div>
+</div>
+</footer>
+<script>
+    // 1. Particle System
+    const canvas = document.getElementById('particles-container');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+    
+    class Particle {
+        constructor() {
+            this.reset();
+        }
+        reset() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.size = Math.random() * 2 + 1;
+            this.speedX = (Math.random() - 0.5) * 0.5;
+            this.speedY = (Math.random() - 0.5) * 0.5;
+            this.alpha = Math.random() * 0.5 + 0.2;
+        }
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+                this.reset();
+            }
+        }
+        draw() {
+            ctx.fillStyle = `rgba(0, 240, 255, ${this.alpha})`;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+    
+    for (let i = 0; i < 50; i++) {
+        particles.push(new Particle());
+    }
+    
+    function animateParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => {
+            p.update();
+            p.draw();
+        });
+        requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    // 2. Mouse-tracking Tilt and Shimmer Effect
+    const tiltCards = document.querySelectorAll('.tilt-card');
+    tiltCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const tiltX = (y - centerY) / 15;
+            const tiltY = (centerX - x) / 15;
+            
+            card.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.02)`;
+            
+            // Holographic shimmer position
+            const shimmer = card.querySelector('.holographic::after');
+            if (shimmer || card.classList.contains('holographic')) {
+                const moveX = (x / rect.width) * 100 - 50;
+                const moveY = (y / rect.height) * 100 - 50;
+                card.style.setProperty('--shimmer-x', `${moveX}%`);
+                card.style.setProperty('--shimmer-y', `${moveY}%`);
+            }
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = `rotateX(0) rotateY(0) scale(1)`;
+        });
+    });
+
+    // 3. Row Entrance Animation (IntersectionObserver)
+    const observerOptions = {
+        threshold: 0.1
+    };
+    
+    const rowObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.classList.add('active');
+                }, index * 100);
+                rowObserver.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+    
+    document.querySelectorAll('.reveal-row').forEach(row => rowObserver.observe(row));
+
+    // 4. XP Bars Animation
+    window.addEventListener('DOMContentLoaded', () => {
+        const xpBars = document.querySelectorAll('.xp-progress-bar');
+        xpBars.forEach(bar => {
+            const targetWidth = bar.getAttribute('data-progress');
+            setTimeout(() => {
+                bar.style.transition = 'width 1.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                bar.style.width = targetWidth;
+            }, 500);
+        });
+    });
+
+    // 5. Category Switching Interactivity
+    const navButtons = document.querySelectorAll('.glass-card button');
+    const navIndicator = document.getElementById('nav-indicator');
+    
+    navButtons.forEach((btn, idx) => {
+        btn.addEventListener('click', () => {
+            navButtons.forEach(b => {
+                b.classList.remove('bg-primary-container', 'text-on-primary-container');
+                b.classList.add('text-on-surface-variant');
+            });
+            btn.classList.remove('text-on-surface-variant');
+            btn.classList.add('bg-primary-container', 'text-on-primary-container');
+            
+            // Move indicator
+            const offset = idx * 110; 
+            navIndicator.style.transform = `translateX(${offset}px)`;
+        });
+    });
+
+    // 6. Ambient background drift
+    document.addEventListener('mousemove', (e) => {
+        const moveX = (e.clientX / window.innerWidth) * 10;
+        const moveY = (e.clientY / window.innerHeight) * 10;
+        document.body.style.backgroundPosition = `${moveX}px ${moveY}px`;
+    });
+</script>
+</body></html>

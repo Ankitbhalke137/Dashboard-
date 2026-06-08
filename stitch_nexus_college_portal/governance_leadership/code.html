@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Governance &amp; Leadership | CollegePortal.io</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&amp;family=Geist:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-surface": "#dae2fd",
+                    "on-error-container": "#ffdad6",
+                    "secondary-fixed-dim": "#abd600",
+                    "on-primary": "#00363a",
+                    "surface-dim": "#0b1326",
+                    "secondary": "#ffffff",
+                    "surface-container-lowest": "#060e20",
+                    "on-primary-fixed-variant": "#004f54",
+                    "tertiary-container": "#e9d0ff",
+                    "error": "#ffb4ab",
+                    "inverse-primary": "#006970",
+                    "on-tertiary-fixed-variant": "#6700b5",
+                    "outline": "#849495",
+                    "surface-container-highest": "#2d3449",
+                    "surface": "#0b1326",
+                    "error-container": "#93000a",
+                    "on-primary-fixed": "#002022",
+                    "surface-container-low": "#131b2e",
+                    "on-primary-container": "#006970",
+                    "on-error": "#690005",
+                    "secondary-container": "#c3f400",
+                    "surface-variant": "#2d3449",
+                    "on-surface-variant": "#b9cacb",
+                    "surface-container-high": "#222a3d",
+                    "outline-variant": "#3b494b",
+                    "background": "#0b1326",
+                    "surface-bright": "#31394d",
+                    "primary": "#dbfcff",
+                    "primary-container": "#00f0ff",
+                    "tertiary-fixed": "#efdbff",
+                    "inverse-on-surface": "#283044",
+                    "surface-tint": "#00dbe9",
+                    "on-secondary": "#283500",
+                    "tertiary": "#fdf3ff",
+                    "on-surface": "#dae2fd",
+                    "on-secondary-fixed": "#161e00",
+                    "surface-container": "#171f33",
+                    "on-tertiary-fixed": "#2c0051",
+                    "primary-fixed": "#7df4ff",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "on-secondary-container": "#556d00",
+                    "on-background": "#dae2fd",
+                    "tertiary-fixed-dim": "#dcb8ff",
+                    "on-tertiary-container": "#8523dd",
+                    "primary-fixed-dim": "#00dbe9",
+                    "secondary-fixed": "#c3f400",
+                    "on-tertiary": "#480081"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-max": "1440px",
+                    "base": "8px",
+                    "margin-desktop": "48px",
+                    "gutter": "24px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["JetBrains Mono"],
+                    "headline-lg": ["JetBrains Mono"],
+                    "headline-xl": ["JetBrains Mono"],
+                    "label-md": ["JetBrains Mono"],
+                    "body-lg": ["Geist"],
+                    "label-sm": ["JetBrains Mono"],
+                    "body-md": ["Geist"],
+                    "headline-md": ["JetBrains Mono"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "headline-xl": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-md": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #020617;
+            color: #dae2fd;
+            overflow-x: hidden;
+        }
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glow-primary:hover { box-shadow: 0 0 20px rgba(0, 240, 255, 0.15); border-color: rgba(0, 240, 255, 0.4); }
+        .glow-secondary:hover { box-shadow: 0 0 20px rgba(195, 244, 0, 0.15); border-color: rgba(195, 244, 0, 0.4); }
+        .glow-tertiary:hover { box-shadow: 0 0 20px rgba(221, 184, 255, 0.15); border-color: rgba(221, 184, 255, 0.4); }
+        .glow-error:hover { box-shadow: 0 0 20px rgba(255, 180, 171, 0.15); border-color: rgba(255, 180, 171, 0.4); }
+        
+        .accent-bar { width: 4px; height: 100%; position: absolute; left: 0; top: 0; }
+        
+        .sidebar-active { background: #00f0ff; color: #00363a; font-weight: 700; border-radius: 0.5rem; }
+        
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #3b494b; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #00dbe9; }
+
+        .scanline {
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, transparent, rgba(0, 240, 255, 0.2), transparent);
+            position: absolute;
+            top: 0;
+            animation: scan 4s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes scan { 0% { top: 0%; } 100% { top: 100%; } }
+    </style>
+</head>
+<body class="font-body-md text-body-md selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/70 backdrop-blur-xl border-b border-white/10 shadow-sm">
+<nav class="flex justify-between items-center h-16 px-margin-desktop max-w-container-max mx-auto">
+<div class="font-headline-md text-headline-md font-bold text-primary tracking-tighter">CollegePortal.io</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Directory</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Faculty</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Campus</a>
+<a class="font-label-md text-label-md text-primary border-b-2 border-primary pb-1" href="#">Governance</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Clubs</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-white/5 rounded-full transition-all duration-300">
+<span class="material-symbols-outlined text-primary">notifications</span>
+</button>
+<button class="p-2 hover:bg-white/5 rounded-full transition-all duration-300">
+<span class="material-symbols-outlined text-primary">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-primary/30">
+<img alt="User Profile Avatar" data-alt="A close-up high-resolution portrait of a focused young student in a tech-forward setting. The lighting is low-key with cool blue tones, highlighting the clean lines of their modern eyewear. The aesthetic is professional and academic, reflecting a serious commitment to higher education in a digital-first world." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzj_IThOuOIravEbb2UXxrnnVoYzCZ79w2XbVpkxl7kTgrZ0eJSwTwAmI8zwpuqjyZEWF4bnkanWYb48N8dR8Dbe1oRDzu0kUXyQ_sSM7BgEM9GWP-iV7W0MUFr50YPmtgpo6Tin5w-TpEpMIhhafArITRx7v-1WONtkgrxvnkiyAxCMjetaQTBpa4Lzq4ME4huf4g-Wbcu1jSxPOPPHc93aQEWo4NrG5jVRqWkvrYbyQv-7lICz4e5i1-ytYIkeZdF5w-MxnCswVl"/>
+</div>
+</div>
+</nav>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full w-64 hidden lg:flex flex-col bg-surface-container/80 backdrop-blur-lg border-r border-white/10 p-4 pt-20 gap-2 z-40">
+<div class="flex items-center gap-3 px-2 mb-8">
+<div class="w-10 h-10 bg-primary-container rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1;">terminal</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-primary leading-none">Leapx Academy</h2>
+<span class="font-label-sm text-label-sm text-outline">v2.4.0-alpha</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:text-primary hover:bg-white/5 rounded-lg transition-transform scale-95 active:scale-100" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:text-primary hover:bg-white/5 rounded-lg transition-transform scale-95 active:scale-100" href="#">
+<span class="material-symbols-outlined">rocket_launch</span>
+<span class="font-label-md text-label-md">Projects</span>
+</a>
+<a class="flex items-center gap-3 p-3 bg-primary-container text-on-primary-container rounded-lg font-bold transition-transform scale-95 active:scale-100" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">hub</span>
+<span class="font-label-md text-label-md">Network</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:text-primary hover:bg-white/5 rounded-lg transition-transform scale-95 active:scale-100" href="#">
+<span class="material-symbols-outlined">terminal</span>
+<span class="font-label-md text-label-md">Courses</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:text-primary hover:bg-white/5 rounded-lg transition-transform scale-95 active:scale-100" href="#">
+<span class="material-symbols-outlined">science</span>
+<span class="font-label-md text-label-md">Labs</span>
+</a>
+</div>
+<button class="mt-8 mx-2 bg-secondary-fixed text-on-secondary-fixed py-3 rounded-lg font-label-md text-label-md flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined">add_circle</span>
+            New Project
+        </button>
+<div class="mt-auto border-t border-white/5 pt-4">
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:text-error rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="lg:ml-64 pt-24 pb-12 px-4 md:px-margin-desktop max-w-[1440px]">
+<!-- Hero Section -->
+<section class="mb-16 relative overflow-hidden rounded-xl p-8 md:p-12 glass-card">
+<div class="scanline"></div>
+<div class="relative z-10 flex flex-col md:flex-row justify-between items-end gap-8">
+<div class="max-w-2xl">
+<span class="font-label-md text-label-md text-primary-container mb-2 block uppercase tracking-widest">Administrative Matrix</span>
+<h1 class="font-headline-xl text-headline-xl text-primary mb-4">Governance &amp; Leadership</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">The structural framework of Leapx Academy. Orchestrating academic excellence through transparent leadership and student-driven innovation.</p>
+</div>
+<div class="flex gap-4">
+<div class="text-right">
+<span class="block font-headline-md text-headline-md text-secondary-fixed">84%</span>
+<span class="font-label-sm text-label-sm text-outline uppercase">Initiative Velocity</span>
+</div>
+<div class="text-right border-l border-white/10 pl-4">
+<span class="block font-headline-md text-headline-md text-primary">12</span>
+<span class="font-label-sm text-label-sm text-outline uppercase">Active Tiers</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Leadership Tiers -->
+<div class="space-y-16">
+<!-- Tier 1: Core (President/VP) -->
+<section>
+<div class="flex items-center gap-4 mb-8">
+<h2 class="font-headline-lg text-headline-lg text-primary tracking-tight">Core Command</h2>
+<div class="h-px flex-grow bg-primary/20"></div>
+<span class="px-3 py-1 bg-primary/10 border border-primary/20 text-primary rounded font-label-sm text-label-sm uppercase">Level 01</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Leader 1 -->
+<div class="glass-card glow-primary p-6 rounded-xl flex gap-6 relative overflow-hidden group">
+<div class="accent-bar bg-primary"></div>
+<div class="w-32 h-32 flex-shrink-0 rounded-lg overflow-hidden border border-primary/20 grayscale group-hover:grayscale-0 transition-all duration-500">
+<img class="w-full h-full object-cover" data-alt="A portrait of a distinguished male college president in a high-tech academic office. The atmosphere is sharp and intellectual, with neon blue highlights from computer monitors reflecting off glass surfaces. He wears a dark, modern suit. The lighting is crisp and detailed, emphasizing a mix of tradition and futuristic vision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDANRWNCZfA20NUGwdh6jqlFtwJRwaQeK-i4SSK2BEsQtVSTkVm5xMltET4zTXuQtFYFUakG9QmV7loEkazWSWDs4k4Hls8CFEld76-w5QLz8xocIzIX8INJDRV6Y7l5aaPSj_TwpLLMXUd_y2aYiV-gJ7yqaQKs7rUjcntHr3Sf5kD8AuQYizHmQGnekilgNSX-2CV4HHJnmWoJooPfDeFRZdcIWmf10Xc-OwKSK6i96H_rkukoqT0cGy0jJivQ-uT97Cs-LFdYkE4"/>
+</div>
+<div class="flex flex-col justify-center">
+<h3 class="font-headline-md text-headline-md text-primary">Dr. Elias Vance</h3>
+<p class="font-label-md text-label-md text-on-surface-variant mb-4">Academy President</p>
+<div class="flex flex-wrap gap-2">
+<span class="bg-surface-container-high px-2 py-1 rounded font-label-sm text-label-sm text-primary/80">Quantum Ethics</span>
+<span class="bg-surface-container-high px-2 py-1 rounded font-label-sm text-label-sm text-primary/80">Strat-Ops</span>
+</div>
+</div>
+<span class="absolute top-4 right-4 material-symbols-outlined text-primary/20 group-hover:text-primary transition-colors">shield_person</span>
+</div>
+<!-- Leader 2 -->
+<div class="glass-card glow-primary p-6 rounded-xl flex gap-6 relative overflow-hidden group">
+<div class="accent-bar bg-primary"></div>
+<div class="w-32 h-32 flex-shrink-0 rounded-lg overflow-hidden border border-primary/20 grayscale group-hover:grayscale-0 transition-all duration-500">
+<img class="w-full h-full object-cover" data-alt="A professional portrait of a female Vice President in a minimalist architectural space. Cold daylight mixes with cyan accent lighting. She has a confident posture, wearing a sleek charcoal blazer. The background consists of abstract digital data visualizations on a glass partition, symbolizing high-level academic administration." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDM19EtLgEK1D_uT2NpfJ7LUpbx_EWL9tc8E3kNjS-6oxP9qsllxy2EgmCu93ayP54MVht8i8i7e_JaO30fvYCsa5c3BXrBTMQJew0feC2QCncec-w0V3ElC4SMhsqPQOOOFwoD4LncxoH-aN25MM_9yUeXR01ViIH5xAD3-rxywGc-_s4DJ-pyLOff45HbVy73oHvic1Uin8DuoNBoXdsgf5N51gdAgC12-g-Q9bOCFUTDz9OKvlZ8G1iwSW4QxckYfHRuceLgpN14"/>
+</div>
+<div class="flex flex-col justify-center">
+<h3 class="font-headline-md text-headline-md text-primary">Dr. Sarah Chen</h3>
+<p class="font-label-md text-label-md text-on-surface-variant mb-4">Executive Vice President</p>
+<div class="flex flex-wrap gap-2">
+<span class="bg-surface-container-high px-2 py-1 rounded font-label-sm text-label-sm text-primary/80">Neuro-Architecture</span>
+<span class="bg-surface-container-high px-2 py-1 rounded font-label-sm text-label-sm text-primary/80">Global Affairs</span>
+</div>
+</div>
+<span class="absolute top-4 right-4 material-symbols-outlined text-primary/20 group-hover:text-primary transition-colors">verified_user</span>
+</div>
+</div>
+</section>
+<!-- Tier 2: ASC (Academic Support) -->
+<section>
+<div class="flex items-center gap-4 mb-8">
+<h2 class="font-headline-lg text-headline-lg text-secondary-fixed tracking-tight">Academic Support Council</h2>
+<div class="h-px flex-grow bg-secondary-fixed/20"></div>
+<span class="px-3 py-1 bg-secondary-fixed/10 border border-secondary-fixed/20 text-secondary-fixed rounded font-label-sm text-label-sm uppercase">Level 02</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Support 1 -->
+<div class="glass-card glow-secondary p-6 rounded-xl relative group">
+<div class="accent-bar bg-secondary-fixed"></div>
+<div class="mb-4 flex justify-between items-start">
+<div class="w-16 h-16 rounded-full overflow-hidden border border-secondary-fixed/30">
+<img class="w-full h-full object-cover" data-alt="A medium shot of a male academic advisor in a high-tech library setting. Warm orange highlights contrast with deep emerald shadows. He is holding a digital tablet that glows softly against his face. The scene is academic and supportive, conveying guidance in a sophisticated technological environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAeLBuoFRuX_3xZc417xXYfZq90-Ra-38QoDS1GEkuG2j_IXWOmfXMTeO-VSHrnxd61dwY4UdKDiawFBXn8E1p9oPVXA7q-C6qhHoau9pJ78IiDzjAv1743eqd9v_vMP5uvN6IQ7EYIlz6r9AFcUbOqNWU8JpHJcbEaylYQxbMdx5jdnXLuipDTbqKH5UMzF9Jq-Z0f-riH1-TiPKhu0BHIV7ia7Hvq_wk9jake_SpnMDZJ-PuGkIhhxiCqyq8uHgeEHwZV9lloRXAd"/>
+</div>
+<span class="material-symbols-outlined text-secondary-fixed/30">school</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-secondary">Marcus Thorne</h4>
+<p class="font-label-md text-label-md text-outline mb-4">Dean of Student Success</p>
+<button class="w-full py-2 border border-secondary-fixed/20 rounded font-label-sm text-label-sm text-secondary-fixed hover:bg-secondary-fixed/10 transition-colors">Contact Office</button>
+</div>
+<!-- Support 2 -->
+<div class="glass-card glow-secondary p-6 rounded-xl relative group">
+<div class="accent-bar bg-secondary-fixed"></div>
+<div class="mb-4 flex justify-between items-start">
+<div class="w-16 h-16 rounded-full overflow-hidden border border-secondary-fixed/30">
+<img class="w-full h-full object-cover" data-alt="A portrait of a focused female registrar in a modern digital archive room. Glowing racks of server lights provide a rhythmic background pattern. She is backlit with soft lime green light, giving her a sharp professional silhouette. The mood is efficient and organized, reflecting modern academic record-keeping." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUeEteyRZF1VhB3CqXPWsYN8Oh7LB9tg-DNdu-XrjkmA6wvOBN5qP1CWW1CFqMBwvC-gyt7ZsPx5tdVGlj-ju3ta8lNENuGrC7mneSFY2oMKfj5IvYykKR1xsP6-_xYwQCxZTymIqQUgoEBWLUb39HLOKzkMuiJhd2DfkcFzv5SW_WpMEWRn7eG0zs6pRhKWWTsnDOU1uUWiBtLddj5aZg7ESzkt5fGOUpAKNSohcWxU_iVGlgV1u8yYCuWpvt-ErzfLuBk45qlX-R"/>
+</div>
+<span class="material-symbols-outlined text-secondary-fixed/30">database</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-secondary">Elena Rossi</h4>
+<p class="font-label-md text-label-md text-outline mb-4">Registrar General</p>
+<button class="w-full py-2 border border-secondary-fixed/20 rounded font-label-sm text-label-sm text-secondary-fixed hover:bg-secondary-fixed/10 transition-colors">View Records</button>
+</div>
+<!-- Support 3 -->
+<div class="glass-card glow-secondary p-6 rounded-xl relative group">
+<div class="accent-bar bg-secondary-fixed"></div>
+<div class="mb-4 flex justify-between items-start">
+<div class="w-16 h-16 rounded-full overflow-hidden border border-secondary-fixed/30">
+<img class="w-full h-full object-cover" data-alt="A portrait of a male campus security director in a control room filled with screens. The lighting is dominated by high-contrast blue and lime green. He has a stern but protective expression. The aesthetic is cyber-secure and tech-heavy, representing the safety and infrastructure of a futuristic college campus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCC0_aZq_HfrxaZoUHpvHpneapbdJx-0BtYn0uqp9lp0u0__RGQ9gZZnjUrqGBdjhntEb69fKWDq2EvWq7YY9wY2gg5cRGHRI5SLuVGQ6y6xCwkw2QpPLqoz036j6NX5MUCJu7ApUKCntcDBqLZ5Sv93YeNmLSPhYOEFwU_StV9YiI7tsrOAbzQoHlRGrbckgYdN2Yv2bWBP7xNklh-w0Fbljo1PbnYTCr7qoOXcpnYQI5w9HWBlTlgDl7zoZ4ZlLmwPWmnLyCHcall"/>
+</div>
+<span class="material-symbols-outlined text-secondary-fixed/30">terminal</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-secondary">Julian Kovic</h4>
+<p class="font-label-md text-label-md text-outline mb-4">Director of Operations</p>
+<button class="w-full py-2 border border-secondary-fixed/20 rounded font-label-sm text-label-sm text-secondary-fixed hover:bg-secondary-fixed/10 transition-colors">Infrastructure</button>
+</div>
+</div>
+</section>
+<!-- Tier 3: CR (Class Representatives) -->
+<section>
+<div class="flex items-center gap-4 mb-8">
+<h2 class="font-headline-lg text-headline-lg text-tertiary-fixed-dim tracking-tight">Class Representatives</h2>
+<div class="h-px flex-grow bg-tertiary-fixed-dim/20"></div>
+<span class="px-3 py-1 bg-tertiary-fixed-dim/10 border border-tertiary-fixed-dim/20 text-tertiary-fixed-dim rounded font-label-sm text-label-sm uppercase">Level 03</span>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<!-- CR Card 1 -->
+<div class="glass-card glow-tertiary p-4 rounded-xl flex flex-col items-center text-center">
+<div class="w-20 h-20 rounded-full border-2 border-tertiary-fixed-dim/40 p-1 mb-4">
+<div class="w-full h-full rounded-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A portrait of a male student leader in a collaborative workspace. He wears a casual hoodie. Soft purple and pink neon lighting highlights his youthful and energetic expression. The background is blurred with silhouettes of other students, suggesting a bustling campus atmosphere centered around student representation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCq-7cBZBhVfn9oCwCJH1UNyvppN4nyUqOjwfz2EzSvZsrGm0D_2x14SQLlaDIO5nh-EGuqL3hjN2XDEBUzuAgTXvclGzgyhwcE6nuYp3h7WxZZYC0Lacq0g9oOaVhkZAw7zx0CC5khFV3_48G3kDI4cJlimvxBYVQESUF_pCpdvUdQjOeJew0oT-jL1fCtYdvyjNVRpAKJMq4YieKUUT-Z_12CTLPv9_-phKQCSDzoXZV78dCoJMIwYOit4iFrQnvSM1_zMxQW5A8f"/>
+</div>
+</div>
+<h5 class="font-label-md text-label-md text-tertiary">Leo Sterling</h5>
+<p class="font-label-sm text-label-sm text-outline mb-2">Year 04 - AI Ethics</p>
+<span class="text-[10px] px-2 py-0.5 border border-tertiary-fixed-dim/20 rounded uppercase tracking-tighter text-tertiary-fixed-dim">Head CR</span>
+</div>
+<!-- CR Card 2 -->
+<div class="glass-card glow-tertiary p-4 rounded-xl flex flex-col items-center text-center">
+<div class="w-20 h-20 rounded-full border-2 border-tertiary-fixed-dim/40 p-1 mb-4">
+<div class="w-full h-full rounded-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A portrait of a female student representative with a vibrant personality. She is in a high-tech lab. The lighting is high-key with subtle violet hues. Her expression is bright and determined. The background is filled with blurred laboratory equipment and digital screens, reflecting a focus on academic representation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFHdiG1K9vpyD8qakukvG6KaPwWRBK1OQeWnn3K0zkSckA6BFEIE_XDJV2cS7nMFyUyl_Eim1mYA8Gb3BsrurQqST8b9urENJisKflMHajsEnSTCZTT1cq1AO4jTnwzmrChsBrPGW1-c7gAh7gK4laBqsmzJ5FvEW4NNneOuWCXVgxIEp5CyFyJ9byT5OrOn-i-wNxNHNTFEh4b9fTlTCPOM73BZ15I1dBENNAmTPtF7JEXdwofAHrO7FxfSadIQocUM_Utshvwbat"/>
+</div>
+</div>
+<h5 class="font-label-md text-label-md text-tertiary">Nina Patel</h5>
+<p class="font-label-sm text-label-sm text-outline mb-2">Year 03 - Bio-Synth</p>
+<span class="text-[10px] px-2 py-0.5 border border-tertiary-fixed-dim/20 rounded uppercase tracking-tighter text-tertiary-fixed-dim">Research Rep</span>
+</div>
+<!-- CR Card 3 -->
+<div class="glass-card glow-tertiary p-4 rounded-xl flex flex-col items-center text-center">
+<div class="w-20 h-20 rounded-full border-2 border-tertiary-fixed-dim/40 p-1 mb-4">
+<div class="w-full h-full rounded-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A close-up portrait of a male student leader with sharp features. He is in a glass-walled lecture hall at night. Deep purple and neon pink lights cast long shadows. He has a thoughtful expression. The style is moody and cinematic, capturing the late-night dedication of student governance members." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_RlOXoknIvLFglCkr-MpKYbckAFl7FpQt92XLMSQ7XnZ19AVm--3IdERQGvVwTwK9Gz0L60ZJaWXCKL_gds-O5LjSIl_lB20Grwsoyle5HmdCNaZGfLte3d8xPSRGnDOTEOm4taBRwULSdIQ-nC5xcus8qbHwVTAnZ9mFxnAx-IPKU5T2LEqk0wBeZpFlFMXhGnWyEM_31k6SC6k725HzNOAqyxy0Z7Z9iZBStlrxxodZs_ZoBS_2r-7609VHggpQMXVBGqHIFM4i"/>
+</div>
+</div>
+<h5 class="font-label-md text-label-md text-tertiary">Aris Thorne</h5>
+<p class="font-label-sm text-label-sm text-outline mb-2">Year 04 - Cyber-Ops</p>
+<span class="text-[10px] px-2 py-0.5 border border-tertiary-fixed-dim/20 rounded uppercase tracking-tighter text-tertiary-fixed-dim">Tech Delegate</span>
+</div>
+<!-- CR Card 4 -->
+<div class="glass-card glow-tertiary p-4 rounded-xl flex flex-col items-center text-center">
+<div class="w-20 h-20 rounded-full border-2 border-tertiary-fixed-dim/40 p-1 mb-4">
+<div class="w-full h-full rounded-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A portrait of a female student representative in a modern, open-concept library. She has an approachable and friendly expression. The lighting is natural but enhanced with soft purple glow from nearby digital kiosks. She represents the balance between traditional academia and the new digital frontier." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBF7FejprKQ8Uo5k47OuprNSwW9iRFkD8uqh_9KOPIiwfd3pvTcKb2D9pWVP0Yk1FipTSZ7B45t8KHAvMKOtS7L6m5DHJ6_Za2qJEpHbReBphiL9ozv__v10gTYEIbDm3pgHZ9FFPIR_8VtdFs3m_GDRKvxW8g0udFlNnSpeKqOz8EqDb0qZLkRCeM1JemjDTvegsnqn5NxdyS5j73NUXuIlv2PGfvN9MxMqImhRpnS9ysa5bi2lXlE4dZksjbWJInFbRIewAz-7SZS"/>
+</div>
+</div>
+<h5 class="font-label-md text-label-md text-tertiary">Maya Song</h5>
+<p class="font-label-sm text-label-sm text-outline mb-2">Year 02 - Dig-Media</p>
+<span class="text-[10px] px-2 py-0.5 border border-tertiary-fixed-dim/20 rounded uppercase tracking-tighter text-tertiary-fixed-dim">Comms Liaison</span>
+</div>
+</div>
+</section>
+<!-- Student Initiatives Section -->
+<section class="mt-20">
+<div class="mb-8">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-2">Current Governance Initiatives</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Active projects managed by the student body and administrative board.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Initiative 1 -->
+<div class="glass-card p-6 rounded-xl border-l-4 border-primary group">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-primary text-3xl">bolt</span>
+<span class="font-label-sm text-label-sm text-primary-container px-2 py-0.5 bg-primary/10 rounded">In Progress</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Green Grid 2.0</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Implementing solar-glass kinetic windows across the North Campus labs to achieve net-zero power status by 2025.</p>
+<div class="w-full bg-white/5 h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[65%] shadow-[0_0_10px_rgba(0,240,255,0.5)]"></div>
+</div>
+<div class="mt-2 flex justify-between font-label-sm text-label-sm">
+<span class="text-outline">65% Complete</span>
+<span class="text-primary">Q4 Deadline</span>
+</div>
+</div>
+<!-- Initiative 2 -->
+<div class="glass-card p-6 rounded-xl border-l-4 border-secondary-fixed group">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-secondary-fixed text-3xl">diversity_3</span>
+<span class="font-label-sm text-label-sm text-on-secondary-container px-2 py-0.5 bg-secondary-fixed/10 rounded">Planning</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-secondary mb-2">Neuro-Inclusion Hub</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Designing adaptive coding environments for neurodivergent students using biometric feedback and focus-haze tech.</p>
+<div class="w-full bg-white/5 h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary-fixed h-full w-[20%] shadow-[0_0_10px_rgba(195,244,0,0.5)]"></div>
+</div>
+<div class="mt-2 flex justify-between font-label-sm text-label-sm">
+<span class="text-outline">20% Complete</span>
+<span class="text-secondary-fixed">Draft Stage</span>
+</div>
+</div>
+<!-- Initiative 3 -->
+<div class="glass-card p-6 rounded-xl border-l-4 border-error group">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-error text-3xl">verified</span>
+<span class="font-label-sm text-label-sm text-on-error-container px-2 py-0.5 bg-error/10 rounded">Voting</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Open-Source Faculty</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Moving all core curriculum materials to an encrypted, student-contributed GitHub-style repository.</p>
+<div class="w-full bg-white/5 h-1.5 rounded-full overflow-hidden">
+<div class="bg-error h-full w-[92%] shadow-[0_0_10px_rgba(255,180,171,0.5)]"></div>
+</div>
+<div class="mt-2 flex justify-between font-label-sm text-label-sm">
+<span class="text-outline">92% Complete</span>
+<span class="text-error">Live Voting</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-8 mt-24 bg-surface-container-lowest border-t border-white/5">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin-desktop max-w-container-max mx-auto gap-4">
+<div class="font-headline-sm text-headline-sm text-secondary">Leapx Academy</div>
+<div class="flex gap-6">
+<a class="font-label-sm text-label-sm text-outline hover:text-secondary hover:underline transition-opacity" href="#">System Status</a>
+<a class="font-label-sm text-label-sm text-outline hover:text-secondary hover:underline transition-opacity" href="#">API Docs</a>
+<a class="font-label-sm text-label-sm text-outline hover:text-secondary hover:underline transition-opacity" href="#">Privacy</a>
+<a class="font-label-sm text-label-sm text-outline hover:text-secondary hover:underline transition-opacity" href="#">Security</a>
+</div>
+<div class="font-label-sm text-label-sm text-secondary-fixed-dim">
+                © 2024 Leapx Academy. Build v2.4.0_stable
+            </div>
+</div>
+</footer>
+<!-- FAB (Suppressed for Governance page as per instructions) -->
+<script>
+        // Micro-interactions for cards
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+        // Atmospheric fade-in
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 1s ease';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body></html>
