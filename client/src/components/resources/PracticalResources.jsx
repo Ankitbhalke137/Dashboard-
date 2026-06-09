@@ -13,18 +13,9 @@ export default function PracticalResources() {
   const [loading, setLoading] = useState(true);
   const [active, setActive] = useState('project');
 
-  useEffect(() => { fetchSuggestions(); }, []);
-
-  const fetchSuggestions = async () => {
-    try {
-      const data = await api.suggestions.list({});
-      setSuggestions(data);
-    } catch (err) {
-      console.error('Failed to fetch suggestions:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
+  useEffect(() => {
+    api.suggestions.list({}).then(setSuggestions).catch(err => console.error('Failed to fetch suggestions:', err)).finally(() => setLoading(false));
+  }, []);
 
   const filtered = suggestions.filter(s => s.category === active);
 
